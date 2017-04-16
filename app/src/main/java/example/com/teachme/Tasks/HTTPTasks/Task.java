@@ -1,7 +1,6 @@
 package example.com.teachme.Tasks.HTTPTasks;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -21,12 +20,18 @@ import java.net.URL;
 
 public class Task extends AsyncTask<String, Integer, String> {
     private ProgressBar bar;
-    private OnPostExecute onPostExecute;
+    public static String Tag = "TEST_DEBUG";
+    private OnPostExecuteListener onPostExecuteListener;
     private final Context context;
+    private String json;
 
-    public Task(Context context, OnPostExecute onPostExecute) {
+    public String getJson() {
+        return json;
+    }
+
+    public Task(Context context, OnPostExecuteListener postExecute) {
         this.context = context;
-        this.onPostExecute = onPostExecute;
+        this.onPostExecuteListener = postExecute;
     }
 
     public void setProgressBar(ProgressBar bar) {
@@ -35,83 +40,79 @@ public class Task extends AsyncTask<String, Integer, String> {
 
     @Override
     public void onPreExecute() {
+        json = "";
         super.onPreExecute();
         if (bar != null)
-         bar.setVisibility(View.VISIBLE);
+            bar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onProgressUpdate(Integer... values) {
-         super.onProgressUpdate(values);
+        super.onProgressUpdate(values);
         if (this.bar != null)
-           bar.setProgress(values[0]);
+            bar.setProgress(values[0]);
     }
 
     // params[0] is url
     @Override
     public String doInBackground(String... params) {
-        String jsonStr = "Ahmed";
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        json = null;
         try {
-            HttpURLConnection urlConnection = null;
-            BufferedReader reader = null;
-            try {
 
-                String baseUrl = params[0];
-                URL url = new URL(baseUrl);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
+            String baseUrl = params[0];
+            URL url = new URL(baseUrl);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
 
-                InputStream inputStream = urlConnection.getInputStream();
-                if (inputStream == null) return null;
+            InputStream inputStream = urlConnection.getInputStream();
+            if (inputStream == null) return null;
 
-                reader = new BufferedReader(new InputStreamReader(inputStream));
+            reader = new BufferedReader(new InputStreamReader(inputStream));
 
-                StringBuffer buffer = new StringBuffer();
-                String line;
+            StringBuffer buffer = new StringBuffer();
+            String line;
 
-                while ((line = reader.readLine()) != null)
-                    buffer.append(line + "\n");
+            while ((line = reader.readLine()) != null)
+                buffer.append(line + "\n");
 
 
-                if (buffer.length() == 0)
-                    return null;
+            if (buffer.length() == 0)
+                return null;
 
-                jsonStr = buffer.toString();
+            json = buffer.toString();
 
-                Toast.makeText(context, jsonStr, Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
 
-                jsonStr = null;
-                Log.e("TASK EXCEPTION", e.toString());
+//                Log.d(Tag,"OnBackground="+jsonSt+r);
+        } catch (IOException e) {
 
-            } finally {
+            json = null;
+            Log.e("TASK EXCEPTION", e.toString());
 
-                if (urlConnection != null)
-                    urlConnection.disconnect();
+        } finally {
 
-                if (reader != null)
-                    try {
-                        reader.close();
-                    } catch (final IOException e) {
+            if (urlConnection != null)
+                urlConnection.disconnect();
 
-                    }
-            }
+            if (reader != null)
+                try {
+                    reader.close();
+                } catch (final IOException e) {
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                }
         }
-
-        return jsonStr;
+        return json;
     }
-
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        onPostExecute.onPostExecute(s);
+        Toast.makeText(context, json+"", Toast.LENGTH_SHORT).show();
+
+        onPostExecuteListener.onPostExecute(s);
         if (bar != null)
             bar.setVisibility(View.INVISIBLE);
     }
-
 }

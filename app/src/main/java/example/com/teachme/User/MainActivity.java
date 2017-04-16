@@ -27,18 +27,22 @@ import java.util.ArrayList;
 
 import example.com.teachme.HomeActivity;
 import example.com.teachme.R;
+import example.com.teachme.Tasks.HTTPTasks.OnPostExecuteListener;
+import example.com.teachme.Tasks.HTTPTasks.Task;
 
 public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
+    Intent i = null ;
     String url = "http://10.0.2.2:8080/";
     ArrayList<User> users;
-    String json = "";
+    public String json = "";
     public static String Tag = "TEST_DEBUG";
     String email_str;
     String password_str;
     EditText email, password;
     RadioButton student , teacher;
+    private OnPostExecuteListener listener ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     email_str = email.getText().toString();
                     password_str = password.getText().toString();
-                    Intent i = null ;
+
+                    Log.d(Tag,"VValue = SignIN");
 
                     if (validateData(email_str, password_str)) {
-
 
                         if(student.isChecked())
                         {
@@ -82,26 +86,31 @@ public class MainActivity extends AppCompatActivity {
                         i.putExtra("email", email_str);
                         i.putExtra("password", password_str);
 
-                        final Context context = getApplication();
 
-                        /*
-                        Task fetchUsers = new Task(context, new OnPostExecute() {
+                        listener = new OnPostExecuteListener(){
                             @Override
-                            public void onPostExecute(String input) {
+                            public  void onPostExecute(String input) {
                                 json = input;
+                                Toast.makeText(getBaseContext(), "Hello from sync", Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        };
 
-                        Toast.makeText(context, "Value - " + json, Toast.LENGTH_SHORT).show();
+
+                        Task fetchUsers = new Task(getBaseContext(),listener);
+
 
                         fetchUsers.setProgressBar(progressBar);
                         fetchUsers.execute(url);
 
-                        setDataFromJson(json);
-                        //                   i.putExtra("json", json);
-*/
-                        startActivity(i);
+//                        startActivity(i);
+ //                       Toast.makeText(getBaseContext(), json, Toast.LENGTH_SHORT).show();
+                        // json = fetchUsers.getJson();
+//                        setDataFromJson(json);
+                        //i.putExtra("json", json);
+                    //    Toast.makeText(getBaseContext(), "Value - " + json, Toast.LENGTH_SHORT).show();
+                       // startActivity(i);
 //                    finish();
+
                     } else {
                         Toast.makeText(getBaseContext(), "You entered wrong email or password", Toast.LENGTH_SHORT).show();
                     }
@@ -128,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void setDataFromJson(String json) {
         try {
             final String name = "name";
@@ -153,9 +163,14 @@ public class MainActivity extends AppCompatActivity {
 
     class FetchUser extends AsyncTask<String, Integer, String> {
         Context context;
-
-        FetchUser(Context context) {
+        ArrayList<User> users ;
+        FetchUser(Context context,ArrayList<User> users) {
             this.context = context;
+            this.users = users ;
+        }
+
+        public ArrayList<User> getUsers() {
+            return users;
         }
 
         @Override
@@ -186,8 +201,8 @@ public class MainActivity extends AppCompatActivity {
                 if (buffer.length() == 0) return null;
 
                 jsonStr = buffer.toString();
-
-                Toast.makeText(context, jsonStr, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, jsonStr, Toast.LENGTH_SHORT).show();
+                Log.v(Tag,"VValue = "+jsonStr);
             } catch (IOException e) {
 
                 jsonStr = null;

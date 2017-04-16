@@ -41,7 +41,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".User.TeacherActivity" />
-        <activity android:name=".User.StudentActivity"></activity>
+        <activity android:name=".User.StudentActivity" />
+        <activity android:name=".Game.CreateGameActivity" />
+        <activity android:name=".Game.UpdateGameActivity" />
+        <activity android:name=".Course.CreateCourseActivity" />
+        <activity android:name=".Course.UpdateCourseActivity" />
+        <activity android:name=".User.EditUserActivity"></activity>
     </application>
 
 </manifest>
