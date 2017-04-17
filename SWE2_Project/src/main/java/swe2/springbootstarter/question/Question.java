@@ -2,16 +2,15 @@ package swe2.springbootstarter.question;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import swe2.springbootstarter.game.Game;
 
 @Entity
-//@JsonDeserialize(as=TrueFalseQuestion.class)
-public class Question {
+@Inheritance
+public abstract class Question {
 
 	@Id
 	private String id;
