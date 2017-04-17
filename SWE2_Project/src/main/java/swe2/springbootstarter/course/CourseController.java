@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import swe2.springbootstarter.user.Teacher;
+import swe2.springbootstarter.user.UserService;
 import swe2.util.CustomErrorType;
 
 @RestController
@@ -27,31 +29,33 @@ public class CourseController {
 	
 	@Autowired
 	private CourseService courseService;
+	@Autowired
+	private UserService userService;
 	
-//	@RequestMapping(value = "/courses/{teacherMail}", method = RequestMethod.GET)
-//    public ResponseEntity<List<Course>> listAllCourses(@PathVariable String teacherMail) {
-//        List<Course> courses = courseService.getAllCourses(teacherMail);
-//        if (courses.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//            // You many decide to return HttpStatus.NOT_FOUND
-//        }
-//        return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
-//    }
+	@RequestMapping(value = "/courses/{teacherMail}", method = RequestMethod.GET)
+    public ResponseEntity<List<Course>> listAllCourses(@PathVariable String teacherMail) {
+        List<Course> courses = courseService.getAllCourses(teacherMail);
+        if (courses.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+    }
 	///////////////////////////////////////////////
-	@RequestMapping("/course/{name}")
-	public ResponseEntity<?> getCourse(@PathVariable String name){
-		logger.info("getting Course with name {}", name);
-		Course course = courseService.getCourse(name);
-		if(course == null){
-			logger.error("Course with name {} not found.", name);
-			return new ResponseEntity<>(new CustomErrorType("Course with name " + name 
-                    + " not found"), HttpStatus.NOT_FOUND);
-		}
-		 return new ResponseEntity<Course>(course, HttpStatus.OK);
-	}
+//	@RequestMapping("/course/{name}")
+//	public ResponseEntity<?> getCourse(@PathVariable String name){
+//		logger.info("getting Course with name {}", name);
+//		Course course = courseService.getCourse(name);
+//		if(course == null){
+//			logger.error("Course with name {} not found.", name);
+//			return new ResponseEntity<>(new CustomErrorType("Course with name " + name 
+//                    + " not found"), HttpStatus.NOT_FOUND);
+//		}
+//		 return new ResponseEntity<Course>(course, HttpStatus.OK);
+//	}
 	////////////////////////////////////////////////
-	 @RequestMapping(value = "/course", method = RequestMethod.POST)
-	    public ResponseEntity<?> createCourse(@RequestBody Course course, UriComponentsBuilder ucBuilder) {
+	 @RequestMapping(value = "/createCourse/{teacherMail}", method = RequestMethod.POST)
+	    public ResponseEntity<?> createCourse(@RequestBody Course course,@PathVariable String teacherMail, UriComponentsBuilder ucBuilder) {
 	        logger.info("Creating Course : {}", course);
 	 
 	        if (courseService.isCourseExist(course)) {
@@ -59,33 +63,24 @@ public class CourseController {
 	            return new ResponseEntity<>(new CustomErrorType("Unable to create. A Course with name " + 
 	            course.getName() + " already exist."),HttpStatus.CONFLICT);
 	        }
+	        course.setTeacher((Teacher) userService.getUser(teacherMail));
 	        courseService.addCourse(course);
 	 
 	        HttpHeaders headers = new HttpHeaders();
-	        headers.setLocation(ucBuilder.path("/api/course/{name}").buildAndExpand(course.getName()).toUri());
+	        headers.setLocation(ucBuilder.path("/api/course/{teacherMail}").buildAndExpand(course.getName()).toUri());
 	        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	    }
 	/////////////////////////////////////////////////
-	 @RequestMapping(value = "/course/{name}", method = RequestMethod.PUT)
-	    public ResponseEntity<?> updateCourse(@PathVariable("name") String name, @RequestBody Course course) {
-	        logger.info("Updating Course with id {}", name);
-	 
-	        Course currentCourse = courseService.getCourse(name);
-	 
-	        if (currentCourse == null) {
-	            logger.error("Unable to update. Course with id {} not found.", name);
-	            return new ResponseEntity<>(new CustomErrorType("Unable to upate. Course with id " + name + " not found."),
-	                    HttpStatus.NOT_FOUND);
-	        }
-	 
-	        currentCourse.setName(course.getName());
-	        currentCourse.setDescription(course.getDescription());
-	 
+	 @RequestMapping(value = "/courseUpdate/{teacherMail}", method = RequestMethod.PUT)
+	    public ResponseEntity<?> updateCourse(@PathVariable String teacherMail, @RequestBody Course course) {
+	        logger.info("Updating Course with id {}", teacherMail);
+	        
+	        course.setTeacher((Teacher)userService.getUser(teacherMail));
 	        courseService.updateCourse(course);
-	        return new ResponseEntity<Course>(currentCourse, HttpStatus.OK);
+	        return new ResponseEntity<Course>(course, HttpStatus.OK);
 	    }
 	///////////////////////////////////////////////////
-	 @RequestMapping(value = "/course/{name}", method = RequestMethod.DELETE)
+	 @RequestMapping(value = "/courseDelete/{name}", method = RequestMethod.DELETE)
 	    public ResponseEntity<?> deleteCourse(@PathVariable("name") String name) {
 	        logger.info("Fetching & Deleting Course with id {}", name);
 	 

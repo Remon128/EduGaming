@@ -13,12 +13,12 @@ public class CourseService {
 	private CourseRepository courseRepository;
 	
 	
-//	public List<Course> getAllCourses(String teacherMail){
-//		
-//		ArrayList<Course> courses = new ArrayList<>();
-//		courseRepository.findByTeacherMail(teacherMail).forEach(courses::add);
-//		return courses;
-//	}
+	public List<Course> getAllCourses(String teacherMail){
+		
+		ArrayList<Course> courses = new ArrayList<>();
+		courseRepository.findByTeacherMail(teacherMail).forEach(courses::add);
+		return courses;
+	}
 	
 	public Course getCourse(String name){
 		return courseRepository.findOne(name);

@@ -18,22 +18,34 @@ public class UserController {
 		UserService userService;
 	
 		@RequestMapping (method=RequestMethod.POST,value="/teacher")
-		public void addUser(@RequestBody Teacher user  ){
+		public void createTeacher(@RequestBody Teacher user  ){
 				
 			userService.addUser(user);
 			
 		}
-	
-	
+		
+
 		@RequestMapping (method=RequestMethod.GET,value="/teacher/{teacherMail}")
-		public Users addUser(@PathVariable String teacherMail  ){
+		public Users getTeacher(@PathVariable String teacherMail  ){
 				
 			return userService.getUser(teacherMail);
 			
 		}
-	
-	
-	
-	
+		
+
+		@RequestMapping (method=RequestMethod.POST,value="/student")
+		public void createStudent(@RequestBody Student student  ){
+				
+			userService.addUser(student);
+			
+		}
+		
+		@RequestMapping (method=RequestMethod.GET,value="/student/{studentMail}")
+		public Users getStudent(@PathVariable String studentMail  ){
+				
+			return userService.getUser(studentMail);
+			
+		}
+
 
 }
