@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +20,7 @@ import java.net.URL;
 public class Task extends AsyncTask<String, Integer, String> {
     private ProgressBar bar;
     public static String Tag = "TEST_DEBUG";
-    private OnPostExecuteListener onPostExecuteListener;
+    public OnPostExecute onPostExecute;
     private final Context context;
     private String json;
 
@@ -29,9 +28,9 @@ public class Task extends AsyncTask<String, Integer, String> {
         return json;
     }
 
-    public Task(Context context, OnPostExecuteListener postExecute) {
+    public Task(Context context, OnPostExecute postExecute) {
         this.context = context;
-        this.onPostExecuteListener = postExecute;
+        this.onPostExecute = postExecute;
     }
 
     public void setProgressBar(ProgressBar bar) {
@@ -109,9 +108,7 @@ public class Task extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        Toast.makeText(context, json+"", Toast.LENGTH_SHORT).show();
-
-        onPostExecuteListener.onPostExecute(s);
+        onPostExecute.onPostExecute(s);
         if (bar != null)
             bar.setVisibility(View.INVISIBLE);
     }

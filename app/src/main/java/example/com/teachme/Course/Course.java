@@ -11,9 +11,7 @@ public class Course {
 	
 	private String name;
 	private String description;
-	
 	private Teacher teacher;
-
 	private Set<Game> games;
 	
 	public Set<Game> getGames() {

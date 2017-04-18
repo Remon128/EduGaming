@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
-    tools:context="example.com.teachme.User.MainActivity">
+   tools:context="example.com.teachme.User.MainActivity">
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:text="EMAIL"
         android:textSize="20sp" />
-
 
     <EditText
         android:id="@+id/email1"
@@ -67,6 +66,7 @@
         android:layout_height="50sp"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:background="#3F51B1"
+        android:onClick="login"
         android:text="Sign In" />
 
     <LinearLayout
@@ -79,6 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:text="Sign Up" />
 
         <Button
@@ -86,7 +88,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:text="Forget" />
+            android:text="Forget"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            />
     </LinearLayout>
 
     <ProgressBar

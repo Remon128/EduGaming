@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_margin="@dimen/activity_horizontal_margin"
     tools:context="example.com.teachme.User.StudentActivity">
 
 
@@ -14,11 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="50px"
-        android:layout_height="50px"
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="logout"
+        android:text="Logout"
         app:srcCompat="@drawable/logout" />
+
 
     <TextView
         android:layout_width="match_parent"

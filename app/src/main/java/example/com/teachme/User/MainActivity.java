@@ -1,11 +1,9 @@
 package example.com.teachme.User;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,42 +11,47 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.List;
 
 import example.com.teachme.HomeActivity;
 import example.com.teachme.R;
-import example.com.teachme.Tasks.HTTPTasks.OnPostExecuteListener;
-import example.com.teachme.Tasks.HTTPTasks.Task;
+import example.com.teachme.Tasks.HTTPTasks.OnPostExecute;
+import example.com.teachme.api.UserAPIInterface;
+import example.com.teachme.model.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
-    Intent i = null ;
-    String url = "http://10.0.2.2:8080/";
-    ArrayList<User> users;
+    Intent i = null;
+    private final String baseUrl = "http://10.0.2.2:8080";
+    List<User> users;
     public String json = "";
     public static String Tag = "TEST_DEBUG";
     String email_str;
     String password_str;
     EditText email, password;
-    RadioButton student , teacher;
-    private OnPostExecuteListener listener ;
+    RadioButton student, teacher;
+    SharedPreferences settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        users = new ArrayList<>();
-
+        settings = getSharedPreferences("mySharedPref", 0);
+        if (settings.getBoolean("connected", false)) {
+        /* The user has already login, so start the dashboard */
+            if (settings.getBoolean("isTeacher", true)) {
+                startActivity(new Intent(getApplicationContext(), TeacherActivity.class));
+            } else {
+                startActivity(new Intent(getApplicationContext(), StudentActivity.class));
+            }
+        }
         try {
 
             progressBar = (ProgressBar) findViewById(R.id.progressbar);
@@ -57,65 +60,9 @@ public class MainActivity extends AppCompatActivity {
             Button signin = (Button) findViewById(R.id.signin1);
             Button signup = (Button) findViewById(R.id.signup);
             Button forget = (Button) findViewById(R.id.forget);
-            student = (RadioButton)findViewById(R.id.student);
-            teacher = (RadioButton)findViewById(R.id.teacher);
+            student = (RadioButton) findViewById(R.id.student);
+            teacher = (RadioButton) findViewById(R.id.teacher);
 
-            signin.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    email_str = email.getText().toString();
-                    password_str = password.getText().toString();
-
-                    Log.d(Tag,"VValue = SignIN");
-
-                    if (validateData(email_str, password_str)) {
-
-                        if(student.isChecked())
-                        {
-                            i = new Intent(MainActivity.this, StudentActivity.class);
-                        }
-                        else if(teacher.isChecked())
-                        {
-                            i = new Intent(MainActivity.this, TeacherActivity.class);
-                        }
-                        else {
-                            i = new Intent(MainActivity.this, HomeActivity.class);
-                        }
-
-                        i.putExtra("email", email_str);
-                        i.putExtra("password", password_str);
-
-
-                        listener = new OnPostExecuteListener(){
-                            @Override
-                            public  void onPostExecute(String input) {
-                                json = input;
-                                Toast.makeText(getBaseContext(), "Hello from sync", Toast.LENGTH_SHORT).show();
-                            }
-                        };
-
-
-                        Task fetchUsers = new Task(getBaseContext(),listener);
-
-
-                        fetchUsers.setProgressBar(progressBar);
-                        fetchUsers.execute(url);
-
-//                        startActivity(i);
- //                       Toast.makeText(getBaseContext(), json, Toast.LENGTH_SHORT).show();
-                        // json = fetchUsers.getJson();
-//                        setDataFromJson(json);
-                        //i.putExtra("json", json);
-                    //    Toast.makeText(getBaseContext(), "Value - " + json, Toast.LENGTH_SHORT).show();
-                       // startActivity(i);
-//                    finish();
-
-                    } else {
-                        Toast.makeText(getBaseContext(), "You entered wrong email or password", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
 
             signup.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,96 +85,82 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void setDataFromJson(String json) {
-        try {
-            final String name = "name";
-            final String email = "email";
-            final String password = "password";
-            JSONArray jsonArray = new JSONArray(json);
-            if (jsonArray != null)
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject user = jsonArray.getJSONObject(i);
-                    String n = user.getString(name);
-                    Toast.makeText(getBaseContext(), n, Toast.LENGTH_SHORT).show();
+    public void login(View view) {
+
+        email_str = email.getText().toString();
+        password_str = password.getText().toString();
+
+        if (student.isChecked()) {
+            i = new Intent(MainActivity.this, StudentActivity.class);
+        } else if (teacher.isChecked()) {
+            i = new Intent(MainActivity.this, TeacherActivity.class);
+        }
+
+        if (student.isChecked() || teacher.isChecked()) {
+            if (email_str.length() > 0 && email_str.contains("@")) {
+                if (password_str.length() >= 4) {
+                    this.validateData(email_str, password_str);
+                } else {
+                    Toast.makeText(getBaseContext(), "Password at least 4 chars", Toast.LENGTH_SHORT).show();
                 }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    boolean validateData(String email, String password) {
-
-        return true;
-    }
-
-    class FetchUser extends AsyncTask<String, Integer, String> {
-        Context context;
-        ArrayList<User> users ;
-        FetchUser(Context context,ArrayList<User> users) {
-            this.context = context;
-            this.users = users ;
-        }
-
-        public ArrayList<User> getUsers() {
-            return users;
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            HttpURLConnection urlConnection = null;
-            BufferedReader reader = null;
-            String jsonStr = null;
-            try {
-                String baseUrl = params[0];
-                URL url = new URL(baseUrl);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.connect();
-
-                InputStream inputStream = urlConnection.getInputStream();
-                if (inputStream == null) return null;
-
-                reader = new BufferedReader(new InputStreamReader(inputStream));
-
-                StringBuffer buffer = new StringBuffer();
-                String line;
-
-                Toast.makeText(context, baseUrl, Toast.LENGTH_SHORT).show();
-                while ((line = reader.readLine()) != null)
-                    buffer.append(line + "\n");
-
-
-                if (buffer.length() == 0) return null;
-
-                jsonStr = buffer.toString();
-//                Toast.makeText(context, jsonStr, Toast.LENGTH_SHORT).show();
-                Log.v(Tag,"VValue = "+jsonStr);
-            } catch (IOException e) {
-
-                jsonStr = null;
-                Log.e("TASK EXCEPTION", e.toString());
-
-            } finally {
-
-                if (urlConnection != null)
-                    urlConnection.disconnect();
-
-                if (reader != null)
-                    try {
-                        reader.close();
-                    } catch (final IOException e) {
-
-                    }
+            } else {
+                Toast.makeText(getBaseContext(), "Please enter a valid email", Toast.LENGTH_SHORT).show();
             }
-            return jsonStr;
-        }
+        } else {
+            Toast.makeText(getBaseContext(), "Please select user type", Toast.LENGTH_SHORT).show();
 
-        @Override
-        protected void onPostExecute(String s) {
-            //super.onPostExecute(s);
-            Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    void validateData(String email, String password) {
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserAPIInterface userAPIInterface = retrofit.create(UserAPIInterface.class);
+
+        Call<List<User>> connection = userAPIInterface.getUsers();
+
+        connection.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                users = response.body();
+                User u = null;
+                boolean flag = false;
+                for (int i = 0; i < users.size(); i++) {
+                    u = users.get(i);
+                    if (u.getEmail().equals(email_str)) {
+                        if (u.getPassword().equals(password_str)) {
+                            flag = true;
+                            break;
+                        } else {
+                            Toast.makeText(getBaseContext(), "Please enter right password", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }
+                if (flag) {
+                    i.putExtra("email", email_str);
+                    i.putExtra("password", password_str);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean("connected", true);
+                    editor.putBoolean("isTeacher", teacher.isChecked());
+                    editor.apply();
+                    startActivity(i);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Toast.makeText(getBaseContext(), "No Internet conncection", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
+
+
 }
