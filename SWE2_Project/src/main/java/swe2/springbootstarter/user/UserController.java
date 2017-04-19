@@ -17,7 +17,7 @@ public class UserController {
 		@Autowired
 		UserService userService;
 	
-		@RequestMapping (method=RequestMethod.POST,value="/teacher")
+		@RequestMapping (method=RequestMethod.POST,value="/create/teacher")
 		public void createTeacher(@RequestBody Teacher user  ){
 				
 			userService.addUser(user);
@@ -25,25 +25,26 @@ public class UserController {
 		}
 		
 
-		@RequestMapping (method=RequestMethod.GET,value="/teacher/{teacherMail}")
-		public Users getTeacher(@PathVariable String teacherMail  ){
+		@RequestMapping (method=RequestMethod.POST,value="/get/teacher")
+		public Users getTeacher(@RequestBody Teacher teacher ){
 				
-			return userService.getUser(teacherMail);
+			return userService.getUser(teacher.getMail());
 			
 		}
 		
 
-		@RequestMapping (method=RequestMethod.POST,value="/student")
-		public void createStudent(@RequestBody Student student  ){
+		@RequestMapping (method=RequestMethod.POST,value="/create/student")
+		public void createStudent(@RequestBody Teacher user  ){
 				
-			userService.addUser(student);
+			userService.addUser(user);
 			
 		}
 		
-		@RequestMapping (method=RequestMethod.GET,value="/student/{studentMail}")
-		public Users getStudent(@PathVariable String studentMail  ){
+
+		@RequestMapping (method=RequestMethod.POST,value="/get/student")
+		public Users getStudent(@RequestBody Student student ){
 				
-			return userService.getUser(studentMail);
+			return userService.getUser(student.getMail());
 			
 		}
 

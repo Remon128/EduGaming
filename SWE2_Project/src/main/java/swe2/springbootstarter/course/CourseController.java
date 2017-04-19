@@ -54,8 +54,8 @@ public class CourseController {
 //		 return new ResponseEntity<Course>(course, HttpStatus.OK);
 //	}
 	////////////////////////////////////////////////
-	 @RequestMapping(value = "/createCourse/{teacherMail}", method = RequestMethod.POST)
-	    public ResponseEntity<?> createCourse(@RequestBody Course course,@PathVariable String teacherMail, UriComponentsBuilder ucBuilder) {
+	 @RequestMapping(value = "/createCourse", method = RequestMethod.POST)
+	    public ResponseEntity<?> createCourse(@RequestBody Course course, @RequestBody Teacher teacher , UriComponentsBuilder ucBuilder) {
 	        logger.info("Creating Course : {}", course);
 	 
 	        if (courseService.isCourseExist(course)) {
@@ -63,7 +63,7 @@ public class CourseController {
 	            return new ResponseEntity<>(new CustomErrorType("Unable to create. A Course with name " + 
 	            course.getName() + " already exist."),HttpStatus.CONFLICT);
 	        }
-	        course.setTeacher((Teacher) userService.getUser(teacherMail));
+	        course.setTeacher((Teacher) userService.getUser(teacher.getMail()));
 	        courseService.addCourse(course);
 	 
 	        HttpHeaders headers = new HttpHeaders();
@@ -71,11 +71,11 @@ public class CourseController {
 	        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	    }
 	/////////////////////////////////////////////////
-	 @RequestMapping(value = "/courseUpdate/{teacherMail}", method = RequestMethod.PUT)
-	    public ResponseEntity<?> updateCourse(@PathVariable String teacherMail, @RequestBody Course course) {
-	        logger.info("Updating Course with id {}", teacherMail);
+	 @RequestMapping(value = "/courseUpdate", method = RequestMethod.PUT)
+	    public ResponseEntity<?> updateCourse(@RequestBody Teacher teacher, @RequestBody Course course) {
+	        logger.info("Updating Course with id {}", teacher.getMail());
 	        
-	        course.setTeacher((Teacher)userService.getUser(teacherMail));
+	        course.setTeacher((Teacher)userService.getUser(teacher.getMail()));
 	        courseService.updateCourse(course);
 	        return new ResponseEntity<Course>(course, HttpStatus.OK);
 	    }
