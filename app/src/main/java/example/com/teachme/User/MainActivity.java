@@ -24,6 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Path;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,12 +32,14 @@ public class MainActivity extends AppCompatActivity {
     Intent i = null;
     private final String baseUrl = "http://10.0.2.2:8080";
     List<User> users;
+    User user;
     public String json = "";
     public static String Tag = "TEST_DEBUG";
     String email_str;
     String password_str;
     EditText email, password;
     RadioButton student, teacher;
+    String isChecked = "student";
     SharedPreferences settings;
 
     @Override
@@ -93,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         if (student.isChecked()) {
             i = new Intent(MainActivity.this, StudentActivity.class);
         } else if (teacher.isChecked()) {
+            isChecked = "teacher";
             i = new Intent(MainActivity.this, TeacherActivity.class);
         }
 
@@ -127,20 +131,22 @@ public class MainActivity extends AppCompatActivity {
         connection.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                users = response.body();
-                User u = null;
                 boolean flag = false;
-                for (int i = 0; i < users.size(); i++) {
-                    u = users.get(i);
-                    if (u.getEmail().equals(email_str)) {
-                        if (u.getPassword().equals(password_str)) {
-                            flag = true;
-                            break;
+                users = response.body();
+                for (User u : users) {
+                    user = u;
+                    if (user.getEmail().equals(email_str)) {
+                        if (user.getPassword().equals(password_str)) {
+                            if (user.isTeacher() == teacher.isChecked()) {
+                                flag = true;
+                                break;
+                            }
+
                         } else {
                             Toast.makeText(getBaseContext(), "Please enter right password", Toast.LENGTH_SHORT).show();
-
                         }
                     }
+                    Toast.makeText(getBaseContext(), "Please enter right email", Toast.LENGTH_SHORT).show();
                 }
                 if (flag) {
                     i.putExtra("email", email_str);
@@ -151,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                     editor.apply();
                     startActivity(i);
                 }
-
             }
 
             @Override

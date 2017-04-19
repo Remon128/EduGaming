@@ -36,11 +36,30 @@
         android:layout_height="wrap_content"
         android:text="COURSE DESCRIPTION"/>
 
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/flgame">
+
+    </LinearLayout>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:onClick="createCourse"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:text="CREATE GAME" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:onClick="createCourse"
+        android:layout_margin="@dimen/activity_vertical_margin"
         android:text="CREATE COURSE" />
 
 

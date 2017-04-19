@@ -17,6 +17,18 @@ public class User {
 	@Expose
 	private String password;
 
+	@SerializedName("isTeacher")
+	@Expose
+	public boolean isTeacher ;
+
+	public boolean isTeacher() {
+		return isTeacher;
+	}
+
+	public void setTeacher(boolean teacher) {
+		isTeacher = teacher;
+	}
+
 	public Integer getId() {
 		return id;
 	}
