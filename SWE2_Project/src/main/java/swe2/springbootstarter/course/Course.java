@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -25,7 +27,7 @@ public class Course {
 		this.name = name;
 		this.description = description;
 		this.teacher = teacher;
-		this.studnet = studnet;
+		this.students = studnet;
 		this.games = games;
 	}
 
@@ -43,18 +45,21 @@ public class Course {
 	@JoinColumn
 	private Teacher teacher;
 	
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-	private Set<Student> studnet;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "course_student", joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "student_mail", referencedColumnName = "mail"))
+	private Set<Student> students;
 	
 	
-	public Set<Student> getStudnet() {
-		return studnet;
+
+	public Set<Student> getStudents() {
+		return students;
 	}
 
-	public void setStudnet(Set<Student> studnet) {
-		this.studnet = studnet;
+	public void setStudents(Set<Student> students) {
+		this.students = students;
 	}
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+	
 	private Set<Game> games;
 	
 	

@@ -1,8 +1,10 @@
 package swe2.springbootstarter.user;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import swe2.springbootstarter.course.Course;
 
@@ -11,16 +13,17 @@ import swe2.springbootstarter.course.Course;
 @Entity
 public class Teacher extends Users
 {
-	@ManyToOne
-	@JoinColumn
-	Course course;
+	@OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+	Set<Course> courses;
 
-	public Course getCourse() {
-		return course;
+	
+
+	public Set<Course> getCourses() {
+		return courses;
 	}
 
-	public void setCourse(Course course) {
-		this.course = course;
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
 	}
 
 	public Teacher() {

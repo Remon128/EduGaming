@@ -22,5 +22,9 @@ public class UserService {
 	public void deleteUser(String mail){
 		userRepository.delete(mail);
 	}
+	public boolean isUserExist(Users student) {
+		// TODO Auto-generated method stub
+		return userRepository.exists(student.getMail());
+	}
 	
 }

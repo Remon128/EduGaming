@@ -1,25 +1,26 @@
 package swe2.springbootstarter.user;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import swe2.springbootstarter.course.Course;
 
 @Entity
 public class Student extends Users
 {
 	
-	@ManyToOne
-	@JoinColumn
-	Course course;
+	@ManyToMany(mappedBy = "students")
+	Set<Course> courses;
 	
-	public Course getCourse() {
-		return course;
+	
+
+	public Set<Course> getCourse() {
+		return courses;
 	}
 
-	public void setCourse(Course course) {
-		this.course = course;
+	public void setCourse(Set<Course> course) {
+		this.courses = course;
 	}
 
 	public Student() {
