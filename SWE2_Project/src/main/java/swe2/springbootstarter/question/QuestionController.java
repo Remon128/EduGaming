@@ -27,16 +27,21 @@ public class QuestionController {
 	
 		questionService.addQuestion(question);
 	}
-	///////////////////////////////////////////////////////////
-	@RequestMapping(method = RequestMethod.PUT, value = "/questionUpdate/{questionId}")
-	public void updateQuestion(@RequestBody Question question, @PathVariable String questionId) {
-		question.setId(questionId);
-		questionService.updateQuestion(question);
+///////////////////////////////////////////////////////////
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/updateQuestion")
+	public void updateQuestion(@RequestBody Question question) {
+
+		questionService.addQuestion(question);
 	}
-	///////////////////////////////////////////////////////////
-	@RequestMapping(method = RequestMethod.DELETE, value = "questionDelete/{questionId}")
-	public void deleteQuestion(@PathVariable String id) {
-		questionService.deleteQuestion(id);
+///////////////////////////////////////////////////////////
+
+	@RequestMapping(method = RequestMethod.DELETE, value = "/deleteQuestion")
+	public void deleteQuestion(@RequestBody Question question) {
+
+		questionService.deleteQuestion(question.getId());
 	}
+	
+	
 
 }

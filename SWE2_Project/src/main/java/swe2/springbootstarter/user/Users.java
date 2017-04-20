@@ -1,13 +1,8 @@
 package swe2.springbootstarter.user;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.OneToMany;
-
-import swe2.springbootstarter.course.Course;
 
 @Entity
 @Inheritance
@@ -19,16 +14,6 @@ public abstract class Users {
 	private String password;
 	
 	
-	@OneToMany
-	private Set<Course> courses ;
-	
-	public Set<Course> getCourses() {
-		return courses;
-	}
-
-	public void setCourses(Set<Course> courses) {
-		this.courses = courses;
-	}
 	
 	public String getMail() {
 		return mail;

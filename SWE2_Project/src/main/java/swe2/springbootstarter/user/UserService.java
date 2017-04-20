@@ -19,4 +19,8 @@ public class UserService {
 		return userRepository.findOne(mail);
 	}
 	
+	public void deleteUser(String mail){
+		userRepository.delete(mail);
+	}
+	
 }

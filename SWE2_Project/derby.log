@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Wed Apr 19 20:35:31 EET 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015b-877f-80c7-000000f2eb70 
-on database directory memory:C:\Users\Eng.Remon Atef\Desktop\git\SWE2_Project\testdb with class loader sun.misc.Launcher$AppClassLoader@4c12b6 
-Loaded from file:/C:/Users/Eng.Remon%20Atef/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+Thu Apr 20 16:50:30 EET 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015b-8bd7-d734-000008e45c30 
+on database directory memory:C:\Users\y\Documents\workspace-sts-3.8.3.RELEASE\Project\SWE2_Project\testdb with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/y/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_111-b14
-user.dir=C:\Users\Eng.Remon Atef\Desktop\git\SWE2_Project
+java.runtime.version=1.8.0_102-b14
+user.dir=C:\Users\y\Documents\workspace-sts-3.8.3.RELEASE\Project\SWE2_Project
 os.name=Windows 10
-os.arch=x86
+os.arch=amd64
 os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
