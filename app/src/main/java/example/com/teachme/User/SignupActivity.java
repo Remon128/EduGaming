@@ -93,11 +93,17 @@ public class SignupActivity extends AppCompatActivity {
 
 
         List<Course> courses = null;
-        Call<ResponseBody> connection = userAPIInterface.createTeacher(new User(email_str, password_str, user_str, courses));
+        User user = new User();
+        user.setMail(email_str);
+        user.setCourses(courses);
+        user.setName(user_str);
+        user.setPassword(password_str);
+        Call<ResponseBody> connection = userAPIInterface.createTeacher(user);
 
         connection.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String result = response.body().toString();
                 Toast.makeText(getBaseContext(), "User has been created successfully", Toast.LENGTH_SHORT).show();
             }
 

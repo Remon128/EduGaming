@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     Intent i = null;
     List<User> users;
-    User user ;
+    User user;
     public static String Tag = "TEST_DEBUG";
     String email_str;
     String password_str;
@@ -134,13 +134,12 @@ public class MainActivity extends AppCompatActivity {
 
         Call<User> connection = userAPIInterface.getUser(u);
 
+
         connection.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-
                 boolean flag = false;
                 try {
-
                     if (response.isSuccessful()) {
                         user = response.body();
                         if (user.getMail().equals(email_str)) {
@@ -161,16 +160,18 @@ public class MainActivity extends AppCompatActivity {
                             editor.putBoolean("isTeacher", teacher.isChecked());
                             editor.apply();
                             startActivity(i);
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
                         }
                     }
+                    else
                     {
                         Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
+
                     }
-                } catch (Exception e) {
-                    Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e) {
+
                 } finally {
                 }
             }

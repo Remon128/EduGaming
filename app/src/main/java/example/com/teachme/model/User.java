@@ -23,20 +23,6 @@ public class User {
     @Expose
     private List<Course> courses = null;
 
-    public User() {
-        this.mail = "";
-        this.name = "";
-        this.password = "";
-        this.courses = null;
-
-    }
-
-    public User(String mail, String name, String password, List<Course> courses) {
-        this.mail = mail;
-        this.name = name;
-        this.password = password;
-        this.courses = courses;
-    }
 
     public String getMail() {
         return mail;
