@@ -59,6 +59,7 @@ public class UserController {
 		///////////////////////////////////////////////////////////////
 		@RequestMapping (method=RequestMethod.POST,value="/get/teacher")
 		public ResponseEntity<?> getTeacher(@RequestBody Teacher teacher ){
+			teacher = (Teacher) userService.getUser(teacher.getMail());
 			logger.info("Getting Teacher : {}", teacher);
 			if(!userService.isUserExist(teacher)){
 				logger.error("Teacher Does not exist : {}" , teacher.getName());
@@ -66,7 +67,8 @@ public class UserController {
 			            	teacher.getName() + " already exist."), HttpStatus.NO_CONTENT);
 			}
 			else{
-			return new ResponseEntity<Users>(teacher, HttpStatus.CREATED);
+			
+			return new ResponseEntity<Teacher>(teacher, HttpStatus.OK);
 			}
 		}
 
@@ -98,6 +100,7 @@ public class UserController {
 		///////////////////////////////////////////////////////////
 		@RequestMapping (method=RequestMethod.POST,value="/get/student")
 		public ResponseEntity<?> getStudent(@RequestBody Student student ){
+			student = (Student) userService.getUser(student.getMail());
 			logger.info("Getting Student : {}", student);
 			if(!userService.isUserExist(student)){
 				logger.error("Teacher Does not exist : {}" , student.getName());
@@ -105,7 +108,7 @@ public class UserController {
 						 student.getName() + " already exist."), HttpStatus.NO_CONTENT);
 			}
 			else{
-			return new ResponseEntity<Users>(student, HttpStatus.CREATED);
+			return new ResponseEntity<Student>(student, HttpStatus.OK);
 			}
 		}
 		///////////////////////////////////////////////////////////
