@@ -27,6 +27,7 @@ public class StudentActivity extends AppCompatActivity {
     SharedPreferences settings;
     Button logout ;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
@@ -39,6 +40,8 @@ public class StudentActivity extends AppCompatActivity {
         courselv.setAdapter(courseAdapter);
 
         Toast.makeText(this,getIntent().getStringExtra("hello"),Toast.LENGTH_SHORT).show();
+
+
 
         courselv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

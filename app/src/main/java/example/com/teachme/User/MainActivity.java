@@ -19,6 +19,7 @@ import example.com.teachme.R;
 import example.com.teachme.Tasks.HTTPTasks.OnPostExecute;
 import example.com.teachme.api.UserAPIInterface;
 import example.com.teachme.model.User;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,12 +29,13 @@ import retrofit2.http.Path;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private static final String baseUrl = "http://10.0.2.2:8080";
+
     private ProgressBar progressBar;
     Intent i = null;
-    private final String baseUrl = "http://10.0.2.2:8080";
     List<User> users;
     User user;
-    public String json = "";
     public static String Tag = "TEST_DEBUG";
     String email_str;
     String password_str;
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             progressBar = (ProgressBar) findViewById(R.id.progressbar);
             email = (EditText) findViewById(R.id.email1);
             password = (EditText) findViewById(R.id.password1);
-            Button signin = (Button) findViewById(R.id.signin1);
             Button signup = (Button) findViewById(R.id.signup);
             Button forget = (Button) findViewById(R.id.forget);
             student = (RadioButton) findViewById(R.id.student);
@@ -119,53 +120,66 @@ public class MainActivity extends AppCompatActivity {
 
     void validateData(String email, String password) {
 
-        final Retrofit retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+
         UserAPIInterface userAPIInterface = retrofit.create(UserAPIInterface.class);
 
-        Call<List<User>> connection = userAPIInterface.getUsers();
+        User u = new User();
+        u.setMail(email_str);
 
-        connection.enqueue(new Callback<List<User>>() {
+
+        Call<User> connection = userAPIInterface.getUser(u);
+
+
+        connection.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 boolean flag = false;
-                users = response.body();
-                for (User u : users) {
-                    user = u;
-                    if (user.getEmail().equals(email_str)) {
-                        if (user.getPassword().equals(password_str)) {
-                            if (user.isTeacher() == teacher.isChecked()) {
+                try {
+                    if (response.isSuccessful()) {
+                        user = response.body();
+                        if (user.getMail().equals(email_str)) {
+                            if (user.getPassword().equals(password_str)) {
                                 flag = true;
-                                break;
+                            } else {
+                                Toast.makeText(getBaseContext(), "Please enter right password", Toast.LENGTH_SHORT).show();
                             }
-
                         } else {
-                            Toast.makeText(getBaseContext(), "Please enter right password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), "Please enter right email", Toast.LENGTH_SHORT).show();
+                        }
+
+                        if (flag) {
+                            i.putExtra("email", email_str);
+                            i.putExtra("password", password_str);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putBoolean("connected", true);
+                            editor.putBoolean("isTeacher", teacher.isChecked());
+                            editor.apply();
+                            startActivity(i);
+                        } else {
+                            Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    Toast.makeText(getBaseContext(), "Please enter right email", Toast.LENGTH_SHORT).show();
+                    else
+                    {
+                        Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
-                if (flag) {
-                    i.putExtra("email", email_str);
-                    i.putExtra("password", password_str);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean("connected", true);
-                    editor.putBoolean("isTeacher", teacher.isChecked());
-                    editor.apply();
-                    startActivity(i);
+                catch (Exception e) {
+
+                } finally {
                 }
             }
 
             @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(getBaseContext(), "No Internet conncection", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
-
 }
