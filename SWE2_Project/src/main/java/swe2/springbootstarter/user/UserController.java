@@ -37,9 +37,7 @@ public class UserController {
 	        }
 			userService.addUser(teacher);
 			
-			 HttpHeaders headers = new HttpHeaders();
-		     headers.setLocation(ucBuilder.path("/api/create/teacher").buildAndExpand(teacher.getName()).toUri());
-		     return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+		    return new ResponseEntity<Teacher>(teacher, HttpStatus.CREATED);
 		}
 		/////////////////////////////////////////////////////////////
 		@RequestMapping (method=RequestMethod.PUT,value="/update/teacher")
@@ -85,9 +83,7 @@ public class UserController {
 			        }
 					userService.addUser(student);
 					
-					 HttpHeaders headers = new HttpHeaders();
-				     headers.setLocation(ucBuilder.path("/api/create/student").buildAndExpand(student.getName()).toUri());
-				     return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+					return new ResponseEntity<Student>(student, HttpStatus.CREATED);
 
 		}
 		//////////////////////////////////////////////////////////
