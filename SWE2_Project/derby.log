@@ -1,8 +1,27 @@
 ----------------------------------------------------------------
+<<<<<<< HEAD
 Fri Apr 21 17:03:13 EET 2017:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015b-9109-d756-0000095f3f70 
 on database directory memory:F:\Android\TeachME\SWE2_Project\testdb with class loader sun.misc.Launcher$AppClassLoader@764c12b6 
 Loaded from file:/C:/Users/MrHacker/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+=======
+<<<<<<< HEAD
+Fri Apr 21 17:31:20 EET 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015b-9123-9507-000008efd858 
+=======
+<<<<<<< HEAD
+Fri Apr 21 16:30:58 EET 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015b-90ec-53e2-0000099cd4b0 
+on database directory memory:F:\Android\TeachME\SWE2_Project\testdb with class loader sun.misc.Launcher$AppClassLoader@764c12b6 
+Loaded from file:/C:/Users/MrHacker/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+=======
+Fri Apr 21 16:49:18 EET 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015b-90fd-1d04-000008d05910 
+>>>>>>> 4a5d3dd88da2c742fd857602377e8e729579f089
+on database directory memory:C:\Users\y\Documents\workspace-sts-3.8.3.RELEASE\Project\SWE2_Project\testdb with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/y/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
+>>>>>>> 33e58b816c3bf9716dc99187cad00bbe3923de5b
+>>>>>>> e32b4d70f843b63da2b4e36c8cff28992af36b2f
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_101-b13
 user.dir=F:\Android\TeachME\SWE2_Project

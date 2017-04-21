@@ -55,7 +55,7 @@ public class CourseController {
 //		 return new ResponseEntity<Course>(course, HttpStatus.OK);
 //	}
 	////////////////////////////////////////////////
-	 @RequestMapping(value = "/course/createCourse", method = RequestMethod.POST)
+	 @RequestMapping(value = "/create/course", method = RequestMethod.POST)
 	    public ResponseEntity<?> createCourse(@RequestBody Course course, @RequestBody Teacher teacher , UriComponentsBuilder ucBuilder) {
 	        logger.info("Creating Course : {}", course);
 	 
@@ -72,7 +72,7 @@ public class CourseController {
 	        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	    }
 	/////////////////////////////////////////////////
-	 @RequestMapping(value = "/courseUpdate", method = RequestMethod.PUT)
+	 @RequestMapping(value = "/update/course", method = RequestMethod.PUT)
 	    public ResponseEntity<?> updateCourse(@RequestBody Teacher teacher, @RequestBody Course course) {
 	        logger.info("Updating Course with id {}", teacher.getMail());
 	        
@@ -81,7 +81,7 @@ public class CourseController {
 	        return new ResponseEntity<Course>(course, HttpStatus.OK);
 	    }
 	///////////////////////////////////////////////////
-	 @RequestMapping(value = "/courseDelete/{name}", method = RequestMethod.DELETE)
+	 @RequestMapping(value = "/delete/course/{name}", method = RequestMethod.DELETE)
 	    public ResponseEntity<?> deleteCourse(@PathVariable("name") String name) {
 	        logger.info("Fetching & Deleting Course with id {}", name);
 	 
