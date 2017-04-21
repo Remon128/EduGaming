@@ -2,13 +2,14 @@ package example.com.teachme.api;
 
 import java.util.List;
 
+import example.com.teachme.Course.Course;
 import example.com.teachme.model.User;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by MrHacker on 4/18/2017.
@@ -16,12 +17,16 @@ import retrofit2.http.Query;
 
 
 public interface UserAPIInterface {
-    @GET("/api/users")
+    @GET("/api/teacher/all")
     Call<List<User>> getUsers();
 
-    @GET("api/users/email/{email}")
-    Call<User> getUser(@Path("email") String email);
+    @POST("/api/get/teacher")
+    Call<User> getUser(@Body User user);
 
-    @POST("api/users")
-    Call<User> createUser(@Body User user);
+    @POST("/api/create/teacher")
+    Call<ResponseBody> createTeacher(@Body User users);
+
+    @POST("/api/create/student")
+    Call<ResponseBody> createStudent(@Body User users);
+
 }

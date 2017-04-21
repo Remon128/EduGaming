@@ -1,5 +1,6 @@
 package example.com.teachme.User;
 
+import java.util.List;
 import java.util.Set;
 
 import example.com.teachme.Course.Course;
@@ -9,13 +10,13 @@ import example.com.teachme.model.User;
 public class Teacher extends User {
 
 
-    private Set<Course> courses;
+    private List<Course> courses;
 
-    public Set<Course> getCourses() {
+    public List<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(Set<Course> courses) {
+    public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
 
@@ -23,10 +24,8 @@ public class Teacher extends User {
         super();
     }
 
-    public Teacher(Set<Course> courses) {
+    public Teacher(List<Course> courses) {
         super();
         this.courses = courses;
     }
-
-
 }

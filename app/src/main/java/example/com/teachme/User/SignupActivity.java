@@ -2,6 +2,7 @@ package example.com.teachme.User;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -10,17 +11,20 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
-import example.com.teachme.HomeActivity;
+import example.com.teachme.Course.Course;
 import example.com.teachme.R;
 import example.com.teachme.api.UserAPIInterface;
 import example.com.teachme.model.User;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -46,7 +50,6 @@ public class SignupActivity extends AppCompatActivity {
         login = (Button) findViewById(R.id.login);
         student = (RadioButton) findViewById(R.id.student);
         teacher = (RadioButton) findViewById(R.id.teacher);
-
     }
 
     public void signup(View view) {
@@ -83,42 +86,26 @@ public class SignupActivity extends AppCompatActivity {
 
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
 
         UserAPIInterface userAPIInterface = retrofit.create(UserAPIInterface.class);
 
-        Call<List<User>> connection = userAPIInterface.getUsers();
 
-        connection.enqueue(new Callback<List<User>>() {
+        List<Course> courses = null;
+        Call<ResponseBody> connection = userAPIInterface.createTeacher(new User(email_str, password_str, user_str, courses));
+
+        connection.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                users = response.body();
-                User u = null;
-                boolean flag = true;
-                for (int i = 0; i < users.size(); i++) {
-                    u = users.get(i);
-                    if (u.getEmail().equals(email_str)) {
-                        flag = false;
-                        Toast.makeText(getBaseContext(), "Email already exist", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                if (flag) {
-                    i.putExtra("email", email_str);
-                    i.putExtra("password", password_str);
-                    startActivity(i);
-                    finish();
-                }
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(getBaseContext(), "User has been created successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(getBaseContext(), "No Internet conncection", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-
-
 }
