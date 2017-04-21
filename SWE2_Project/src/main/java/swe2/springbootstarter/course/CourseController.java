@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import swe2.springbootstarter.user.Teacher;
 import swe2.springbootstarter.user.UserService;
+import swe2.springbootstarter.user.Users;
 import swe2.util.CustomErrorType;
 
 @RestController
@@ -32,9 +33,9 @@ public class CourseController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/courses/{teacherMail}", method = RequestMethod.GET)
-    public ResponseEntity<List<Course>> listAllCourses(@PathVariable String teacherMail) {
-        List<Course> courses = courseService.getAllCourses(teacherMail);
+	@RequestMapping(value = "/course/getByMail", method = RequestMethod.POST)
+    public ResponseEntity<List<Course>> listAllCourses(@RequestBody Users user) {
+        List<Course> courses = courseService.getAllCourses(user.getMail());
         if (courses.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             // You many decide to return HttpStatus.NOT_FOUND
@@ -54,7 +55,7 @@ public class CourseController {
 //		 return new ResponseEntity<Course>(course, HttpStatus.OK);
 //	}
 	////////////////////////////////////////////////
-	 @RequestMapping(value = "/createCourse", method = RequestMethod.POST)
+	 @RequestMapping(value = "/course/createCourse", method = RequestMethod.POST)
 	    public ResponseEntity<?> createCourse(@RequestBody Course course, @RequestBody Teacher teacher , UriComponentsBuilder ucBuilder) {
 	        logger.info("Creating Course : {}", course);
 	 
@@ -67,7 +68,7 @@ public class CourseController {
 	        courseService.addCourse(course);
 	 
 	        HttpHeaders headers = new HttpHeaders();
-	        headers.setLocation(ucBuilder.path("/api/course/{teacherMail}").buildAndExpand(course.getName()).toUri());
+	        headers.setLocation(ucBuilder.path("/api/createCourse").buildAndExpand(course.getName()).toUri());
 	        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	    }
 	/////////////////////////////////////////////////

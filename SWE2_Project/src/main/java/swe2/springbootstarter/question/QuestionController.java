@@ -23,7 +23,7 @@ import swe2.util.CustomErrorType;
 public class QuestionController {
 
 	public static final Logger logger = LoggerFactory.getLogger(QuestionController.class);
-	
+
 	@Autowired
 	private QuestionService questionService;
 
@@ -41,15 +41,15 @@ public class QuestionController {
 	@RequestMapping(method = RequestMethod.POST, value = "/addQuestion")
 	public ResponseEntity<?> addQuestion(@RequestBody Question question,UriComponentsBuilder ucBuilder) {
 		logger.info("Creating Question : {}", question);
-		
+
 		if (questionService.isQuestionExist(question)) {
             logger.error("Unable to create. A Question with name {} already exist", question.getId());
-            return new ResponseEntity<>(new CustomErrorType("Unable to create. A Question with name " + 
+            return new ResponseEntity<>(new CustomErrorType("Unable to create. A Question with name " +
             question.getId() + " already exist."),HttpStatus.CONFLICT);
         }
-		
+
 		questionService.addQuestion(question);
-		
+
 		HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/api/addQuestion/").buildAndExpand(question.getId()).toUri());
         return new ResponseEntity<String>(headers, HttpStatus.CREATED);
@@ -75,5 +75,7 @@ public class QuestionController {
 		questionService.deleteQuestion(questionId);
 		return new ResponseEntity<Question>(HttpStatus.NO_CONTENT);
 	}
+
+
 
 }

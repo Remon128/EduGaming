@@ -1,13 +1,30 @@
 package swe2.springbootstarter.user;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+import swe2.springbootstarter.course.Course;
 
 
 
 @Entity
 public class Teacher extends Users
 {
+	@OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+	Set<Course> courses;
+
 	
+
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
 
 	public Teacher() {
 		super();
