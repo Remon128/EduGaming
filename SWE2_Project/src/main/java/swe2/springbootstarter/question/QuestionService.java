@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import swe2.springbootstarter.course.Course;
+
 @Service
 public class QuestionService {
 
@@ -17,6 +19,9 @@ public class QuestionService {
 		
 	}
 	
+	public Question getQuestion(String id){
+		return questionRepository.findOne(id);
+	}
 	
 	public void addQuestion(Question question){
 		questionRepository.save(question);
@@ -32,5 +37,8 @@ public class QuestionService {
 		
 	}
 
+	public boolean isQuestionExist(Question course) {
+        return questionRepository.exists(course.getId());
+	}
 
 }
