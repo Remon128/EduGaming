@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import swe2.springbootstarter.course.Course;
 import swe2.util.CustomErrorType;
 
 @RestController

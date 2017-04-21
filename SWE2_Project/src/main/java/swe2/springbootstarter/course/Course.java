@@ -20,24 +20,6 @@ public class Course {
 	
 	@Id
 	private String id;
-
-	public Course(String id, String name, String description, Teacher teacher, Set<Student> studnet, Set<Game> games) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.teacher = teacher;
-		this.students = studnet;
-		this.games = games;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 	private String name;
 	private String description;
 	
@@ -99,6 +81,23 @@ public class Course {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Course(String id, String name, String description, Teacher teacher, Set<Student> studnet, Set<Game> games) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.teacher = teacher;
+		this.students = studnet;
+		this.games = games;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	

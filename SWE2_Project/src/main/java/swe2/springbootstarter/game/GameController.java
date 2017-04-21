@@ -41,7 +41,7 @@ public class GameController {
         return new ResponseEntity<List<Game>>(games, HttpStatus.OK);
     }
 	///////////////////////////////////////////////
-	@RequestMapping("/game/{name}")
+	@RequestMapping(value="/game/{name}", method = RequestMethod.GET)
 	public ResponseEntity<?> getGame(@PathVariable String name){
 		logger.info("getting game with name {}", name);
 		Game game = gameService.getGame(name);
