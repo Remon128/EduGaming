@@ -21,12 +21,15 @@ public interface UserAPIInterface {
     Call<List<User>> getUsers();
 
     @POST("/api/get/teacher")
-    Call<User> getUser(@Body User user);
+    Call<User> getTeacher(@Body User user);
+
+    @POST("/api/get/student")
+    Call<User> getStudent(@Body User user);
 
     @POST("/api/create/teacher")
-    Call<ResponseBody> createTeacher(@Body User users);
+    Call<User> createTeacher(@Body User users);
 
     @POST("/api/create/student")
-    Call<ResponseBody> createStudent(@Body User users);
+    Call<User> createStudent(@Body User users);
 
 }

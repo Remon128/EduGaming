@@ -132,54 +132,55 @@ public class MainActivity extends AppCompatActivity {
         u.setMail(email_str);
 
 
-        Call<User> connection = userAPIInterface.getUser(u);
+        Call<User> connection = null;
+        if (student.isChecked())
+            connection = userAPIInterface.getStudent(u);
+        else if (teacher.isChecked())
+            connection = userAPIInterface.getTeacher(u);
 
 
-        connection.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                boolean flag = false;
-                try {
-                    if (response.isSuccessful()) {
-                        user = response.body();
-                        if (user.getMail().equals(email_str)) {
-                            if (user.getPassword().equals(password_str)) {
-                                flag = true;
+        if (connection != null)
+            connection.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    boolean flag = false;
+                    try {
+                        if (response.isSuccessful()) {
+                            user = response.body();
+                            if (user.getMail().equals(email_str)) {
+                                if (user.getPassword().equals(password_str)) {
+                                    flag = true;
+                                } else {
+                                    Toast.makeText(getBaseContext(), "Please enter right password", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                Toast.makeText(getBaseContext(), "Please enter right password", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), "Please enter right email", Toast.LENGTH_SHORT).show();
+                            }
+                            if (flag) {
+                                i.putExtra("email", email_str);
+                                i.putExtra("password", password_str);
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putBoolean("connected", true);
+                                editor.putBoolean("isTeacher", teacher.isChecked());
+                                editor.apply();
+                                startActivity(i);
+                            } else {
+                                Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getBaseContext(), "Please enter right email", Toast.LENGTH_SHORT).show();
-                        }
-
-                        if (flag) {
-                            i.putExtra("email", email_str);
-                            i.putExtra("password", password_str);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putBoolean("connected", true);
-                            editor.putBoolean("isTeacher", teacher.isChecked());
-                            editor.apply();
-                            startActivity(i);
-                        } else {
                             Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
+
                         }
-                    }
-                    else
-                    {
-                        Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
 
+                    } finally {
                     }
                 }
-                catch (Exception e) {
 
-                } finally {
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Toast.makeText(getBaseContext(), "No Internet conncection", Toast.LENGTH_SHORT).show();
                 }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(getBaseContext(), "No Internet conncection", Toast.LENGTH_SHORT).show();
-            }
-        });
+            });
     }
 }

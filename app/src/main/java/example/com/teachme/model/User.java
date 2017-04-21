@@ -1,13 +1,15 @@
 package example.com.teachme.model;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 
 
 import example.com.teachme.Course.Course;
 
-public class User {
+public class User implements Serializable{
 
     @SerializedName("mail")
     @Expose
@@ -54,5 +56,14 @@ public class User {
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "mail='" + mail + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
