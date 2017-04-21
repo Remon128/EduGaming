@@ -25,6 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class SignupActivity extends AppCompatActivity {
     String password_str, user_str;
     EditText email, password, username;
     RadioButton student, teacher;
-    Button signup, login;
+    Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +85,9 @@ public class SignupActivity extends AppCompatActivity {
 
     void validateData(String email, String password) {
 
-        final Retrofit retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
 
@@ -98,20 +100,31 @@ public class SignupActivity extends AppCompatActivity {
         user.setCourses(courses);
         user.setName(user_str);
         user.setPassword(password_str);
-        Call<ResponseBody> connection = userAPIInterface.createTeacher(user);
 
-        connection.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String result = response.body().toString();
-                Toast.makeText(getBaseContext(), "User has been created successfully", Toast.LENGTH_SHORT).show();
-            }
+        Call<User> connection = null;
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getBaseContext(), "No Internet conncection", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (student.isChecked()) {
+            connection = userAPIInterface.createStudent(user);
+        } else if (teacher.isChecked()) {
+            connection = userAPIInterface.createTeacher(user);
+        }
 
+
+        if (connection != null)
+            connection.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful()) {
+                        User user1 = response.body();
+                        i = new Intent(SignupActivity.this, MainActivity.class);
+                        startActivity(i);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Toast.makeText(getBaseContext(), "No Internet conncection", Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 }

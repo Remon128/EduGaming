@@ -20,7 +20,7 @@ public interface CourseAPIInterface {
     @GET("/api/course")
     Call<List<Course>> getCourses();
 
-    @GET("/api/course")
+    @GET("/api/get/course")
     Call<Course> getCourse(@Query("name") String name);
 
     @POST("api/course")

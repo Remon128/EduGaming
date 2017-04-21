@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import example.com.teachme.Course.CreateCourseActivity;
 import example.com.teachme.R;
+import example.com.teachme.model.User;
 
 public class TeacherActivity extends AppCompatActivity {
     SharedPreferences settings;
@@ -18,7 +20,10 @@ public class TeacherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
 
+        Intent i = getIntent();
+        User user = (User) i.getSerializableExtra("user");
 
+        Toast.makeText(getBaseContext(),user.toString(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
