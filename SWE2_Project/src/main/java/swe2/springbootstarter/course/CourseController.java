@@ -42,6 +42,16 @@ public class CourseController {
         return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
     }
 	///////////////////////////////////////////////
+	@RequestMapping(value = "/course/getAll", method = RequestMethod.POST)
+    public ResponseEntity<List<Course>> getAllCourses() {
+        List<Course> courses = courseService.getAllCourses();
+        if (courses.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            // You many decide to return HttpStatus.NOT_FOUND
+        }
+        return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
+    }
+	///////////////////////////////////////////////
 	@RequestMapping(value = "/course/getByStudentMail", method = RequestMethod.POST)
     public ResponseEntity<List<Course>> getCoursesByStudentMail(@RequestBody Student user) {
         List<Course> courses = courseService.getCoursesByStudentMail(user.getMail());
@@ -64,6 +74,22 @@ public class CourseController {
 	        }
 	        course.setTeacher((Teacher) userService.getUser(mail));
 	        courseService.addCourse(course);
+	 
+	        
+	        return new ResponseEntity<Course>(course, HttpStatus.CREATED);
+	    }
+	/////////////////////////////////////////////////
+	 @RequestMapping(value = "/enroll/course", method = RequestMethod.POST)
+	    public ResponseEntity<?> enrollCourse(@RequestBody Course course,@RequestBody Student student , UriComponentsBuilder ucBuilder) {
+	        logger.info("Creating Course : {}", course);
+	        String mail = student.getMail();
+	        if (!userService.isUserExist(mail) || !courseService.isCourseExist(course.getId())) {
+	            logger.error("Unable to create. A Course with name {} already exist", course.getName());
+	            return new ResponseEntity<>(new CustomErrorType("Error"),HttpStatus.CONFLICT);
+	        }
+	        student = (Student) userService.getUser(mail);
+	        course.putStudent(student);
+	        courseService.updateCourse(course);
 	 
 	        
 	        return new ResponseEntity<Course>(course, HttpStatus.CREATED);

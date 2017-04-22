@@ -21,6 +21,12 @@ public class CourseService {
 		courseRepository.findByTeacher_Mail(teacherMail).forEach(courses::add);
 		return courses;
 	}
+	public List<Course> getAllCourses(){
+		
+		ArrayList<Course> courses = new ArrayList<>();
+		courseRepository.findAll().forEach(courses::add);
+		return courses;
+	}
 	
 	public List<Course> getCoursesByStudentMail(String studentMail){
 		
@@ -37,9 +43,9 @@ public class CourseService {
 		courseRepository.save(course);
 	}
 
-//	public void updateCourse(Course course) {
-//		courseRepository.save(course);	
-//	}
+	public void updateCourse(Course course) {
+		courseRepository.save(course);	
+	}
 //
 //	public void deleteCourse(String name) {
 //		courseRepository.delete(name);	

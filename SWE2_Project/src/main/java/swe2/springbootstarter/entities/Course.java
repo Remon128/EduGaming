@@ -35,7 +35,9 @@ public class Course {
 	public Set<Student> getStudents() {
 		return students;
 	}
-
+	public void putStudent(Student s){
+		this.students.add(s);
+	}
 	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
