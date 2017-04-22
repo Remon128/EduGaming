@@ -1,23 +1,30 @@
-package swe2.springbootstarter.game;
+package swe2.springbootstarter.entities;
 
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import swe2.springbootstarter.course.Course;
-import swe2.springbootstarter.question.Question;
-
 @Entity
 public class Game {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	private String name;
 	private String description;
 	private int score;
@@ -38,24 +45,19 @@ public class Game {
 	private Set<Question> questions;
 	
 	
-	public Set<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
-	}
+//	public Set<Question> getQuestions() {
+//		return questions;
+//	}
+//
+//	public void setQuestions(Set<Question> questions) {
+//		this.questions = questions;
+//	}
 
 	public Game() {
 		
 	}
 	
-	public Game(String name, String description, String courseId, Course course) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.course = course;
-	}
+
 	public String getName() {
 		return name;
 	}
@@ -69,10 +71,10 @@ public class Game {
 		this.description = description;
 	}
 	
-	@JsonIgnore
-	public Course getCourse() {
-		return course;
-	}
+//	@JsonIgnore
+//	public Course getCourse() {
+//		return course;
+//	}
 
 	public void setCourse(Course course) {
 		this.course = course;

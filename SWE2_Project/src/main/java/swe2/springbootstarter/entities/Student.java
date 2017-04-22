@@ -1,10 +1,9 @@
-package swe2.springbootstarter.user;
+package swe2.springbootstarter.entities;
 
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import swe2.springbootstarter.course.Course;
 
 @Entity
 public class Student extends Users
@@ -15,9 +14,9 @@ public class Student extends Users
 	
 	
 
-	public Set<Course> getCourse() {
-		return courses;
-	}
+//	public Set<Course> getCourse() {
+//		return courses;
+//	}
 
 	public void setCourse(Set<Course> course) {
 		this.courses = course;

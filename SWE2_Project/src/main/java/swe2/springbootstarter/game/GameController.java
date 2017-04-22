@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import swe2.springbootstarter.course.CourseService;
+import swe2.springbootstarter.entities.Game;
 import swe2.util.CustomErrorType;
 
 @RestController
@@ -32,7 +33,7 @@ public class GameController {
 	private CourseService courseService;
 	
 	@RequestMapping(value = "/games/{courseName}", method = RequestMethod.GET)
-    public ResponseEntity<List<Game>> listAllGames(@PathVariable String courseName) {
+    public ResponseEntity<?> listAllGames(@PathVariable String courseName) {
         List<Game> games = gameService.getAllGames(courseName);
         if (games.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -40,31 +41,19 @@ public class GameController {
         }
         return new ResponseEntity<List<Game>>(games, HttpStatus.OK);
     }
-	///////////////////////////////////////////////
-	@RequestMapping(value="/game/{name}", method = RequestMethod.GET)
-	public ResponseEntity<?> getGame(@PathVariable String name){
-		logger.info("getting game with name {}", name);
-		Game game = gameService.getGame(name);
-		
-		if(game == null){
-			logger.error("Game with name {} not found.", name);
-			return new ResponseEntity<>(new CustomErrorType("Game with name " + name 
-                    + " not found"), HttpStatus.NOT_FOUND);
-		}
-		 return new ResponseEntity<Game>(game, HttpStatus.OK);
-	}
+
 	////////////////////////////////////////////////
-	 @RequestMapping(value = "/game/{courseName}", method = RequestMethod.POST)
-	public ResponseEntity<?> createGame(@RequestBody Game game,UriComponentsBuilder ucBuilder, @PathVariable String courseName) {
+	 @RequestMapping(value = "/game/{courseId}", method = RequestMethod.POST)
+	public ResponseEntity<?> createGame(@RequestBody Game game,UriComponentsBuilder ucBuilder, @PathVariable Integer courseId) {
 	        logger.info("Creating Game : {}", game);
 	 
-	        if (gameService.isGameExist(game)) {
+	        if (!courseService.isCourseExist(courseId)) {
 	            logger.error("Unable to create. A Game with name {} already exist", game.getName());
 	            return new ResponseEntity<>(new CustomErrorType("Unable to create. A Game with name " + 
 	            game.getName() + " already exist."),HttpStatus.CONFLICT);
 	        }
 	        
-	        game.setCourse(courseService.getCourse(courseName));
+	        game.setCourse(courseService.getCourse(courseId));
 	        gameService.addGame(game);
 	 
 	        HttpHeaders headers = new HttpHeaders();
@@ -72,26 +61,40 @@ public class GameController {
 	        return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	    }
 	/////////////////////////////////////////////////
-	 @RequestMapping(value = "/gameUpdate", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateGame(@RequestBody Game game) {
-	        logger.info("Updating Game with name {}", game.getName());
+//	 @RequestMapping(value = "/gameUpdate", method = RequestMethod.PUT)
+//	public ResponseEntity<?> updateGame(@RequestBody Game game) {
+//	        logger.info("Updating Game with name {}", game.getName());
+//	 
+//	 
+//	        gameService.updateGame(game);
+//	        return new ResponseEntity<Game>(game, HttpStatus.OK);
+//	    }
+//	///////////////////////////////////////////////////
+//	 @RequestMapping(value = "/game/{name}", method = RequestMethod.DELETE)
+//	public ResponseEntity<?> deleteGame(@PathVariable("name") String name) {
+//	        logger.info("Fetching & Deleting Game with name {}", name);
+//	 
+//	        Game game = gameService.getGame(name);
+//	        if (game == null) {
+//	            logger.error("Unable to delete. Game with name {} not found.", name);
+//	            return new ResponseEntity<>(new CustomErrorType("Unable to delete. Game with name " + name + " not found."),
+//	                    HttpStatus.NOT_FOUND);
+//	        }
+//	        gameService.deleteGame(name);
+//	        return new ResponseEntity<Game>(HttpStatus.NO_CONTENT);
+//	    }
 	 
-	 
-	        gameService.updateGame(game);
-	        return new ResponseEntity<Game>(game, HttpStatus.OK);
-	    }
-	///////////////////////////////////////////////////
-	 @RequestMapping(value = "/game/{name}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteGame(@PathVariable("name") String name) {
-	        logger.info("Fetching & Deleting Game with name {}", name);
-	 
-	        Game game = gameService.getGame(name);
-	        if (game == null) {
-	            logger.error("Unable to delete. Game with name {} not found.", name);
-	            return new ResponseEntity<>(new CustomErrorType("Unable to delete. Game with name " + name + " not found."),
-	                    HttpStatus.NOT_FOUND);
-	        }
-	        gameService.deleteGame(name);
-	        return new ResponseEntity<Game>(HttpStatus.NO_CONTENT);
-	    }
+		///////////////////////////////////////////////
+//		@RequestMapping(value="/game/{name}", method = RequestMethod.GET)
+//		public ResponseEntity<?> getGame(@PathVariable String name){
+//			logger.info("getting game with name {}", name);
+//			Game game = gameService.getGame(name);
+//			
+//			if(game == null){
+//				logger.error("Game with name {} not found.", name);
+//				return new ResponseEntity<>(new CustomErrorType("Game with name " + name 
+//	                    + " not found"), HttpStatus.NOT_FOUND);
+//			}
+//			 return new ResponseEntity<Game>(game, HttpStatus.OK);
+//		}
 }

@@ -3,6 +3,8 @@ package swe2.springbootstarter.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import swe2.springbootstarter.entities.Users;
+
 @Service
 public class UserService {
 
@@ -22,9 +24,9 @@ public class UserService {
 	public void deleteUser(String mail){
 		userRepository.delete(mail);
 	}
-	public boolean isUserExist(Users student) {
+	public boolean isUserExist(String mail) {
 		// TODO Auto-generated method stub
-		return userRepository.exists(student.getMail());
+		return userRepository.exists(mail);
 	}
 	
 }
