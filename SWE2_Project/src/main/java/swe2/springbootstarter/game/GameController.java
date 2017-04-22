@@ -32,9 +32,9 @@ public class GameController {
 	@Autowired
 	private CourseService courseService;
 	
-	@RequestMapping(value = "/games/{courseName}", method = RequestMethod.GET)
-    public ResponseEntity<?> listAllGames(@PathVariable String courseName) {
-        List<Game> games = gameService.getAllGames(courseName);
+	@RequestMapping(value = "/games/{courseId}", method = RequestMethod.GET)
+    public ResponseEntity<?> listAllGames(@PathVariable Integer courseId) {
+        List<Game> games = gameService.getAllGames(courseId);
         if (games.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             // You many decide to return HttpStatus.NOT_FOUND

@@ -8,6 +8,6 @@ import swe2.springbootstarter.entities.Game;
 
 public interface GameRepository extends CrudRepository<Game, Integer> {
 
-	public List<Game> findByCourseName(String courseName);
+	public List<Game> findByCourseId(Integer courseName);
 
 }

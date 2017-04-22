@@ -15,10 +15,10 @@ public class GameService {
 	private GameRepository gameRepository;
 	
 	
-	public List<Game> getAllGames(String courseName){
+	public List<Game> getAllGames(Integer courseId){
 		
 		ArrayList<Game> games = new ArrayList<>();
-		gameRepository.findByCourseName(courseName).forEach(games::add);
+		gameRepository.findByCourseId(courseId).forEach(games::add);
 		return games;
 	}
 	
