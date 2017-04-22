@@ -13,9 +13,9 @@ public class QuestionService {
 	@Autowired
 	private QuestionRepository questionRepository;
 	
-	public List<Question> getAllQuestions(String gameName){
+	public List<Question> getAllQuestions(Integer gameName){
 		
-		return questionRepository.findByGameName(gameName);
+		return questionRepository.findByGameId(gameName);
 		
 	}
 	
