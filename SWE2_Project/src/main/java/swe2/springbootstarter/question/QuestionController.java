@@ -29,9 +29,9 @@ public class QuestionController {
 	@Autowired
 	private GameService gameService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/getQuestionsByGameName/{gameName}")
-	public ResponseEntity<List<Question>> getAllQuestions(@PathVariable String gameName) {
-		List<Question> questions = questionService.getAllQuestions(gameName);
+	@RequestMapping(method = RequestMethod.GET, value = "/getQuestionsByGameId/{gameId}")
+	public ResponseEntity<List<Question>> getAllQuestions(@PathVariable Integer gameId) {
+		List<Question> questions = questionService.getAllQuestions(gameId);
 		if(questions.isEmpty()){
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         // You many decide to return HttpStatus.NOT_FOUND
