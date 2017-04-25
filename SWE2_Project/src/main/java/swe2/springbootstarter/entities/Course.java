@@ -1,9 +1,11 @@
-package swe2.springbootstarter.course;
+package swe2.springbootstarter.entities;
 
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -11,33 +13,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import swe2.springbootstarter.game.Game;
-import swe2.springbootstarter.user.Student;
-import swe2.springbootstarter.user.Teacher;
-
 @Entity
 public class Course {
 	
 	@Id
-	private String id;
-
-	public Course(String id, String name, String description, Teacher teacher, Set<Student> studnet, Set<Game> games) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.teacher = teacher;
-		this.students = studnet;
-		this.games = games;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
 	private String name;
 	private String description;
 	
@@ -54,7 +35,9 @@ public class Course {
 	public Set<Student> getStudents() {
 		return students;
 	}
-
+	public void putStudent(Student s){
+		this.students.add(s);
+	}
 	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
@@ -63,31 +46,26 @@ public class Course {
 	private Set<Game> games;
 	
 	
-	public Set<Game> getGames() {
-		return games;
-	}
-
+//	public Set<Game> getGames() {
+//		return games;
+//	}
+//
 	public Teacher getTeacher() {
 		return teacher;
 	}
-
+//
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
-
-	public void setGames(Set<Game> games) {
-		this.games = games;
-	}
+//
+//	public void setGames(Set<Game> games) {
+//		this.games = games;
+//	}
 
 	public Course() {
 		
 	}
 	
-	public Course(String name, String description, Teacher teacher) {
-		super();
-		this.name = name;
-		this.description = description;
-	}
 	public String getName() {
 		return name;
 	}
@@ -99,6 +77,15 @@ public class Course {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	

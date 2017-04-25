@@ -1,4 +1,4 @@
-package swe2.springbootstarter.user;
+package swe2.springbootstarter.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

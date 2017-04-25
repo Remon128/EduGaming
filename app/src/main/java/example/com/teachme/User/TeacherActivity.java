@@ -8,22 +8,38 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.List;
+
+import example.com.teachme.Connection.DbUtils;
+import example.com.teachme.Course.CourseFragment;
 import example.com.teachme.Course.CreateCourseActivity;
+import example.com.teachme.DBHandler;
 import example.com.teachme.R;
+import example.com.teachme.UserDBTable;
 import example.com.teachme.model.User;
 
 public class TeacherActivity extends AppCompatActivity {
+
     SharedPreferences settings;
-    Button createCourse ;
+    Button createCourse;
+    Bundle bundle;
+    String email ;
+    DBHandler dbHandler = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
+        dbHandler = new DBHandler(getBaseContext());
 
-        Intent i = getIntent();
-        User user = (User) i.getSerializableExtra("user");
+        email = DbUtils.email;
 
-        Toast.makeText(getBaseContext(),user.toString(),Toast.LENGTH_SHORT).show();
+        createCourse = (Button) findViewById(R.id.createCourse);
+        CourseFragment courseFragment = new CourseFragment(email);
+
+        getSupportFragmentManager().
+                beginTransaction().
+                add(R.id.flcourse, courseFragment, "").
+                commit();
     }
 
     @Override
@@ -33,17 +49,13 @@ public class TeacherActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void createCourse(View view)
-    {
+    public void createCourse(View view) {
         Intent i = new Intent(TeacherActivity.this, CreateCourseActivity.class);
         startActivity(i);
     }
 
     public void logout(View view) {
-        settings = getSharedPreferences("mySharedPref", 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("connected", false);
-        editor.apply();
+        dbHandler.deleteUser(email);
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 

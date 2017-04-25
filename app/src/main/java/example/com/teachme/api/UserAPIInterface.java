@@ -2,12 +2,9 @@ package example.com.teachme.api;
 
 import java.util.List;
 
-import example.com.teachme.Course.Course;
 import example.com.teachme.model.User;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 

@@ -1,8 +1,6 @@
-package swe2.springbootstarter.question;
+package swe2.springbootstarter.entities;
 
 import javax.persistence.Entity;
-
-import swe2.springbootstarter.game.Game;
 
 @Entity
 
@@ -31,14 +29,17 @@ public class MCQ extends Question {
 		super();
 	}
 
-	public MCQ(String id, String description, Game game) {
+	public MCQ(Integer id, String description, Game game) {
 		super(id, description, game);
+		// TODO Auto-generated constructor stub
 	}
-	
-	public MCQ(String id, String description, Game game,String[] choices, int answer) {
-		super(id, description, game);
+
+	public MCQ(String[] choices, int answer) {
+		super();
 		this.choices = choices;
 		this.answer = answer;
 	}
+
+	
 
 }

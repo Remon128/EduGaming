@@ -1,6 +1,6 @@
 package example.com.teachme.Question;
 
-import example.com.teachme.Game.Game;
+import example.com.teachme.model.Game;
 
 public class TrueFalseQuestion extends Question {
 

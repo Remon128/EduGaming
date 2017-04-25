@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import example.com.teachme.Course.CourseFragment.OnListFragmentInteractionListener;
-import example.com.teachme.Course.dummy.DummyContent.DummyItem;
 import example.com.teachme.R;
+import example.com.teachme.model.Course;
 
 import java.util.List;
 
@@ -16,12 +16,12 @@ import java.util.List;
 
 public class MyCourseRecyclerViewAdapter extends RecyclerView.Adapter<MyCourseRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Course> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private List<Course> mValues = null;
+    private OnListFragmentInteractionListener mListener;
 
-    public MyCourseRecyclerViewAdapter(List<Course> items, OnListFragmentInteractionListener listener) {
+    public MyCourseRecyclerViewAdapter(List<Course> items) {
         mValues = items;
-        mListener = listener;
+//        mListener = listener;
     }
 
     @Override
@@ -32,21 +32,10 @@ public class MyCourseRecyclerViewAdapter extends RecyclerView.Adapter<MyCourseRe
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder( ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getName());
         holder.mContentView.setText(mValues.get(position).getDescription());
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
     }
 
     @Override
@@ -55,9 +44,9 @@ public class MyCourseRecyclerViewAdapter extends RecyclerView.Adapter<MyCourseRe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public View mView;
+        public TextView mIdView;
+        public TextView mContentView;
         public Course mItem;
 
         public ViewHolder(View view) {

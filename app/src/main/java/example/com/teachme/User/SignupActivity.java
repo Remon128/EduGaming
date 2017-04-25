@@ -2,7 +2,6 @@ package example.com.teachme.User;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,16 +10,12 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-import example.com.teachme.Course.Course;
+import example.com.teachme.model.Course;
 import example.com.teachme.R;
 import example.com.teachme.api.UserAPIInterface;
 import example.com.teachme.model.User;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,9 +46,16 @@ public class SignupActivity extends AppCompatActivity {
         login = (Button) findViewById(R.id.login);
         student = (RadioButton) findViewById(R.id.student);
         teacher = (RadioButton) findViewById(R.id.teacher);
+
     }
 
-    public void signup(View view) {
+    public void signin(View view) {
+        startActivity(new Intent(getApplication(),MainActivity.class));
+
+    }
+
+
+        public void signup(View view) {
 
         email_str = email.getText().toString();
         password_str = password.getText().toString();
@@ -95,17 +97,22 @@ public class SignupActivity extends AppCompatActivity {
 
 
         List<Course> courses = null;
-        User user = new User();
-        user.setMail(email_str);
-        user.setCourses(courses);
-        user.setName(user_str);
-        user.setPassword(password_str);
-
         Call<User> connection = null;
 
+        User user = new User();
+
+
         if (student.isChecked()) {
+            user.setMail(email_str);
+            user.setCourses(courses);
+            user.setName(user_str);
+            user.setPassword(password_str);
             connection = userAPIInterface.createStudent(user);
         } else if (teacher.isChecked()) {
+            user.setMail(email_str);
+            user.setCourses(courses);
+            user.setName(user_str);
+            user.setPassword(password_str);
             connection = userAPIInterface.createTeacher(user);
         }
 

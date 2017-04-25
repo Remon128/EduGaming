@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface CourseRepository extends CrudRepository<Course, String>
+import swe2.springbootstarter.entities.Course;
+
+public interface CourseRepository extends CrudRepository<Course, Integer>
 {
 	
-		public List<Course> findByTeacherMail(String teacherId);
+		public List<Course> findByTeacher_Mail(String teacherMail);
+		public List<Course> findByStudents_Mail(String studentMail);
 }

@@ -14,9 +14,12 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.List;
 
+import example.com.teachme.Connection.ApiUtils;
+import example.com.teachme.Connection.DbUtils;
+import example.com.teachme.DBHandler;
 import example.com.teachme.HomeActivity;
 import example.com.teachme.R;
-import example.com.teachme.Tasks.HTTPTasks.OnPostExecute;
+import example.com.teachme.UserDBTable;
 import example.com.teachme.api.UserAPIInterface;
 import example.com.teachme.model.User;
 import okhttp3.ResponseBody;
@@ -34,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     Intent i = null;
-    List<User> users;
     User user;
     public static String Tag = "TEST_DEBUG";
     String email_str;
@@ -48,15 +50,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
         settings = getSharedPreferences("mySharedPref", 0);
+
         if (settings.getBoolean("connected", false)) {
-        /* The user has already login, so start the dashboard */
+        // The user has already login, so start the dashboard
             if (settings.getBoolean("isTeacher", true)) {
-                startActivity(new Intent(getApplicationContext(), TeacherActivity.class));
+               Intent intent = new Intent(MainActivity.this, TeacherActivity.class);
+                startActivity(intent);
             } else {
-                startActivity(new Intent(getApplicationContext(), StudentActivity.class));
+                Intent intent = new Intent(MainActivity.this, StudentActivity.class);
+                startActivity(intent);
             }
         }
+*/
+
         try {
 
             progressBar = (ProgressBar) findViewById(R.id.progressbar);
@@ -66,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             Button forget = (Button) findViewById(R.id.forget);
             student = (RadioButton) findViewById(R.id.student);
             teacher = (RadioButton) findViewById(R.id.teacher);
-
 
             signup.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,15 +126,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    void validateData(String email, String password) {
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    void validateData(String email, final String password) {
 
 
-        UserAPIInterface userAPIInterface = retrofit.create(UserAPIInterface.class);
+        UserAPIInterface userAPIInterface = ApiUtils.getAPIUser();
 
         User u = new User();
         u.setMail(email_str);
@@ -157,12 +160,9 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), "Please enter right email", Toast.LENGTH_SHORT).show();
                             }
                             if (flag) {
-                                i.putExtra("email", email_str);
-                                i.putExtra("password", password_str);
-                                SharedPreferences.Editor editor = settings.edit();
-                                editor.putBoolean("connected", true);
-                                editor.putBoolean("isTeacher", teacher.isChecked());
-                                editor.apply();
+
+                                DbUtils.createDBUtils(getBaseContext());
+                                DbUtils.addUser(user.getMail(),user.getPassword(),user.getName());
                                 startActivity(i);
                             } else {
                                 Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (Exception e) {
 
                     } finally {
+
                     }
                 }
 

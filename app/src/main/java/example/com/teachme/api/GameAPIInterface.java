@@ -2,8 +2,7 @@ package example.com.teachme.api;
 
 import java.util.List;
 
-import example.com.teachme.Game.Game;
-import example.com.teachme.model.User;
+import example.com.teachme.model.Game;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

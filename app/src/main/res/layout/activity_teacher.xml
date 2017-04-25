@@ -9,6 +9,8 @@
     tools:context="example.com.teachme.User.TeacherActivity"
     android:weightSum="1">
 
+
+
     <Button
         android:id="@+id/createCourse"
         android:layout_width="match_parent"
@@ -25,5 +27,13 @@
         android:text="Logout"
         app:srcCompat="@drawable/logout" />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff45"
+        android:id="@+id/flcourse"
+        android:orientation="vertical">
+    </LinearLayout>
 
 </LinearLayout>

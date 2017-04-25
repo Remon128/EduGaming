@@ -1,12 +1,10 @@
-package swe2.springbootstarter.user;
+package swe2.springbootstarter.entities;
 
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-
-import swe2.springbootstarter.course.Course;
 
 
 
@@ -18,9 +16,9 @@ public class Teacher extends Users
 
 	
 
-	public Set<Course> getCourses() {
-		return courses;
-	}
+//	public Set<Course> getCourses() {
+//		return courses;
+//	}
 
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;

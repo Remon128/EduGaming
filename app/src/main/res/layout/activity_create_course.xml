@@ -23,7 +23,7 @@
         android:id="@+id/courseName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="COURSE NAME"/>
+        android:text=""/>
 
     <TextView
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:id="@+id/courseDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="COURSE DESCRIPTION"/>
+        android:text=""/>
 
 
 

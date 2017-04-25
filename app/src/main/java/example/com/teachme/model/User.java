@@ -2,14 +2,20 @@ package example.com.teachme.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 
 
-import example.com.teachme.Course.Course;
+import example.com.teachme.api.UserAPIInterface;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class User implements Serializable{
+public class User implements Serializable {
 
     @SerializedName("mail")
     @Expose
@@ -25,6 +31,17 @@ public class User implements Serializable{
     @Expose
     private List<Course> courses = null;
 
+    public User() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    public User(String mail, String name, String password) {
+        super();
+        this.mail = mail;
+        this.name = name;
+        this.password = password;
+    }
 
     public String getMail() {
         return mail;

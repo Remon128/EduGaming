@@ -12,42 +12,58 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
+import example.com.teachme.model.Course;
+import example.com.teachme.Course.CourseFragment;
 import example.com.teachme.R;
 import example.com.teachme.model.User;
 
-public class StudentActivity extends AppCompatActivity {
+public class StudentActivity extends AppCompatActivity implements CourseFragment.OnListFragmentInteractionListener {
+    @Override
+    public void onListFragmentInteraction(Course item) {
 
-    ListView courselv ;
-    ArrayList<String>  courseList;
-    TextView test ;
+    }
+
+    ListView courselv;
+    ArrayList<String> courseList;
+    TextView test;
     SharedPreferences settings;
-    Button logout ;
+    Button logout;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-        courselv = (ListView)findViewById(R.id.courselv);
+        courselv = (ListView) findViewById(R.id.courselv);
         courseList = new ArrayList<String>();
-        test = (TextView)findViewById(R.id.testdata);
+        test = (TextView) findViewById(R.id.testdata);
         fillList();
 
-        ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1,courseList);
+        ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, courseList);
         courselv.setAdapter(courseAdapter);
 
-        Toast.makeText(this,getIntent().getStringExtra("hello"),Toast.LENGTH_SHORT).show();
+        Intent i = getIntent();
+        User user = (User) i.getSerializableExtra("user");
+
+        Bundle bundle = i.getExtras();
+        //Toast.makeText(getBaseContext(), "Welcome to " + user.getName(), Toast.LENGTH_SHORT).show();
 
 
+        /*
+        CourseFragment courseFragment = new CourseFragment();
+        courseFragment.setArguments(bundle);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.flcourse, courseFragment, "")
+                .commit();
 
+*/
         courselv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(getBaseContext(),"Welcome to "+courseList.get((int)id) ,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Welcome to " + courseList.get((int) id), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -66,13 +82,12 @@ public class StudentActivity extends AppCompatActivity {
         editor.apply();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
-    void fillList()
-    {
+
+    void fillList() {
         courseList.add("Math");
         courseList.add("Science");
         courseList.add("Programming");
     }
-
 
 
 }

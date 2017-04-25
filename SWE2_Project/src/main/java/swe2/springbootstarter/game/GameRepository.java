@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface GameRepository extends CrudRepository<Game, String> {
+import swe2.springbootstarter.entities.Game;
+
+public interface GameRepository extends CrudRepository<Game, Integer> {
 
 	public List<Game> findByCourseName(String courseName);
 

@@ -1,14 +1,9 @@
-package example.com.teachme.User;
+package example.com.teachme.model;
 
 import java.util.List;
-import java.util.Set;
-
-import example.com.teachme.Course.Course;
-import example.com.teachme.model.User;
 
 
 public class Teacher extends User {
-
 
     private List<Course> courses;
 

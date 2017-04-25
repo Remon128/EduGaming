@@ -1,23 +1,12 @@
-package swe2.springbootstarter.game;
+package example.com.teachme.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import example.com.teachme.Question.Question;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import swe2.springbootstarter.course.Course;
-import swe2.springbootstarter.question.Question;
-
-@Entity
 public class Game {
 	
-	@Id
+	private String id;
 	private String name;
 	private String description;
 	private int score;
@@ -30,13 +19,9 @@ public class Game {
 		this.score = score;
 	}
 
-	@ManyToOne
-	@JoinColumn
 	private Course course;
 	
-	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<Question> questions;
-	
 	
 	public Set<Question> getQuestions() {
 		return questions;
@@ -50,11 +35,18 @@ public class Game {
 		
 	}
 	
-	public Game(String name, String description, String courseId, Course course) {
+	public Game(String id, String name, String description, String courseId, Course course) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.course = course;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
@@ -68,8 +60,7 @@ public class Game {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	@JsonIgnore
+
 	public Course getCourse() {
 		return course;
 	}

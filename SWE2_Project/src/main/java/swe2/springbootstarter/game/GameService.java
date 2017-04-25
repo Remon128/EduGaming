@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import swe2.springbootstarter.entities.Game;
+
 @Service
 public class GameService {
 	
@@ -20,7 +22,7 @@ public class GameService {
 		return games;
 	}
 	
-	public Game getGame(String name){
+	public Game getGame(Integer name){
 		return gameRepository.findOne(name);
 	}
 	
@@ -28,16 +30,16 @@ public class GameService {
 		gameRepository.save(game);
 	}
 
-	public void updateGame(Game game) {
-		gameRepository.save(game);	
-	}
-
-	public void deleteGame(String name) {
-		gameRepository.delete(name);	
-		
-	}
-	public boolean isGameExist(Game game) {
-        return gameRepository.exists(game.getName());
+//	public void updateGame(Game game) {
+//		gameRepository.save(game);	
+//	}
+//
+//	public void deleteGame(Integer name) {
+//		gameRepository.delete(name);	
+//		
+//	}
+	public boolean isGameExist(Integer game) {
+        return gameRepository.exists(game);
 	}
 	
 	
