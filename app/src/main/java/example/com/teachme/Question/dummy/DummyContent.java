@@ -1,4 +1,4 @@
-package example.com.teachme.Course.dummy;
+package example.com.teachme.Question.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

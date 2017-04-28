@@ -1,4 +1,4 @@
-package example.com.teachme.Game;
+package example.com.teachme.Question;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import example.com.teachme.Game.GameFragment.OnListFragmentInteractionListener;
-import example.com.teachme.Game.dummy.DummyContent.DummyItem;
-import example.com.teachme.R;
+import example.com.teachme.Question.QuestionFragment.OnListFragmentInteractionListener;
+import example.com.teachme.Question.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
@@ -17,12 +16,12 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecyclerViewAdapter.ViewHolder> {
+public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRecyclerViewAdapter.ViewHolder> {
 
     private final List<DummyItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyGameRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public QuestionRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,7 +29,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_game, parent, false);
+                .inflate(R.layout.fragment_question, parent, false);
         return new ViewHolder(view);
     }
 
