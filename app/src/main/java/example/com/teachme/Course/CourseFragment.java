@@ -1,6 +1,5 @@
 package example.com.teachme.Course;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,8 +17,6 @@ import example.com.teachme.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,27 +31,11 @@ public class CourseFragment extends Fragment {
 
     private String mail;
     private List<Course> courses = null;
-    private OnListFragmentInteractionListener mListener;
 
-    public List<Course> getCourses() {
-        return courses;
-    }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
-    Call<List<Course>> connection ;
+    Call<List<Course>> connection;
 
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-
-    }
-
-    public CourseFragment()
-    {
+    public CourseFragment() {
 
     }
 
@@ -63,34 +44,32 @@ public class CourseFragment extends Fragment {
         CourseAPIInterface courseAPIInterface = ApiUtils.getAPICourse();
         User user = new User();
         user.setMail(email);
-
+        courses = new ArrayList<>();
         connection = courseAPIInterface.getCourses(user);
-
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_course_list, container, false);
-        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        View view = inflater.inflate(R.layout.fragment_course_list, container, false);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        final CourseRecyclerViewAdapter adapter = new CourseRecyclerViewAdapter(courses,getContext());
+        recyclerView.setAdapter(adapter);
 
         connection.enqueue(new Callback<List<Course>>() {
             @Override
             public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
                 if (response.isSuccessful()) {
-                    courses = response.body();
-                    //Toast.makeText(getContext(), "" + courses.get(0).getName(), Toast.LENGTH_SHORT).show();
+                    courses.addAll(response.body());
                 }
-                Context context = view.getContext();
-
-                // in content do not change the layout size of the RecyclerView
-                recyclerView.setHasFixedSize(true);
-
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-                recyclerView.setAdapter(new MyCourseRecyclerViewAdapter(courses));
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -100,13 +79,6 @@ public class CourseFragment extends Fragment {
         });
 
 
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                Toast.makeText(getContext(),courses.get())
-            }
-        });
         return view;
     }
 

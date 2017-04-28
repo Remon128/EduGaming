@@ -1,29 +1,29 @@
 package example.com.teachme.Question;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import example.com.teachme.Question.QuestionFragment.OnListFragmentInteractionListener;
 import example.com.teachme.Question.dummy.DummyContent.DummyItem;
+import example.com.teachme.R;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
+
 public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
-
-    public QuestionRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+    private List<MCQ> questions = null ;
+    private Context context =null;
+    public QuestionRecyclerViewAdapter(List<MCQ> items,Context context) {
+        questions = items;
+        this.context = context;
     }
 
     @Override
@@ -35,43 +35,50 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = questions.get(position);
+        holder.mQuestion.setText(questions.get(position).getDescription());
+        //holder.mItem.getChoices()[1]
+        holder.r1.setText("hi");
+        holder.r2.setText("hi");
+        holder.r3.setText("hi");
+        holder.r4.setText("hi");
+
+        //holder.mContentView.setText(questions.get(position).getDescription());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+    //            Intent i = new Intent()
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return questions.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView mQuestion;
+        public RadioGroup group ;
+        public MCQ mItem;
+        public RadioButton r1;
+        public  RadioButton r2;
+        public  RadioButton r3;
+        public RadioButton r4 ;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mQuestion = (TextView) view.findViewById(R.id.question);
+            group = (RadioGroup) view.findViewById(R.id.mcqGroup);
+            r1 = (RadioButton) view.findViewById(R.id.radio1);
+            r2 =(RadioButton) view.findViewById(R.id.radio2);
+            r3 = (RadioButton) view.findViewById(R.id.radio3);
+             r4 = (RadioButton) view.findViewById(R.id.radio4);
+
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
     }
 }

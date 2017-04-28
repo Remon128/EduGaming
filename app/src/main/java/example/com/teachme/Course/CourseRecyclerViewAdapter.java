@@ -8,24 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import example.com.teachme.Course.CourseFragment.OnListFragmentInteractionListener;
 import example.com.teachme.Game.GameActivity;
 import example.com.teachme.R;
-import example.com.teachme.User.MainActivity;
 import example.com.teachme.model.Course;
 
 import java.util.List;
 
 
 
-public class MyCourseRecyclerViewAdapter extends RecyclerView.Adapter<MyCourseRecyclerViewAdapter.ViewHolder> {
+public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecyclerViewAdapter.ViewHolder> {
 
     private List<Course> courses = null;
     private Context context = null;
 
-    public MyCourseRecyclerViewAdapter(List<Course> items,Context context) {
+    public CourseRecyclerViewAdapter(List<Course> items, Context context) {
         this.courses = items;
         this.context = context ;
     }

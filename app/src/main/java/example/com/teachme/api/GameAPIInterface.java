@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -15,13 +16,13 @@ import retrofit2.http.Query;
 
 public interface GameAPIInterface {
 
-    @GET("/api/games")
-    Call<List<Game>> getGames();
+    @GET("/api/games/{courseId}")
+    Call<List<Game>> getGames(@Path("courseId") int id);
 
     @GET("/api/games")
     Call<Game> getGame(@Query("name") String name);
 
-    @POST("api/games")
-    Call<Game> createGame(@Body Game game);
+    @POST("api/game/{courseId}")
+    Call<Game> createGame(@Body Game game,@Path("courseId") Integer id);
 
 }

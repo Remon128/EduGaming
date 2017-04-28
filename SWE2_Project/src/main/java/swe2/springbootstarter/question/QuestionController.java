@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import swe2.springbootstarter.entities.MCQ;
 import swe2.springbootstarter.entities.Question;
 import swe2.springbootstarter.game.GameService;
 import swe2.util.CustomErrorType;
@@ -29,7 +30,7 @@ public class QuestionController {
 	@Autowired
 	private GameService gameService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/getQuestionsByGameId/{gameId}")
+	@RequestMapping(method = RequestMethod.GET, value = "/get/questions/{gameId}")
 	public ResponseEntity<List<Question>> getAllQuestions(@PathVariable Integer gameId) {
 		List<Question> questions = questionService.getAllQuestions(gameId);
 		if(questions.isEmpty()){
@@ -39,29 +40,30 @@ public class QuestionController {
 		return new ResponseEntity<List<Question>>(questions, HttpStatus.OK);
 	}
 	///////////////////////////////////////////////////////////
-
-	@RequestMapping(method = RequestMethod.POST, value = "create/question/{gameId}")
-	public ResponseEntity<?> addQuestion(@RequestBody Question question,@PathVariable Integer gameId,UriComponentsBuilder ucBuilder) {
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/create/Question/{gameId}")
+	public ResponseEntity<?> addQuestion(@RequestBody MCQ question,@PathVariable Integer gameId,UriComponentsBuilder ucBuilder) {
 		logger.info("Creating Question : {}", question);
 
 		if (!gameService.isGameExist(gameId)) {
             logger.error("Unable to create. A Question with name {} already exist", question.getId());
-            return new ResponseEntity<>(new CustomErrorType("Unable to create. A Question with name " +
-            question.getId() + " already exist."),HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Error",HttpStatus.CONFLICT);
         }
 		question.setGame(gameService.getGame(gameId));
 		questionService.addQuestion(question);
 
-        return new ResponseEntity<Question>(question, HttpStatus.CREATED);
+        return new ResponseEntity<MCQ>(question, HttpStatus.CREATED);
 	}
+	
 	///////////////////////////////////////////////////////////
-//	@RequestMapping(method = RequestMethod.PUT, value = "/questionUpdate/{questionId}")
-//	public ResponseEntity<?> updateQuestion(@RequestBody Question question, @PathVariable String questionId) {
-//		logger.info("Updating Question with id {}", question.getId());
-//		question.setId(questionId);
-//		questionService.updateQuestion(question);
-//		return new ResponseEntity<Question>(question, HttpStatus.OK);
-//	}
+
+	@RequestMapping(method = RequestMethod.PUT, value = "/update/question/{questionId}")
+	public ResponseEntity<?> updateQuestion(@RequestBody MCQ question, @PathVariable Integer questionId) {
+		logger.info("Updating Question with id {}", question.getId());
+		question.setId(questionId);
+		questionService.updateQuestion(question);
+		return new ResponseEntity<MCQ>(question, HttpStatus.OK);
+	}
 //	///////////////////////////////////////////////////////////
 //	@RequestMapping(method = RequestMethod.DELETE, value = "questionDelete/{questionId}")
 //	public ResponseEntity<?> deleteQuestion(@PathVariable String questionId) {

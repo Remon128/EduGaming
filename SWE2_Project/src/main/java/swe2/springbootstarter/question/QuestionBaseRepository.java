@@ -10,7 +10,7 @@ import swe2.springbootstarter.entities.Question;
 
 
 @NoRepositoryBean
-public interface QuestionBaseRepository<T extends Question> extends CrudRepository<T, Long> {
+public interface QuestionBaseRepository<T extends Question> extends CrudRepository<T, Integer> {
 
 	public List<T> findByGameId(Integer gameName);
  

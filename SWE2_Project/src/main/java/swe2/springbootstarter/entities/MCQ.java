@@ -1,12 +1,14 @@
 package swe2.springbootstarter.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 
 @Entity
 
 public class MCQ extends Question {
 
-	private String[] choices;
+	private String[] choices = null;
 	private int answer;
 
 	public String[] getChoices() {

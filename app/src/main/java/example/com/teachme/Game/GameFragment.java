@@ -3,57 +3,47 @@ package example.com.teachme.Game;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.R;
-import example.com.teachme.Game.dummy.DummyContent;
-import example.com.teachme.Game.dummy.DummyContent.DummyItem;
+import example.com.teachme.api.GameAPIInterface;
+import example.com.teachme.model.Game;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+
 public class GameFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private List<Game> gameList = null;
     private OnListFragmentInteractionListener mListener;
-
+    Call<List<Game>> connection;
+    Context context ;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public GameFragment() {
+
+    public GameFragment(int courseId,Context context) {
+        gameList = new ArrayList<>();
+        this.context = context;
+        GameAPIInterface gameAPIInterface = ApiUtils.getAPIGame();
+        connection = gameAPIInterface.getGames(courseId);
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static GameFragment newInstance(int columnCount) {
-        GameFragment fragment = new GameFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -62,20 +52,33 @@ public class GameFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game_list, container, false);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        Context context = view.getContext();
+        RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        final GameRecyclerViewAdapter adapter = new GameRecyclerViewAdapter(gameList, context);
+        recyclerView.setAdapter(adapter);
+
+        connection.enqueue(new Callback<List<Game>>() {
+            @Override
+            public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() == null) {
+                        Toast.makeText(getContext(), "No Available games", Toast.LENGTH_SHORT).show();
+                    } else
+                        gameList.addAll(response.body());
+                }
+                adapter.notifyDataSetChanged();
             }
-            recyclerView.setAdapter(new MyGameRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
+
+            @Override
+            public void onFailure(Call<List<Game>> call, Throwable t) {
+                Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
+            }
+        });
         return view;
-    }
+}
 
-
+/*
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -103,8 +106,10 @@ public class GameFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
-    }
+
+
+public interface OnListFragmentInteractionListener {
+    // TODO: Update argument type and name
+    void onListFragmentInteraction(Game item);
+}
 }

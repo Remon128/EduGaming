@@ -1,5 +1,7 @@
 package example.com.teachme.Game;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,19 +9,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import example.com.teachme.Game.GameFragment.OnListFragmentInteractionListener;
+import example.com.teachme.Question.QuestionActivity;
 import example.com.teachme.R;
 import example.com.teachme.model.Game;
 
 import java.util.List;
 
-public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecyclerViewAdapter.ViewHolder> {
+public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Game> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private List<Game> mValues;
+    private Context context ;
 
-    public MyGameRecyclerViewAdapter(List<Game> items, OnListFragmentInteractionListener listener) {
+    public GameRecyclerViewAdapter(List<Game> items, Context context) {
         mValues = items;
-        mListener = listener;
+        this.context = context;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getName());
         holder.mContentView.setText(mValues.get(position).getDescription());
@@ -39,11 +42,9 @@ public class MyGameRecyclerViewAdapter extends RecyclerView.Adapter<MyGameRecycl
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+                Intent i = new Intent(context, QuestionActivity.class);
+                i.putExtra("gameId",holder.mItem.getId());
+                context.startActivity(i);
             }
         });
     }

@@ -4,42 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:layout_margin="@dimen/activity_horizontal_margin"
     tools:context="example.com.teachme.Game.GameActivity">
 
-
-
-    <TextView
+    <FrameLayout
+        android:id="@+id/gamelist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="CREATE COURSE"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="COURSE NAME"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="COURSE NAME"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="COURSE DESCRIPTION"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="COURSE DESCRIPTION"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="CREATE COURSE"/>
-
+        android:layout_height="match_parent"
+        android:background="#ff4">
+    </FrameLayout>
 </LinearLayout>

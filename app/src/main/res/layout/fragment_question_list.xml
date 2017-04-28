@@ -10,4 +10,5 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context="example.com.teachme.Question.QuestionFragment"
-    tools:listitem="@layout/fragment_question" />
+    tools:listitem="@layout/fragment_question"
+    android:background="#ff45"/>

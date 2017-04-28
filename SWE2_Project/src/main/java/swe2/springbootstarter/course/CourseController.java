@@ -79,7 +79,6 @@ public class CourseController {
 	        
 	        return new ResponseEntity<Course>(course, HttpStatus.CREATED);
 	    }
-<<<<<<< HEAD
 	 
 	/////////////////////////////////////////////////
 	 @RequestMapping(value = "/enroll/course", method = RequestMethod.POST)
@@ -94,21 +93,6 @@ public class CourseController {
 	        course.putStudent(student);
 	        courseService.updateCourse(course);
 	 
-=======
-	/////////////////////////////////////////////////
-	 @RequestMapping(value = "/enroll/course", method = RequestMethod.POST)
-	    public ResponseEntity<?> enrollCourse(@RequestBody Course course,@RequestBody Student student , UriComponentsBuilder ucBuilder) {
-	        logger.info("Creating Course : {}", course);
-	        String mail = student.getMail();
-	        if (!userService.isUserExist(mail) || !courseService.isCourseExist(course.getId())) {
-	            logger.error("Unable to create. A Course with name {} already exist", course.getName());
-	            return new ResponseEntity<>(new CustomErrorType("Error"),HttpStatus.CONFLICT);
-	        }
-	        student = (Student) userService.getUser(mail);
-	        course.putStudent(student);
-	        courseService.updateCourse(course);
-	 
->>>>>>> f1c1b50b415379a691965e63f687a50f161186ed
 	        
 	        return new ResponseEntity<Course>(course, HttpStatus.CREATED);
 	    }

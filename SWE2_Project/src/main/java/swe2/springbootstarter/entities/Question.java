@@ -40,7 +40,7 @@ public abstract class Question {
 		this.description = description;
 	}
 
-	public long getId() {
+	public Integer getId() {
 		return id;
 	}
 

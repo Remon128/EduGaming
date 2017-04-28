@@ -44,15 +44,15 @@ public class Game {
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<Question> questions;
 	
-	
-//	public Set<Question> getQuestions() {
-//		return questions;
-//	}
-//
-//	public void setQuestions(Set<Question> questions) {
-//		this.questions = questions;
-//	}
+/*	
+	public Set<Question> getQuestions() {
+		return questions;
+	}
 
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
+	}
+*/
 	public Game() {
 		
 	}

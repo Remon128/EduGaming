@@ -3,7 +3,7 @@ package example.com.teachme.Question;
 
 import example.com.teachme.model.Game;
 
-public class MultipleChoiceQuestion extends Question {
+public class MCQ extends Question {
 
     private String[] choices;
     private int answer;
@@ -24,15 +24,15 @@ public class MultipleChoiceQuestion extends Question {
         this.answer = answer;
     }
 
-    public MultipleChoiceQuestion() {
+    public MCQ() {
         super();
     }
 
-    public MultipleChoiceQuestion(String id, String description, Game game) {
+    public MCQ(String id, String description, Game game) {
         super(id, description, game);
     }
 
-    public MultipleChoiceQuestion(String id, String description, Game game, String[] choices, int answer) {
+    public MCQ(String id, String description, Game game, String[] choices, int answer) {
         super(id, description, game);
         this.choices = choices;
         this.answer = answer;
