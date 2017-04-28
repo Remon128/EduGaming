@@ -16,9 +16,9 @@ public class Teacher extends Users
 
 	
 
-//	public Set<Course> getCourses() {
-//		return courses;
-//	}
+	public Set<Course> getCourses() {
+		return courses;
+	}
 
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;

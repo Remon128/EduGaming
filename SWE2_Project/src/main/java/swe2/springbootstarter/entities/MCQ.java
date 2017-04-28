@@ -3,7 +3,6 @@ package swe2.springbootstarter.entities;
 import javax.persistence.Entity;
 
 @Entity
-
 public class MCQ extends Question {
 
 	private String[] choices;

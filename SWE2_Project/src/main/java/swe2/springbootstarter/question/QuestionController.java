@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import swe2.springbootstarter.entities.MCQ;
 import swe2.springbootstarter.entities.Question;
 import swe2.springbootstarter.game.GameService;
-import swe2.util.CustomErrorType;
 
 @RestController
 @RequestMapping("/api")
@@ -40,19 +40,18 @@ public class QuestionController {
 	}
 	///////////////////////////////////////////////////////////
 
-	@RequestMapping(method = RequestMethod.POST, value = "create/question/{gameId}")
-	public ResponseEntity<?> addQuestion(@RequestBody Question question,@PathVariable Integer gameId,UriComponentsBuilder ucBuilder) {
+	@RequestMapping(method = RequestMethod.POST, value = "create/Question/{gameId}")
+	public ResponseEntity<?> addQuestion(@RequestBody MCQ question,@PathVariable Integer gameId,UriComponentsBuilder ucBuilder) {
 		logger.info("Creating Question : {}", question);
 
 		if (!gameService.isGameExist(gameId)) {
             logger.error("Unable to create. A Question with name {} already exist", question.getId());
-            return new ResponseEntity<>(new CustomErrorType("Unable to create. A Question with name " +
-            question.getId() + " already exist."),HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Error",HttpStatus.CONFLICT);
         }
 		question.setGame(gameService.getGame(gameId));
 		questionService.addQuestion(question);
 
-        return new ResponseEntity<Question>(question, HttpStatus.CREATED);
+        return new ResponseEntity<MCQ>(question, HttpStatus.CREATED);
 	}
 	///////////////////////////////////////////////////////////
 //	@RequestMapping(method = RequestMethod.PUT, value = "/questionUpdate/{questionId}")
