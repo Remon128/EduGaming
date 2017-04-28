@@ -92,7 +92,6 @@ public class CourseController {
 	        student = (Student) userService.getUser(mail);
 	        course.putStudent(student);
 	        courseService.updateCourse(course);
-	 
 	        
 	        return new ResponseEntity<Course>(course, HttpStatus.CREATED);
 	    }

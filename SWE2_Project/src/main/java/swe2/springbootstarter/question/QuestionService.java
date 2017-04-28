@@ -1,5 +1,6 @@
 package swe2.springbootstarter.question;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ public class QuestionService {
 	
 	public List<Question> getAllQuestions(Integer gameName){
 		
-		return questionRepository.findByGameId(gameName);
+		ArrayList<Question> questions = new ArrayList<>();
+		questionRepository.findByGameId(gameName).forEach(questions::add);
+		return questions;
 		
 	}
 	

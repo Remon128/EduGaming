@@ -17,7 +17,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import swe2.springbootstarter.entities.MCQ;
 import swe2.springbootstarter.entities.Question;
 import swe2.springbootstarter.game.GameService;
-import swe2.util.CustomErrorType;
 
 @RestController
 @RequestMapping("/api")
@@ -40,8 +39,9 @@ public class QuestionController {
 		return new ResponseEntity<List<Question>>(questions, HttpStatus.OK);
 	}
 	///////////////////////////////////////////////////////////
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/create/Question/{gameId}")
+
+
+	@RequestMapping(method = RequestMethod.POST, value = "create/Question/{gameId}")
 	public ResponseEntity<?> addQuestion(@RequestBody MCQ question,@PathVariable Integer gameId,UriComponentsBuilder ucBuilder) {
 		logger.info("Creating Question : {}", question);
 
