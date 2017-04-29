@@ -50,7 +50,6 @@ public class GameController {
 		return new ResponseEntity<List<Game>>(games, HttpStatus.OK);
 	}
 
-
 	////////////////////////////////////////////////
 	@RequestMapping(value = "/game/{courseId}", method = RequestMethod.POST)
 	public ResponseEntity<?> createGame(@RequestBody Game game, UriComponentsBuilder ucBuilder,

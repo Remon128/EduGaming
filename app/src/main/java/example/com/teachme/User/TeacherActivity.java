@@ -34,7 +34,7 @@ public class TeacherActivity extends AppCompatActivity {
         email = DbUtils.email;
 
         createCourse = (Button) findViewById(R.id.createCourse);
-        CourseFragment courseFragment = new CourseFragment(email);
+        CourseFragment courseFragment = new CourseFragment(email,true);
 
         getSupportFragmentManager().
                 beginTransaction().

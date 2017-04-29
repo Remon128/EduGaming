@@ -14,9 +14,9 @@ public class Student extends Users
 	
 	
 
-	public Set<Course> getCourse() {
-		return courses;
-	}
+//	public Set<Course> getCourse() {
+//		return courses;
+//	}
 
 	public void setCourse(Set<Course> course) {
 		this.courses = course;
