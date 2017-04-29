@@ -10,11 +10,6 @@
     tools:context="example.com.teachme.User.StudentActivity">
 
 
-    <ListView
-        android:id="@+id/courselv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <Button
         android:id="@+id/logout"
         android:layout_width="match_parent"
@@ -26,7 +21,14 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@id/testdata"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/flcourse"
+        android:orientation="vertical">
+
+    </LinearLayout>
 </LinearLayout>

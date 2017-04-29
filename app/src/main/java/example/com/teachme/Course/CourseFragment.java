@@ -39,13 +39,16 @@ public class CourseFragment extends Fragment {
 
     }
 
-    public CourseFragment(String email) {
+    public CourseFragment(String email, boolean isTeacher) {
 
         CourseAPIInterface courseAPIInterface = ApiUtils.getAPICourse();
         User user = new User();
         user.setMail(email);
         courses = new ArrayList<>();
-        connection = courseAPIInterface.getCourses(user);
+        if (isTeacher)
+            connection = courseAPIInterface.getCourses(user);
+        else
+            connection = courseAPIInterface.getAllCourses();
     }
 
 
@@ -60,14 +63,15 @@ public class CourseFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        final CourseRecyclerViewAdapter adapter = new CourseRecyclerViewAdapter(courses,getContext());
+        final CourseRecyclerViewAdapter adapter = new CourseRecyclerViewAdapter(courses, getContext());
         recyclerView.setAdapter(adapter);
 
         connection.enqueue(new Callback<List<Course>>() {
             @Override
             public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
                 if (response.isSuccessful()) {
-                    courses.addAll(response.body());
+                    if (response.body() != null)
+                        courses.addAll(response.body());
                 }
                 adapter.notifyDataSetChanged();
             }

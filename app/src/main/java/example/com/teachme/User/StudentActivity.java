@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.model.Course;
 import example.com.teachme.Course.CourseFragment;
 import example.com.teachme.R;
@@ -25,47 +26,27 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
 
     }
 
-    ListView courselv;
-    ArrayList<String> courseList;
-    TextView test;
+   TextView test;
     SharedPreferences settings;
     Button logout;
-
+    String email ;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-        courselv = (ListView) findViewById(R.id.courselv);
-        courseList = new ArrayList<String>();
         test = (TextView) findViewById(R.id.testdata);
-        fillList();
 
-        ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, courseList);
-        courselv.setAdapter(courseAdapter);
-
-        Intent i = getIntent();
-        User user = (User) i.getSerializableExtra("user");
-
-        Bundle bundle = i.getExtras();
         //Toast.makeText(getBaseContext(), "Welcome to " + user.getName(), Toast.LENGTH_SHORT).show();
 
+        email = DbUtils.email;
 
-        /*
-        CourseFragment courseFragment = new CourseFragment();
-        courseFragment.setArguments(bundle);
+//        Toast.makeText()
+        CourseFragment courseFragment = new CourseFragment(email,true);
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.flcourse, courseFragment, "")
                 .commit();
-
-*/
-        courselv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(), "Welcome to " + courseList.get((int) id), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -81,12 +62,6 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
         editor.putBoolean("connected", false);
         editor.apply();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
-    }
-
-    void fillList() {
-        courseList.add("Math");
-        courseList.add("Science");
-        courseList.add("Programming");
     }
 
 

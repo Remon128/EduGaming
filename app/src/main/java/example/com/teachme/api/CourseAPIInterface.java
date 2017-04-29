@@ -16,10 +16,18 @@ import retrofit2.http.Path;
 
 public interface CourseAPIInterface {
 
+
+
+    @POST("/api/course/getAll")
+    Call<List<Course>> getAllCourses();
+
     @POST("/api/course/getByTeacherMail")
     Call<List<Course>> getCourses(@Body User mail);
 
     @POST("/api/create/course")
     Call<Course> createCourse(@Body Course course);
+
+    @POST("/api/course/getByStudentMail")
+    Call<List<Course>> getCoursesStudent(@Body User mail);
 
 }
