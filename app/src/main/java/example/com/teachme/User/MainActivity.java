@@ -133,11 +133,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         Call<User> connection = null;
-        if (student.isChecked())
+        if (student.isChecked()) {
             connection = userAPIInterface.getStudent(u);
-        else if (teacher.isChecked())
+            DbUtils.isTeacher = false ;
+        } else if (teacher.isChecked()) {
             connection = userAPIInterface.getTeacher(u);
-
+            DbUtils.isTeacher = true ;
+        }
 
         if (connection != null)
             connection.enqueue(new Callback<User>() {
@@ -157,9 +159,8 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getBaseContext(), "Please enter right email", Toast.LENGTH_SHORT).show();
                             }
                             if (flag) {
-
                                 DbUtils.createDBUtils(getBaseContext());
-                                DbUtils.addUser(user.getMail(),user.getPassword(),user.getName());
+                                DbUtils.addUser(user.getMail(), user.getPassword(), user.getName());
                                 startActivity(i);
                             } else {
                                 Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package swe2.springbootstarter.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -63,6 +64,8 @@ public class Course {
 //	}
 
 	public Course() {
+		
+		this.students = new HashSet<Student>();
 		
 	}
 	

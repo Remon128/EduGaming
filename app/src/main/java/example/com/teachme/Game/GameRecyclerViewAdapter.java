@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.Game.GameFragment.OnListFragmentInteractionListener;
 import example.com.teachme.Question.QuestionActivity;
 import example.com.teachme.R;
@@ -44,6 +45,7 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
             public void onClick(View v) {
                 Intent i = new Intent(context, QuestionActivity.class);
                 i.putExtra("gameId",holder.mItem.getId());
+                DbUtils.gameId = holder.mItem.getId();
                 context.startActivity(i);
             }
         });

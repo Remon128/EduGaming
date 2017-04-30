@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/iv"
-            android:layout_width="70sp"
-            android:layout_height="match_parent"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
             android:src="@drawable/map_icon" />
 
         <LinearLayout
@@ -43,6 +43,17 @@
                 android:layout_height="wrap_content"
                 android:text="Course Description"
                 android:textAppearance="?attr/textAppearanceListItem" />
+
+            <ImageButton android:id="@+id/favorite"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:src="@drawable/star"
+                android:background="#00ffffff" />
+
+
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -20,25 +20,23 @@ import example.com.teachme.model.User;
 
 public class TeacherActivity extends AppCompatActivity {
 
-    SharedPreferences settings;
     Button createCourse;
-    Bundle bundle;
-    String email ;
-    DBHandler dbHandler = null;
+    String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
-        dbHandler = new DBHandler(getBaseContext());
 
-        email = DbUtils.email;
+        DbUtils.createDBUtils(getBaseContext());
+        email = DbUtils.mail;
 
+        Toast.makeText(getBaseContext(),email,Toast.LENGTH_SHORT).show();
         createCourse = (Button) findViewById(R.id.createCourse);
-        CourseFragment courseFragment = new CourseFragment(email,true);
-
+        CourseFragment courseFragment = new CourseFragment(email, 1);
         getSupportFragmentManager().
                 beginTransaction().
-                add(R.id.flcourse, courseFragment, "").
+                add(R.id.flcourse , courseFragment, "").
                 commit();
     }
 
@@ -55,7 +53,7 @@ public class TeacherActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        dbHandler.deleteUser(email);
+        DbUtils.delete();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 

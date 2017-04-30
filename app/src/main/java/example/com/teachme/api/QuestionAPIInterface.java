@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -22,7 +23,10 @@ public interface QuestionAPIInterface {
     @GET("/api/games/{gameId}")
     Call<List<MCQ>> getQuestion(@Path("gameId") String id);
 
-    @POST("api/create/question/{gameId}")
-    Call<MCQ> createQuestion(@Path("gameId")Integer id, @Body MCQ question);
+    @PUT("/api/update/question/{questionId}")
+    Call<MCQ> updateQuestion(@Body MCQ question , @Path("questionId") Integer questionId);
+
+    @POST("/api/create/Question/{gameId}")
+    Call<MCQ> createQuestion(@Path("gameId")String id, @Body MCQ question);
 
 }

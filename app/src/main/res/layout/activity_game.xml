@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
     tools:context="example.com.teachme.Game.GameActivity">
+
+
 
     <FrameLayout
         android:id="@+id/gamelist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ff4">
-    </FrameLayout>
+        android:background="#ff4"></FrameLayout>
 </LinearLayout>

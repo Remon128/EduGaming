@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.R;
@@ -58,6 +59,7 @@ public class QuestionFragment extends Fragment {
         final QuestionRecyclerViewAdapter adapter = new QuestionRecyclerViewAdapter(mcqList,context);
         recyclerView.setAdapter(adapter);
 
+
         connection.enqueue(new Callback<List<MCQ>>() {
             @Override
             public void onResponse(Call<List<MCQ>> call, Response<List<MCQ>> response) {
@@ -102,6 +104,6 @@ public class QuestionFragment extends Fragment {
 
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Question item);
     }
 }

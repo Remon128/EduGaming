@@ -35,19 +35,10 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-        test = (TextView) findViewById(R.id.testdata);
 
-        //Toast.makeText(getBaseContext(), "Welcome to " + user.getName(), Toast.LENGTH_SHORT).show();
+        email = DbUtils.mail;
 
-        email = DbUtils.email;
-
-//        Toast.makeText()
-        CourseFragment courseFragment = new CourseFragment(email,true);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.flcourse, courseFragment, "")
-                .commit();
-    }
+   }
 
     @Override
     public void onBackPressed() {
@@ -55,6 +46,27 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
     }
+
+    public void listCourses(View view)
+    {
+        CourseFragment courseFragment = new CourseFragment(email,3);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flcourse, courseFragment, "")
+                .commit();
+
+    }
+
+    public void Enroll(View view)
+    {
+        CourseFragment courseFragment = new CourseFragment(email,2);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flcourse, courseFragment, "")
+                .commit();
+    }
+
+
 
     public void logout(View view) {
         settings = getSharedPreferences("mySharedPref", 0);

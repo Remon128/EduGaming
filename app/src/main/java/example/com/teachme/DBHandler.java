@@ -91,6 +91,19 @@ public class DBHandler extends SQLiteOpenHelper {
         }
     }
 
+    public void deleteAll() {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+
+            db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE 1 ; ");
+
+        } catch (SQLException e) {
+            //Toast.makeText(context,"due to delete: "+e,Toast.LENGTH_LONG).show();
+        } finally {
+            db.close();
+        }
+    }
+
     public boolean isChecked(String id) {
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " =\"" + id + "\"";
@@ -105,7 +118,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public UserDBTable selectUser(String mail) {
         UserDBTable tables = new UserDBTable();
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE "+COLUMN_ID+" = "+mail+" ;";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = " + mail + " ;";
         Cursor c = db.rawQuery(query, null);
         UserDBTable t = null;
 
@@ -132,7 +145,6 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return t;
     }
-
 
 
     public ArrayList<UserDBTable> selectAll() {

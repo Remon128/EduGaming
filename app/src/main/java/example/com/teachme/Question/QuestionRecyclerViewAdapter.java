@@ -2,6 +2,7 @@ package example.com.teachme.Question;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,18 +16,34 @@ import example.com.teachme.Question.QuestionFragment.OnListFragmentInteractionLi
 import example.com.teachme.Question.dummy.DummyContent.DummyItem;
 import example.com.teachme.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRecyclerViewAdapter.ViewHolder> {
 
-    private List<MCQ> questions = null;
+    static private List<MCQ> questions = null;
     private Context context = null;
+    static private List<Integer> userAnswers ;
+
 
     public QuestionRecyclerViewAdapter(List<MCQ> items, Context context) {
         questions = items;
         this.context = context;
+        userAnswers = new ArrayList<>(questions.size());
+        for(int i = 0 ; i < questions.size();i++)
+            userAnswers.add(0);
     }
+
+
+    public static List<Integer> getUserAnswers() {
+        return userAnswers;
+    }
+
+    public static List<MCQ> getQuestions() {
+        return questions;
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,17 +53,72 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = questions.get(position);
         holder.mQuestion.setText(questions.get(position).getDescription());
         String[] chs = holder.mItem.getChoices();
+
         holder.r1.setText(String.format("%s", chs[0]));
         holder.r2.setText(String.format("%s", chs[1]));
+        holder.r3.setVisibility(View.GONE);
+        holder.r4.setVisibility(View.GONE);
 
-        //  holder.r3.setText(String.format("%s", chs[2]));
-       /* holder.r4.setText(String.format("%s", chs[3]));
+        if (chs.length == 4) {
+            holder.r3.setVisibility(View.VISIBLE);
+            holder.r4.setVisibility(View.VISIBLE);
+
+            holder.r3.setText(String.format("%s", chs[2]));
+            holder.r4.setText(String.format("%s", chs[3]));
+        }
+
+        holder.group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+
+                switch (checkedId)
+                {
+                    case R.id.radio1:
+                        userAnswers.add(position,1);
+                        break;
+                    case R.id.radio2:
+                        userAnswers.add(position,2);
+                        break;
+                    case R.id.radio3:
+                        userAnswers.add(position,3);
+                        break;
+                    case R.id.radio4:
+                        userAnswers.add(position,4);
+                        break;
+                }
+
+            }
+        });
+        /*
+        holder.group.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedId = holder.group.getCheckedRadioButtonId();
+                Toast.makeText(context.getApplicationContext(),selectedId+"",Toast.LENGTH_SHORT).show();
+
+                switch (selectedId)
+                {
+                    case R.id.radio1:
+                        Toast.makeText(context,"1",Toast.LENGTH_SHORT).show();
+                        userAnswers.add(position,1);
+                        break;
+                    case R.id.radio2:
+                        userAnswers.add(position,2);
+                        break;
+                    case R.id.radio3:
+                        userAnswers.add(position,3);
+                        break;
+                    case R.id.radio4:
+                        userAnswers.add(position,4);
+                        break;
+                }
+            }
+        });
 */
-       Toast.makeText(context, holder.mItem.getChoices().length + "", Toast.LENGTH_SHORT).show();
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

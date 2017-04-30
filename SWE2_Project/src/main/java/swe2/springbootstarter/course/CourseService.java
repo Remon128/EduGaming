@@ -31,7 +31,7 @@ public class CourseService {
 	public List<Course> getCoursesByStudentMail(String studentMail){
 		
 		ArrayList<Course> courses = new ArrayList<>();
-		courseRepository.findByTeacher_Mail(studentMail).forEach(courses::add);
+		courseRepository.findByStudents_Mail(studentMail).forEach(courses::add);
 		return courses;
 	}
 	

@@ -42,6 +42,7 @@ public class CourseController {
         }
         return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
     }
+	
 	///////////////////////////////////////////////
 	@RequestMapping(value = "/course/getAll", method = RequestMethod.POST)
     public ResponseEntity<List<Course>> getAllCourses() {
@@ -82,18 +83,23 @@ public class CourseController {
 	 
 	/////////////////////////////////////////////////
 	 @RequestMapping(value = "/enroll/course", method = RequestMethod.POST)
-	    public ResponseEntity<?> enrollCourse(@RequestBody Course course,@RequestBody Student student , UriComponentsBuilder ucBuilder) {
+	    public ResponseEntity<?> enrollCourse(@RequestBody Course course , UriComponentsBuilder ucBuilder) {
 	        logger.info("Creating Course : {}", course);
+	        Student student = course.getStudents().iterator().next();
+
 	        String mail = student.getMail();
+	        
+	        System.out.println(mail);
+	        
+	        
 	        if (!userService.isUserExist(mail) || !courseService.isCourseExist(course.getId())) {
 	            logger.error("Unable to create. A Course with name {} already exist", course.getName());
 	            return new ResponseEntity<>(new CustomErrorType("Error"),HttpStatus.CONFLICT);
 	        }
-	        student = (Student) userService.getUser(mail);
+	     //   student = (Student) userService.getUser(mail);
 	        course.putStudent(student);
 	        courseService.updateCourse(course);
 	 
-	        
 	        return new ResponseEntity<Course>(course, HttpStatus.CREATED);
 	    }
 	/////////////////////////////////////////////////

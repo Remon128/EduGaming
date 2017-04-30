@@ -36,9 +36,9 @@ public class CreateCourseActivity extends AppCompatActivity {
         //this.btn = (Button)findViewById()
         courseName = (EditText) findViewById(R.id.courseName);
         courseDesc = (EditText) findViewById(R.id.courseDesc);
-        Toast.makeText(getBaseContext(), DbUtils.email, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), DbUtils.mail, Toast.LENGTH_SHORT).show();
         teacher = new Teacher();
-        teacher.setMail(DbUtils.email);
+        teacher.setMail(DbUtils.mail);
     }
 
     public void createCourse(View view) {
@@ -57,10 +57,7 @@ public class CreateCourseActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Course> call, Response<Course> response) {
                     if (response.isSuccessful()) {
-
-                        String json = response.body().getName();
-                        Toast.makeText(getBaseContext(), "Course has been created "+ json, Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(getBaseContext(), "Course has been created ", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(CreateCourseActivity.this, TeacherActivity.class);
                         startActivity(i);
                     }

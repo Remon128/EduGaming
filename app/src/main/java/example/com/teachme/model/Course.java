@@ -3,6 +3,7 @@ package example.com.teachme.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Course {
@@ -20,6 +21,8 @@ public class Course {
     }
 
     public void putStudent(Student s) {
+        if(students==null)
+            this.students = new HashSet<Student>();
         this.students.add(s);
     }
 
@@ -46,7 +49,7 @@ public class Course {
 //	}
 
     public Course() {
-
+       students = new HashSet<Student>();
     }
 
     public String getName() {

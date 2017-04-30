@@ -13,6 +13,7 @@ import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.R;
 import example.com.teachme.api.CourseAPIInterface;
 import example.com.teachme.model.Course;
+import example.com.teachme.model.Teacher;
 import example.com.teachme.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,23 +32,40 @@ public class CourseFragment extends Fragment {
 
     private String mail;
     private List<Course> courses = null;
+    private List<Course> fcourses = null;
 
+    int courseType;
 
-    Call<List<Course>> connection;
+    Call<List<Course>> connection = null;
+    CourseAPIInterface courseAPIInterface = null;
+    User user;
+    CourseRecyclerViewAdapter adapter;
 
     public CourseFragment() {
-
+        courseAPIInterface = ApiUtils.getAPICourse();
     }
 
-    public CourseFragment(String email, boolean isTeacher) {
+    //courseType = 1 for teacher
+    //courseType = 2 for STUDENT
+    //courseType = 3 for All
 
-        CourseAPIInterface courseAPIInterface = ApiUtils.getAPICourse();
-        User user = new User();
+    public CourseFragment(String email, int courseType) {
+
+        courseAPIInterface = ApiUtils.getAPICourse();
+        user = new User();
         user.setMail(email);
+        Teacher teacher = new Teacher();
+        teacher.setMail(email);
+        mail = email;
         courses = new ArrayList<>();
-        if (isTeacher)
-            connection = courseAPIInterface.getCourses(user);
-        else
+        fcourses = new ArrayList<>();
+        this.courseType = courseType;
+
+        if (courseType == 1)
+            connection = courseAPIInterface.getCourses(teacher);
+        else if (courseType == 2)
+            connection = courseAPIInterface.getCoursesStudent(user);
+        else if (courseType == 3)
             connection = courseAPIInterface.getAllCourses();
     }
 
@@ -63,15 +81,16 @@ public class CourseFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        final CourseRecyclerViewAdapter adapter = new CourseRecyclerViewAdapter(courses, getContext());
+        adapter = new CourseRecyclerViewAdapter(courses, fcourses, courseType , mail , getContext());
         recyclerView.setAdapter(adapter);
 
         connection.enqueue(new Callback<List<Course>>() {
             @Override
             public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
                 if (response.isSuccessful()) {
-                    if (response.body() != null)
+                    if (response.body() != null) {
                         courses.addAll(response.body());
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -82,6 +101,28 @@ public class CourseFragment extends Fragment {
             }
         });
 
+        courseAPIInterface = ApiUtils.getAPICourse();
+
+        if (courseType != 1) {
+
+            connection = courseAPIInterface.getCoursesStudent(user);
+
+            connection.enqueue(new Callback<List<Course>>() {
+                @Override
+                public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
+                    if (response.isSuccessful())
+                        if (response.body() != null) {
+                            fcourses.addAll(response.body());
+                        }
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Call<List<Course>> call, Throwable t) {
+                    Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
         return view;
     }
