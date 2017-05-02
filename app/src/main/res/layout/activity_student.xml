@@ -20,6 +20,8 @@
             android:layout_height="wrap_content"
             android:onClick="Enroll"
             android:text="Enroll"
+            android:textColor="@android:color/white"
+            android:background="@color/colorTextHint"
             app:srcCompat="@drawable/logout" />
 
         <Button
@@ -28,6 +30,8 @@
             android:layout_height="wrap_content"
             android:onClick="listCourses"
             android:text="listCourses"
+            android:textColor="@android:color/white"
+            android:background="@color/colorTextHint"
             app:srcCompat="@drawable/logout" />
 
         <Button
@@ -36,6 +40,8 @@
             android:layout_height="wrap_content"
             android:onClick="logout"
             android:text="Logout"
+            android:textColor="@android:color/white"
+            android:background="@color/colorTextHint"
             app:srcCompat="@drawable/logout" />
 
     </LinearLayout>

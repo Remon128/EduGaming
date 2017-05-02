@@ -140,22 +140,7 @@ public class CreateQuestionFragment extends Fragment {
         Button createmcq = (Button) view.findViewById(R.id.createmcq);
         Button createtf = (Button) view.findViewById(R.id.createtf);
 
-        Button showmcq = (Button) view.findViewById(R.id.showmcq);
-        Button showtf = (Button) view.findViewById(R.id.showtf);
 
-        showmcq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showQuestion();
-            }
-        });
-
-        showtf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showQuestion();
-            }
-        });
         createmcq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

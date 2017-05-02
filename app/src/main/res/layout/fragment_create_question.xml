@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="@dimen/activity_vertical_margin"
+    android:background="@color/colorBackground"
     tools:context="example.com.teachme.Question.CreateQuestionFragment">
 
     <TextView
@@ -11,12 +12,15 @@
         android:layout_height="wrap_content"
         android:text="Select Answer"
         android:layout_margin="@dimen/activity_vertical_margin"
+        android:textColor="@android:color/white"
         android:textSize="25dp" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:popupBackground="@color/colorBackground"
+        android:textColor="@android:color/white">
 
     </Spinner>
     <LinearLayout
@@ -31,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
+            android:textColor="@android:color/white"
             android:text=""
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="30dp" />
@@ -43,6 +48,7 @@
 
             <RadioButton
                 android:id="@+id/flag1"
+                android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="True" />
@@ -50,6 +56,7 @@
 
             <RadioButton
                 android:id="@+id/flag2"
+                android:textColor="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="False" />
@@ -62,16 +69,15 @@
             android:orientation="horizontal"
             android:layout_gravity="end">
 
-            <Button
-                android:id="@+id/showtf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Show Question" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"
                 android:id="@+id/createtf"
+                android:layout_gravity="end"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:text="Create Question" />
 
         </LinearLayout>
@@ -89,6 +95,7 @@
             android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
             android:layout_margin="@dimen/text_margin"
             android:text=""
             android:textAppearance="?attr/textAppearanceListItem"
@@ -108,17 +115,22 @@
                 <RadioButton
                     android:id="@+id/radio1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_dark"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:id="@+id/t1"/>
 
                 <EditText
                     android:id="@+id/answer1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/background_dark"
+                    >
 
                 </EditText>
             </LinearLayout>
@@ -136,11 +148,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:id="@+id/t2"/>
 
                 <EditText
                     android:id="@+id/answer2"
                     android:layout_width="match_parent"
+                    android:textColor="@android:color/white"
                     android:layout_height="wrap_content">
 
                 </EditText>
@@ -149,20 +163,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/background_dark"
                 android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/radio3"
                     android:layout_width="wrap_content"
+                    android:textColor="@android:color/white"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:id="@+id/t3"/>
 
                 <EditText
                     android:id="@+id/answer3"
                     android:layout_width="match_parent"
+                    android:textColor="@android:color/white"
                     android:layout_height="wrap_content">
 
                 </EditText>
@@ -176,16 +194,19 @@
                 <RadioButton
                     android:id="@+id/radio4"
                     android:layout_width="wrap_content"
+                    android:textColor="@android:color/white"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:id="@+id/t4"/>
 
                 <EditText
                     android:id="@+id/answer4"
                     android:layout_width="match_parent"
+                    android:textColor="@android:color/white"
                     android:layout_height="wrap_content">
 
                 </EditText>
@@ -197,15 +218,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="end">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/showmcq"
-                android:text="Show Question"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/createmcq"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
                 android:text="Create Question" />
 
         </LinearLayout>

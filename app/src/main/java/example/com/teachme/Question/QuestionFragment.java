@@ -31,7 +31,7 @@ import java.util.List;
 public class QuestionFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
-
+    QuestionRecyclerViewAdapter adapter;
     List<MCQ> mcqList = null;
     Call<List<MCQ>> connection;
 
@@ -56,7 +56,7 @@ public class QuestionFragment extends Fragment {
         Context context = view.getContext();
         RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        final QuestionRecyclerViewAdapter adapter = new QuestionRecyclerViewAdapter(mcqList,context);
+        adapter = new QuestionRecyclerViewAdapter(mcqList, context);
         recyclerView.setAdapter(adapter);
 
 

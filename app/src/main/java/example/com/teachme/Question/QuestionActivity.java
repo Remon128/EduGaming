@@ -36,11 +36,13 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         showbtn = (Button) findViewById(R.id.showbtn);
         okbtn = (Button) findViewById(R.id.submit);
 
-        okbtn.setVisibility(View.VISIBLE);
 
         if (!DbUtils.isTeacher) {
-            addbtn.setVisibility(View.GONE);
-            showbtn.setVisibility(View.GONE);
+            okbtn.setVisibility(View.VISIBLE);
+        } else {
+            addbtn.setVisibility(View.VISIBLE);
+            showbtn.setVisibility(View.VISIBLE);
+            okbtn.setVisibility(View.VISIBLE);
         }
 
 
@@ -54,6 +56,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
     public void addQuestion(View view) {
 
+        okbtn.setVisibility(View.GONE);
         CreateQuestionFragment questionFragment = new CreateQuestionFragment(getBaseContext(), this);
 
         getSupportFragmentManager()
@@ -65,22 +68,28 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
     public void submit(View view) {
         Integer score = 0;
-        List<Integer> answers = QuestionRecyclerViewAdapter.getUserAnswers();
 
-        List<MCQ> mcqs = QuestionRecyclerViewAdapter.getQuestions();
+        try {
 
+            int[] answers = QuestionRecyclerViewAdapter.getUserAnswers();
+            List<MCQ> mcqs = QuestionRecyclerViewAdapter.getQuestions();
 
-        for (int i = 0; i < mcqs.size(); i++) {
-            if (answers.get(i) == mcqs.get(i).getAnswer()) {
-                score += 10;
-            }
+            if ((answers.length - 1) == mcqs.size())
+                for (int i = 1; i < answers.length; i++) {
+                    if (answers[i] == mcqs.get(i-1).getAnswer()) {
+                        score += 10;
+                    }
+                }
+            Toast.makeText(getBaseContext(), "Your Score is " + score, Toast.LENGTH_SHORT).show();
+        }catch (Exception e)
+        {
+            //
         }
-
-        Toast.makeText(getBaseContext(),"Your Score is "+ score , Toast.LENGTH_SHORT).show();
-
     }
 
     public void showQuestion(View view) {
+
+        okbtn.setVisibility(View.VISIBLE);
 
         QuestionFragment questionFragment = new QuestionFragment(gameId);
 

@@ -3,18 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/activity_horizontal_margin"
     android:background="@color/colorBackground"
     android:orientation="vertical"
     tools:context="example.com.teachme.User.MainActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="169dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/logo" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FA8072"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,9 +84,9 @@
             android:layout_width="match_parent"
             android:layout_height="50sp"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:background="@color/colorTextHint"
             android:onClick="login"
             android:textColor="@android:color/white"
+            android:background="#FA8072"
             android:text="@string/text_login" />
 
         <LinearLayout
@@ -97,8 +99,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="@color/colorTextHint"
+                android:background="#FA8072"
                 android:textColor="@android:color/white"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
                 android:text="Sign Up" />
 
             <Button
@@ -106,7 +109,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.5"
                 android:layout_height="wrap_content"
-                android:background="@color/colorTextHint"
+                android:background="#FA8072"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:text="Forget"
                 android:textColor="@android:color/white" />
         </LinearLayout>

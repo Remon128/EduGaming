@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
     tools:context="example.com.teachme.Question.QuestionActivity">
 
@@ -20,7 +21,9 @@
 
             <Button
                 android:id="@+id/addbtn"
+                android:visibility="invisible"
                 android:layout_width="0dp"
+                android:background="#FA8072"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:onClick="addQuestion"
@@ -29,6 +32,8 @@
             <Button
                 android:id="@+id/showbtn"
                 android:layout_width="0dp"
+                android:visibility="invisible"
+                android:background="#FA8072"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:onClick="showQuestion"
@@ -45,6 +50,8 @@
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:background="#FA8072"
             android:onClick="submit"
             android:text="SUBMIT" />
 

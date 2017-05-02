@@ -1,8 +1,10 @@
 package swe2.springbootstarter.course;
 
+import org.testng.annotations.Test;
 import java.util.ArrayList;
 
 import org.testng.Assert;
+import org.testng.AssertJUnit;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -38,7 +40,7 @@ public class CourseServiceTest {
 	  @Test(dataProvider = "getcourse")
 	  public void getCourseByTeacherMail(ArrayList<Course> result, String TeacherMail ) {
 		  CourseService cs=new CourseService();
-		  Assert.assertEquals(result, cs.getCoursesByTeacherMail(TeacherMail));
+		  AssertJUnit.assertEquals(result, cs.getCoursesByTeacherMail(TeacherMail));
 	  }
 
 	}

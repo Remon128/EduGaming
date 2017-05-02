@@ -16,6 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
         android:layout_margin="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
@@ -24,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
+            android:textColor="@color/colorText"
             android:text="Test q"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="30dp" />
@@ -36,21 +38,25 @@
 
             <RadioButton
                 android:id="@+id/radio1"
+                android:textColor="@color/colorText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/radio2"
+                android:textColor="@color/colorText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/radio3"
                 android:layout_width="wrap_content"
+                android:textColor="@color/colorText"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/radio4"
+                android:textColor="@color/colorText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -60,6 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit"
+            android:textColor="@color/colorText"
+            android:visibility="invisible"
             android:layout_gravity="right"
             android:background="#FA8072"/>
     </LinearLayout>

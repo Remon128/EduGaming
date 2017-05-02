@@ -24,19 +24,18 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
 
     static private List<MCQ> questions = null;
     private Context context = null;
-    static private List<Integer> userAnswers ;
+    static private int[] userAnswers;
 
 
     public QuestionRecyclerViewAdapter(List<MCQ> items, Context context) {
         questions = items;
         this.context = context;
-        userAnswers = new ArrayList<>(questions.size());
-        for(int i = 0 ; i < questions.size();i++)
-            userAnswers.add(0);
+        userAnswers = new int[questions.size()+1];
     }
 
 
-    public static List<Integer> getUserAnswers() {
+
+    public static int[] getUserAnswers() {
         return userAnswers;
     }
 
@@ -49,11 +48,17 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_question, parent, false);
+
+        if(userAnswers.length!=questions.size()+1)
+             userAnswers = new int[questions.size()+1];
+
+        //  Toast.makeText(context.getApplicationContext(), userAnswers.length + "", Toast.LENGTH_SHORT).show();
+
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = questions.get(position);
         holder.mQuestion.setText(questions.get(position).getDescription());
         String[] chs = holder.mItem.getChoices();
@@ -70,40 +75,43 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
             holder.r3.setText(String.format("%s", chs[2]));
             holder.r4.setText(String.format("%s", chs[3]));
         }
-
         holder.group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
 
-                switch (checkedId)
-                {
+                String pos = holder.mItem.getId();
+
+
+                int newPosition = Integer.parseInt(pos);
+
+                switch (checkedId) {
                     case R.id.radio1:
-                        userAnswers.add(position,1);
+                        userAnswers[newPosition] = 1;
                         break;
                     case R.id.radio2:
-                        userAnswers.add(position,2);
+                        userAnswers[newPosition] = 2;
                         break;
                     case R.id.radio3:
-                        userAnswers.add(position,3);
+                        userAnswers[newPosition] = 3;
                         break;
                     case R.id.radio4:
-                        userAnswers.add(position,4);
+                        userAnswers[newPosition] = 4;
                         break;
                 }
+                Toast.makeText(context.getApplicationContext(), newPosition + "", Toast.LENGTH_SHORT).show();
 
             }
         });
-        /*
+/*
         holder.group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int selectedId = holder.group.getCheckedRadioButtonId();
-                Toast.makeText(context.getApplicationContext(),selectedId+"",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context.getApplicationContext(),"Hello",Toast.LENGTH_SHORT).show();
 
                 switch (selectedId)
                 {
                     case R.id.radio1:
-                        Toast.makeText(context,"1",Toast.LENGTH_SHORT).show();
                         userAnswers.add(position,1);
                         break;
                     case R.id.radio2:
@@ -132,7 +140,8 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
         return questions.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public View mView;
         public TextView mQuestion;
         public RadioGroup group;
@@ -154,5 +163,11 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
 
         }
 
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+
+        }
     }
 }

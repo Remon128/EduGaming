@@ -4,15 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
+    android:background="@color/colorBackground"
     tools:context="example.com.teachme.Game.GameActivity">
 
-
+    <Button
+        android:id="@+id/createCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:onClick="createGamebtn"
+        android:textColor="@android:color/white"
+        android:background="#FA8072"
+        android:visibility="gone"
+        android:text="CREATE GAME" />
 
     <FrameLayout
         android:id="@+id/gamelist"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ff4"></FrameLayout>
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 </LinearLayout>

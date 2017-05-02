@@ -23,6 +23,6 @@ public interface GameAPIInterface {
     Call<Game> getGame(@Query("name") String name);
 
     @POST("/api/game/{courseId}")
-    Call<Game> createGame(@Body Game game,@Path("courseId") Integer id);
+    Call<String> createGame(@Body Game game,@Path("courseId") Integer id);
 
 }
