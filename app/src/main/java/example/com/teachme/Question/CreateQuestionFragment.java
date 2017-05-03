@@ -38,12 +38,16 @@ public class CreateQuestionFragment extends Fragment {
     RadioButton r3;
     RadioButton r4;
 
-    boolean questionType = false;
+    int questionType = 0;
     //true if mcq
     // false if tf
     EditText desc2;
     RadioButton t;
     RadioButton f;
+
+    EditText desc3;
+    RadioButton speeched ;
+    EditText ttsAnswer ;
 
     TextView t1;
     TextView t2;
@@ -51,7 +55,7 @@ public class CreateQuestionFragment extends Fragment {
     TextView t4;
     Spinner spinner;
     Context context;
-    LinearLayout linearLayoutmcq = null, linearLayouttf;
+    LinearLayout linearLayoutmcq = null, linearLayouttf, linearLayouttts;
 
     public CreateQuestionFragment(Context context, OnFragmentInteractionListener newListener) {
         this.context = context;
@@ -76,6 +80,8 @@ public class CreateQuestionFragment extends Fragment {
         list.add("No Question Type Selected");
         list.add("MCQ");
         list.add("True & False");
+        list.add("Speech Word");
+
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -83,7 +89,7 @@ public class CreateQuestionFragment extends Fragment {
 
         linearLayouttf = (LinearLayout) view.findViewById(R.id.tf);
         linearLayoutmcq = (LinearLayout) view.findViewById(R.id.mcq);
-
+        linearLayouttts = (LinearLayout) view.findViewById(R.id.tts);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -93,15 +99,23 @@ public class CreateQuestionFragment extends Fragment {
                 Toast.makeText(context, item, Toast.LENGTH_SHORT).show();
 
                 if (item.equals("MCQ")) {
-                    questionType = true;
+                    questionType = 1;
                     linearLayoutmcq.setVisibility(View.VISIBLE);
                     linearLayouttf.setVisibility(View.GONE);
+                    linearLayouttts.setVisibility(View.GONE);
 
                 } else if (item.equals("True & False")) {
-                    questionType = false;
+                    questionType = 2;
                     linearLayouttf.setVisibility(View.VISIBLE);
                     linearLayoutmcq.setVisibility(View.GONE);
+                    linearLayouttts.setVisibility(View.GONE);
+                } else if (item.equals("Speech Word")) {
+                    questionType = 3;
+                    linearLayouttts.setVisibility(View.VISIBLE);
+                    linearLayouttf.setVisibility(View.GONE);
+                    linearLayoutmcq.setVisibility(View.GONE);
                 } else {
+                    linearLayouttts.setVisibility(View.GONE);
                     linearLayouttf.setVisibility(View.GONE);
                     linearLayoutmcq.setVisibility(View.GONE);
                 }
@@ -111,7 +125,7 @@ public class CreateQuestionFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
                 linearLayoutmcq.setVisibility(View.GONE);
                 linearLayouttf.setVisibility(View.GONE);
-
+                linearLayouttts.setVisibility(View.GONE);
             }
         });
 
@@ -137,9 +151,14 @@ public class CreateQuestionFragment extends Fragment {
         t = (RadioButton) view.findViewById(R.id.flag1);
         f = (RadioButton) view.findViewById(R.id.flag2);
 
+
+        desc3 = (EditText)view.findViewById(R.id.ttsQuestion);
+        speeched = (RadioButton)view.findViewById(R.id.radiotts);
+        ttsAnswer = (EditText)view.findViewById(R.id.ttsAnswer);
+
         Button createmcq = (Button) view.findViewById(R.id.createmcq);
         Button createtf = (Button) view.findViewById(R.id.createtf);
-
+        Button createtts = (Button)view.findViewById(R.id.createtts);
 
         createmcq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,11 +175,19 @@ public class CreateQuestionFragment extends Fragment {
         });
 
 
+        createtts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createQuestion();
+            }
+        });
+
+
         return view;
     }
 
     public void createQuestion() {
-        if (questionType) {
+        if (questionType == 1) {
             if (desc1.getText().length() > 0) {
                 if (q1.getText().length() > 0 && q2.getText().length() > 0 && q3.getText().length() > 0 && q4.getText().length() > 0) {
 
@@ -189,7 +216,7 @@ public class CreateQuestionFragment extends Fragment {
                         mListener.onFragmentInteraction(tf);
 
 
-                        startActivity(new Intent(context,QuestionActivity.class));
+                        startActivity(new Intent(context, QuestionActivity.class));
 
                     } else
                         Toast.makeText(context, "Please check an answer", Toast.LENGTH_SHORT).show();
@@ -199,7 +226,7 @@ public class CreateQuestionFragment extends Fragment {
             } else
                 Toast.makeText(context, "Please don't leave question description empty", Toast.LENGTH_SHORT).show();
 
-        } else {
+        } else if (questionType == 2) {
             if (desc2.getText().length() > 0) {
 
                 if (t.isChecked() || f.isChecked()) {
@@ -218,18 +245,40 @@ public class CreateQuestionFragment extends Fragment {
 
                     mListener.onFragmentInteraction(tf);
 
-                    startActivity(new Intent(context,QuestionActivity.class));
+                    startActivity(new Intent(context, QuestionActivity.class));
 
                 }
-
+                else
+                {
+                    Toast.makeText(context, "Please select answer", Toast.LENGTH_SHORT).show();
+                }
             } else
                 Toast.makeText(context, "Please don't leave any question empty", Toast.LENGTH_SHORT).show();
 
+        } else if (questionType == 3) {
+
+            if (desc3.getText().length() > 0) {
+
+                if (speeched.isChecked()) {
+                    MCQ tf = new MCQ();
+                    tf.setDescription(desc3.getText().toString());
+                    List<String> list = new ArrayList<>();
+                    list.add(ttsAnswer.getText().toString());
+                    tf.setChoices(list.toArray(new String[0]));
+
+                    if (speeched.isChecked())
+                        tf.setAnswer(0);
+
+                    mListener.onFragmentInteraction(tf);
+
+                    startActivity(new Intent(context, QuestionActivity.class));
+                }
+            } else
+                Toast.makeText(context, "Please don't leave any question empty", Toast.LENGTH_SHORT).show();
         }
 
-
     }
-
+/*
     public void showQuestion() {
 
         if (questionType) {
@@ -260,7 +309,7 @@ public class CreateQuestionFragment extends Fragment {
         }
     }
 
-
+*/
             /*
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                             if (flag) {
                                 DbUtils.createDBUtils(getBaseContext());
                                 DbUtils.addUser(user.getMail(), user.getPassword(), user.getName());
+                                DbUtils.name = user.getName();
                                 startActivity(i);
                             } else {
                                 Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();

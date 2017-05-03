@@ -40,22 +40,26 @@
                 android:id="@+id/radio1"
                 android:textColor="@color/colorText"
                 android:layout_width="wrap_content"
+                android:visibility="gone"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/radio2"
                 android:textColor="@color/colorText"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/radio3"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:textColor="@color/colorText"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/radio4"
+                android:visibility="gone"
                 android:textColor="@color/colorText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -65,10 +69,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"
+            android:text="Talk"
+            android:id="@+id/speechbtn"
             android:textColor="@color/colorText"
-            android:visibility="invisible"
             android:layout_gravity="right"
+            android:visibility="gone"
             android:background="#FA8072"/>
+
     </LinearLayout>
 </android.support.v7.widget.CardView>

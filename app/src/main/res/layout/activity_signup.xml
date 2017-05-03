@@ -13,8 +13,8 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:id="@+id/circleImageView"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:src="@drawable/logo"
         app:civ_border_color="#FA8072"
@@ -29,28 +29,31 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="USERNAME"
-            android:textSize="20sp" />
+            android:text="Username"
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorText"
+            android:hint="Username"
             android:ems="10"
             android:inputType="textEmailAddress" />
-
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="EMAIL"
-            android:textSize="20sp" />
+            android:text="Email"
+            android:textSize="15sp" />
 
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
+            android:textColor="@color/colorText"
             android:layout_height="wrap_content"
+            android:hint="Email"
             android:ems="10"
             android:inputType="textEmailAddress" />
 
@@ -58,13 +61,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PASSWORD"
-            android:textSize="20sp" />
+            android:hint="Password"
+            android:text="Password"
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/password"
+            android:textColor="@color/colorText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:ems="10"
             android:inputType="textPassword" />
 

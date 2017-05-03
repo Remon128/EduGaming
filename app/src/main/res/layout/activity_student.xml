@@ -15,6 +15,16 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/sound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sound"
+            android:text="Sound"
+            android:textColor="@android:color/white"
+            android:background="@color/colorTextHint"
+            app:srcCompat="@drawable/logout" />
+
+        <Button
             android:id="@+id/enroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,13 +1,18 @@
 package example.com.teachme.Question;
 
+import android.content.Intent;
 import android.net.Uri;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import example.com.teachme.Connection.ApiUtils;
@@ -19,16 +24,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class QuestionActivity extends AppCompatActivity implements CreateQuestionFragment.OnFragmentInteractionListener {
+public class QuestionActivity extends AppCompatActivity implements CreateQuestionFragment.OnFragmentInteractionListener ,QuestionRecyclerViewAdapter.OnRVInteractionListener, TextToSpeech.OnInitListener {
     String gameId = null;
     Button addbtn;
     Button showbtn;
     Button okbtn;
+    boolean state = false;
+    String check = null ;
+    private static final String TAG = "MagicWord";
+
+    private TextView result;
+    private TextToSpeech tts;
+
+    private int SPEECH_REQUEST_CODE = 1234;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
+
+        tts = new TextToSpeech(this, this);
 
         gameId = DbUtils.gameId;
 
@@ -70,7 +85,6 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         Integer score = 0;
 
         try {
-
             int[] answers = QuestionRecyclerViewAdapter.getUserAnswers();
             List<MCQ> mcqs = QuestionRecyclerViewAdapter.getQuestions();
 
@@ -99,6 +113,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
                 .commit();
     }
 
+
     @Override
     public void onFragmentInteraction(MCQ question) {
 
@@ -106,6 +121,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
         QuestionAPIInterface questionAPIInterface = ApiUtils.getAPIQuestion();
         Call<MCQ> conn = questionAPIInterface.createQuestion(gameId, question);
+
 
         conn.enqueue(new Callback<MCQ>() {
             @Override
@@ -119,6 +135,73 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
             }
 
         });
+    }
 
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+
+        } else {
+            //failed to init
+            finish();
+        }
+
+    }
+
+    private void sendRecognizeIntent() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say Car");
+        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 100);
+
+        startActivityForResult(intent, SPEECH_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SPEECH_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                ArrayList<String> matches = data
+                        .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+                if (matches.size() == 0) {
+                    tts.speak("Heard nothing", TextToSpeech.QUEUE_FLUSH, null);
+                } else {
+                    String matched = matches.get(0);
+                    String magicWord = check.toLowerCase() ;
+                    if (matched.equals(magicWord)) {
+                        state = true;
+                        tts.speak("Excellent you said the word right!", TextToSpeech.QUEUE_FLUSH, null);
+                    } else {
+                        tts.speak("try again", TextToSpeech.QUEUE_FLUSH, null);
+                    }
+                }
+                Toast.makeText(getBaseContext(),matches.get(0),Toast.LENGTH_SHORT).show();
+               // result.setText("heard: " + matches);
+            } else {
+                Log.d(TAG, "result NOT ok");
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        if (tts != null) {
+            tts.shutdown();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onClickInteraction(String word) {
+        check = word ;
+        Toast.makeText(getApplication(),word,Toast.LENGTH_SHORT).show();
+        sendRecognizeIntent();
+
+        return state;
     }
 }
