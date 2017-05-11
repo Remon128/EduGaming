@@ -1,6 +1,6 @@
 package swe2.springbootstarter.entities;
 
-import java.util.List;
+
 
 import javax.persistence.Entity;
 

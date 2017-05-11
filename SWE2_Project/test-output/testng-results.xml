@@ -2,12 +2,12 @@
 <testng-results skipped="4" failed="0" ignored="0" total="4" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="87" started-at="2017-04-29T17:34:39Z" finished-at="2017-04-29T17:34:39Z">
+  <suite name="Default suite" duration-ms="92" started-at="2017-05-11T13:33:52Z" finished-at="2017-05-11T13:33:52Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="87" started-at="2017-04-29T17:34:39Z" finished-at="2017-04-29T17:34:39Z">
+    <test name="Default test" duration-ms="92" started-at="2017-05-11T13:33:52Z" finished-at="2017-05-11T13:33:52Z">
       <class name="swe2.springbootstarter.course.CourseServiceTest">
-        <test-method status="SKIP" signature="getCourseByTeacherMail(java.util.ArrayList, java.lang.String)[pri:0, instance:swe2.springbootstarter.course.CourseServiceTest@968a59]" name="getCourseByTeacherMail" duration-ms="0" started-at="2017-04-29T19:34:39Z" data-provider="getcourse" finished-at="2017-04-29T19:34:39Z">
+        <test-method status="SKIP" signature="getCourseByTeacherMail(java.util.ArrayList, java.lang.String)[pri:0, instance:swe2.springbootstarter.course.CourseServiceTest@968a59]" name="getCourseByTeacherMail" duration-ms="0" started-at="2017-05-11T15:33:52Z" data-provider="getcourse" finished-at="2017-05-11T15:33:52Z">
           <exception class="java.lang.RuntimeException">
             <message>
               <![CDATA[java.lang.NullPointerException]]>
@@ -39,7 +39,7 @@
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
 Caused by: java.lang.NullPointerException
 	at swe2.springbootstarter.course.CourseService.addCourse(CourseService.java:43)
-	at swe2.springbootstarter.course.CourseServiceTest.getCourseDP(CourseServiceTest.java:27)
+	at swe2.springbootstarter.course.CourseServiceTest.getCourseDP(CourseServiceTest.java:29)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -56,7 +56,7 @@ Caused by: java.lang.NullPointerException
         </test-method> <!-- getCourseByTeacherMail -->
       </class> <!-- swe2.springbootstarter.course.CourseServiceTest -->
       <class name="swe2.springbootstarter.course.GameServiceTest">
-        <test-method status="SKIP" signature="getAllGames(java.util.ArrayList, java.lang.Integer)[pri:0, instance:swe2.springbootstarter.course.GameServiceTest@4f30ec]" name="getAllGames" duration-ms="0" started-at="2017-04-29T19:34:39Z" data-provider="get All Games" finished-at="2017-04-29T19:34:39Z">
+        <test-method status="SKIP" signature="getAllGames(java.util.ArrayList, java.lang.Integer)[pri:0, instance:swe2.springbootstarter.course.GameServiceTest@4f30ec]" name="getAllGames" duration-ms="0" started-at="2017-05-11T15:33:52Z" data-provider="get All Games" finished-at="2017-05-11T15:33:52Z">
           <exception class="java.lang.RuntimeException">
             <message>
               <![CDATA[java.lang.NullPointerException]]>
@@ -103,7 +103,7 @@ Caused by: java.lang.NullPointerException
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getAllGames -->
-        <test-method status="SKIP" signature="getGame(swe2.springbootstarter.entities.Game, java.lang.Integer)[pri:0, instance:swe2.springbootstarter.course.GameServiceTest@4f30ec]" name="getGame" duration-ms="0" started-at="2017-04-29T19:34:39Z" data-provider="get Game" finished-at="2017-04-29T19:34:39Z">
+        <test-method status="SKIP" signature="getGame(swe2.springbootstarter.entities.Game, java.lang.Integer)[pri:0, instance:swe2.springbootstarter.course.GameServiceTest@4f30ec]" name="getGame" duration-ms="0" started-at="2017-05-11T15:33:52Z" data-provider="get Game" finished-at="2017-05-11T15:33:52Z">
           <exception class="java.lang.RuntimeException">
             <message>
               <![CDATA[java.lang.NullPointerException]]>
@@ -150,7 +150,7 @@ Caused by: java.lang.NullPointerException
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getGame -->
-        <test-method status="SKIP" signature="isGameExist(boolean, java.lang.Integer)[pri:0, instance:swe2.springbootstarter.course.GameServiceTest@4f30ec]" name="isGameExist" duration-ms="0" started-at="2017-04-29T19:34:39Z" data-provider="Is Game Exist" finished-at="2017-04-29T19:34:39Z">
+        <test-method status="SKIP" signature="isGameExist(boolean, java.lang.Integer)[pri:0, instance:swe2.springbootstarter.course.GameServiceTest@4f30ec]" name="isGameExist" duration-ms="0" started-at="2017-05-11T15:33:52Z" data-provider="Is Game Exist" finished-at="2017-05-11T15:33:52Z">
           <exception class="java.lang.RuntimeException">
             <message>
               <![CDATA[java.lang.NullPointerException]]>

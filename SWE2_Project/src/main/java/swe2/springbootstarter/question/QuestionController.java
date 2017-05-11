@@ -17,7 +17,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import swe2.springbootstarter.entities.MCQ;
 import swe2.springbootstarter.entities.Question;
 import swe2.springbootstarter.game.GameService;
-import swe2.util.CustomErrorType;
 
 @RestController
 @RequestMapping("/api")
