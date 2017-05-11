@@ -71,6 +71,51 @@ public class GameController {
 		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
 	}
 	
+	@RequestMapping(value = "/game/Copy/{courseId}", method = RequestMethod.POST)
+	public ResponseEntity<?> copyGame(@RequestBody Game game,@PathVariable Integer courseId) {
+		logger.info("Copying Game : {}", game);
+
+		game.setId(null);
+		
+		game.setCourse(courseService.getCourse(courseId));
+		gameService.addGame(game);
+
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
+	}
+	
+	/*
+	 @RequestMapping(value = "/game/cancel", method = RequestMethod.PUT)
+	 public ResponseEntity<?> cancelGame(@RequestBody Game game) {
+
+		 logger.info("Canceling Game with name {}", game.getName());
+	
+	
+		 gameService.cancelGame(game);
+		 return new ResponseEntity<Game>(game, HttpStatus.OK);
+	 }
+
+	 @RequestMapping(value = "/game/uncancel", method = RequestMethod.PUT)
+	 public ResponseEntity<?> unCancelGame(@RequestBody Game game) {
+
+		 logger.info("unCanceling Game with name {}", game.getName());
+	
+	
+		 gameService.uncancelGame(game);
+		 return new ResponseEntity<Game>(game, HttpStatus.OK);
+	 }
+	 @RequestMapping(value = "/game/addCollaborator", method = RequestMethod.PUT)
+	 public ResponseEntity<?> addGameCollaborator(@RequestBody Game game) {
+
+		 logger.info("unCanceling Game with name {}", game.getName());
+	
+	
+		 gameService.uncancelGame(game);
+		 return new ResponseEntity<Game>(game, HttpStatus.OK);
+	 }
+	 
+	 */
+	
 	/////////////////////////////////////////////////
 	// @RequestMapping(value = "/gameUpdate", method = RequestMethod.PUT)
 	// public ResponseEntity<?> updateGame(@RequestBody Game game) {

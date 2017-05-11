@@ -28,7 +28,7 @@ public class CommentController {
         List<Comment> comments = commentService.getComments(gameId);
         if (comments.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            // You many decide to return HttpStatus.NOT_FOUND
+           
             
         }
         return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);

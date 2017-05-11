@@ -29,6 +29,17 @@ public class GameService {
 	public void addGame(Game game){
 		gameRepository.save(game);
 	}
+	
+/*
+	public void cancelGame(Game game) {
+		game.setAvailable(false);
+		gameRepository.save(game);	
+}
+	public void uncancelGame(Game game) {
+		game.setAvailable(true);
+		gameRepository.save(game);	
+}
+*/
 
 //	public void updateGame(Game game) {
 //		gameRepository.save(game);	

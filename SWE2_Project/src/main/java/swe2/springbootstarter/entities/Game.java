@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -30,6 +31,10 @@ public class Game {
 	private String name;
 	private String description;
 	private int score;
+	private boolean available;
+	
+	@ManyToMany(mappedBy = "teachers")       
+	private Set<Teacher> collaborators;	
 	
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<Comment> comments;
@@ -99,5 +104,13 @@ public class Game {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+	
+	public boolean isAvailable() {                          
+		return available;
+	}
+
+	public void setAvailable(boolean available) {		
+		this.available = available;
 	}
 }

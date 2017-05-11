@@ -5,4 +5,7 @@ import javax.transaction.Transactional;
 import swe2.springbootstarter.entities.Users;
 
 @Transactional
-public interface UserRepository extends UserBaseRepository<Users> { /* ... */ }
+public interface UserRepository extends UserBaseRepository<Users> { 
+	
+	
+}
