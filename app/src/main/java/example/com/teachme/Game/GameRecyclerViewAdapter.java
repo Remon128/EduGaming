@@ -6,8 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import example.com.teachme.Comment.CommentActivity;
 import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.Game.GameFragment.OnListFragmentInteractionListener;
 import example.com.teachme.Question.QuestionActivity;
@@ -49,6 +51,13 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
                 context.startActivity(i);
             }
         });
+
+        holder.comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, CommentActivity.class));
+            }
+        });
     }
 
     @Override
@@ -61,12 +70,14 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
         public final TextView mIdView;
         public final TextView mContentView;
         public Game mItem;
+        public Button comment ;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
+            comment = (Button)view.findViewById(R.id.comments);
         }
 
         @Override

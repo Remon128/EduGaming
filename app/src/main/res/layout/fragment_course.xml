@@ -34,27 +34,28 @@
                 android:id="@+id/id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="30sp"
                 android:text="Course Name"
-                android:textAppearance="?attr/textAppearanceListItem" />
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@android:color/black"
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/background_dark"
                 android:text="Course Description"
-                android:textAppearance="?attr/textAppearanceListItem" />
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@android:color/background_dark" />
 
-            <ImageButton android:id="@+id/favorite"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="12dp"
+            <ImageButton
+                android:id="@+id/favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
-                android:src="@drawable/star"
-                android:background="#00ffffff" />
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
+                android:background="#00ffffff"
+                android:src="@drawable/star" />
 
 
         </LinearLayout>

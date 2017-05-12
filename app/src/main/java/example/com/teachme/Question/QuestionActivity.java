@@ -18,6 +18,7 @@ import java.util.List;
 import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.R;
+import example.com.teachme.Score.ScoreActivity;
 import example.com.teachme.api.QuestionAPIInterface;
 import example.com.teachme.model.Game;
 import retrofit2.Call;
@@ -94,7 +95,13 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
                         score += 10;
                     }
                 }
-            Toast.makeText(getBaseContext(), "Your Score is " + score, Toast.LENGTH_SHORT).show();
+
+
+            String scoreMsg = "Your Score is " + score ;
+            Intent i = new Intent(QuestionActivity.this, ScoreActivity.class);
+            i.putExtra("score",scoreMsg);
+            startActivity(i);
+
         }catch (Exception e)
         {
             //
@@ -153,7 +160,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say Car");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say "+check);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 100);
 
         startActivityForResult(intent, SPEECH_REQUEST_CODE);
@@ -199,9 +206,10 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
     @Override
     public boolean onClickInteraction(String word) {
         check = word ;
-        Toast.makeText(getApplication(),word,Toast.LENGTH_SHORT).show();
         sendRecognizeIntent();
 
+
         return state;
+
     }
 }

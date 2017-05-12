@@ -28,10 +28,8 @@ public class GameFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     Call<List<Game>> connection;
     Context context ;
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+
+
 
     public GameFragment(int courseId,Context context) {
         gameList = new ArrayList<>();

@@ -31,13 +31,26 @@
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="20dp" />
     </LinearLayout>
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:src="@drawable/logo"
-        app:civ_border_color="#FA8072"
-        app:civ_border_width="2dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:src="@drawable/logo"
+            app:civ_border_color="#FA8072"
+            app:civ_border_width="2dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comments"
+            android:id="@+id/comments"
+            android:textColor="@color/black_overlay"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>

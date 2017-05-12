@@ -11,35 +11,44 @@
     android:weightSum="1">
 
 
-
-    <Button
-        android:id="@+id/createCourse"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="createCourse"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
-        android:text="CREATE COURSE"
-        app:srcCompat="@drawable/logout" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="logout"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
-        android:text="Logout"
-        app:srcCompat="@drawable/logout" />
+        <Button
+            android:id="@+id/createCourse"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:onClick="createCourse"
+            android:text="CREATE COURSE"
+            android:textColor="@android:color/white"
+            app:srcCompat="@drawable/logout" />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:onClick="logout"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:text="Logout"
+            app:srcCompat="@drawable/logout" />
+
+    </LinearLayout>
 
 
     <LinearLayout
+        android:id="@+id/flcourse"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@android:color/white"
         android:background="@color/colorBackground"
-        android:id="@+id/flcourse"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:textColor="@android:color/white">
+
     </LinearLayout>
 
 </LinearLayout>

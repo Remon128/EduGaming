@@ -47,7 +47,13 @@
         <activity android:name=".Course.CreateCourseActivity" />
         <activity android:name=".Course.UpdateCourseActivity" />
         <activity android:name=".User.EditUserActivity" />
-        <activity android:name=".Question.QuestionActivity"></activity>
+        <activity android:name=".Question.QuestionActivity" />
+        <activity
+            android:name=".Score.ScoreActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_score"
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".Comment.CommentActivity"></activity>
     </application>
 
 </manifest>

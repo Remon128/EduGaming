@@ -31,12 +31,15 @@ public class TeacherActivity extends AppCompatActivity {
         DbUtils.createDBUtils(getBaseContext());
         email = DbUtils.mail;
 
-        Toast.makeText(getBaseContext(),email,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(),email,Toast.LENGTH_SHORT).show();
+
         createCourse = (Button) findViewById(R.id.createCourse);
+
         CourseFragment courseFragment = new CourseFragment(email, 1);
+
         getSupportFragmentManager().
                 beginTransaction().
-                add(R.id.flcourse , courseFragment, "").
+                replace(R.id.flcourse , courseFragment, "").
                 commit();
     }
 
