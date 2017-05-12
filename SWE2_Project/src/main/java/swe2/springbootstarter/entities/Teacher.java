@@ -4,8 +4,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -17,8 +15,7 @@ public class Teacher extends Users
 	@OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
 	Set<Course> courses;
     
-	@ManyToMany(cascade = CascadeType.ALL)				
-	@JoinTable(name = "teacher_game", joinColumns = @JoinColumn(name = "teacher_mail", referencedColumnName = "mail"), inverseJoinColumns = @JoinColumn(name = "game_id", referencedColumnName = "id"))     
+	@ManyToMany(mappedBy = "collaborators")				     
 	private Set<Game> games;
 	
 
