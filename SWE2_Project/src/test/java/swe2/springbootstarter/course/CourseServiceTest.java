@@ -1,12 +1,12 @@
 package swe2.springbootstarter.course;
 
-import org.testng.annotations.Test;
-import java.util.ArrayList;
 
-import org.testng.Assert;
-import org.testng.AssertJUnit;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+
+import java.util.ArrayList;
+
 
 import swe2.springbootstarter.entities.Course;
 import swe2.springbootstarter.entities.Teacher;
