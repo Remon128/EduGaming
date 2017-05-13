@@ -60,12 +60,14 @@ public class CreateCourseActivity extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), "Course has been created ", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(CreateCourseActivity.this, TeacherActivity.class);
                         startActivity(i);
+                        finish();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Course> call, Throwable t) {
                     Toast.makeText(getBaseContext(), "no internet connection", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             });
         }

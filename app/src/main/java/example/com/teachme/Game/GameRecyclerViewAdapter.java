@@ -2,12 +2,14 @@ package example.com.teachme.Game;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import example.com.teachme.Comment.CommentActivity;
 import example.com.teachme.Connection.DbUtils;
@@ -32,15 +34,16 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_game, parent, false);
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        holder.card.setTag(position);
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getName());
         holder.mContentView.setText(mValues.get(position).getDescription());
-
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +58,8 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
         holder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, CommentActivity.class));
+//                context.startActivity(new Intent(context, CommentActivity.class));
+                Toast.makeText(context, ""+holder.card.getTag(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -69,6 +73,7 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public CardView card ;
         public Game mItem;
         public Button comment ;
 
@@ -78,6 +83,7 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
             mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
             comment = (Button)view.findViewById(R.id.comments);
+            card = (CardView)view.findViewById(R.id.card_view);
         }
 
         @Override

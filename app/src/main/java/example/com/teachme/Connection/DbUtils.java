@@ -15,7 +15,7 @@ public class DbUtils {
     static private DBHandler dbHandler = null;
     static public String mail = null;
     static public String name = null;
-        static public String gameId ;
+    static public String gameId ;
     static public int courseId ;
     static public int questionId ;
     static public boolean isTeacher = false ;

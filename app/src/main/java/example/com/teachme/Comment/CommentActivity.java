@@ -14,10 +14,11 @@ public class CommentActivity extends AppCompatActivity {
 
         CommentFragment commentFragment = new CommentFragment();
 
+        /*
         getSupportFragmentManager().
                 beginTransaction().
                 replace(R.id.cl, commentFragment ,"").
                 commit();
-
+*/
     }
 }

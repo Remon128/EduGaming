@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(MainActivity.this, SignupActivity.class));
+                    finish();
                 }
             });
 
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getBaseContext(), "Check your mail", Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -135,10 +137,10 @@ public class MainActivity extends AppCompatActivity {
         Call<User> connection = null;
         if (student.isChecked()) {
             connection = userAPIInterface.getStudent(u);
-            DbUtils.isTeacher = false ;
+            DbUtils.isTeacher = false;
         } else if (teacher.isChecked()) {
             connection = userAPIInterface.getTeacher(u);
-            DbUtils.isTeacher = true ;
+            DbUtils.isTeacher = true;
         }
 
         if (connection != null)
@@ -163,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                                 DbUtils.addUser(user.getMail(), user.getPassword(), user.getName());
                                 DbUtils.name = user.getName();
                                 startActivity(i);
+                                finish();
                             } else {
                                 Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
                             }

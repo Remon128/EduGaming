@@ -18,11 +18,32 @@ public class Teacher extends Users
 	@ManyToMany(mappedBy = "collaborators")				     
 	private Set<Game> games;
 	
+	
+	@OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+	private Set<Comment> comment;
+
+
+
+//	public Set<Game> getGames() {
+//		return games;
+//	}
+//
+	public void setGames(Set<Game> games) {
+		this.games = games;
+	}
+//
+//	public Set<Comment> getComment() {
+//		return comment;
+//	}
+//
+	public void setComment(Set<Comment> comment) {
+		this.comment = comment;
+	}
 
 //	public Set<Course> getCourses() {
 //		return courses;
 //	}
-
+//
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}

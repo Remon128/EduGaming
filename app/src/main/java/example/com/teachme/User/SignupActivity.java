@@ -51,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
 
     public void signin(View view) {
         startActivity(new Intent(getApplication(),MainActivity.class));
-
+        finish();
     }
 
 
@@ -125,6 +125,7 @@ public class SignupActivity extends AppCompatActivity {
                         User user1 = response.body();
                         i = new Intent(SignupActivity.this, MainActivity.class);
                         startActivity(i);
+                        finish();
                     }
                 }
 

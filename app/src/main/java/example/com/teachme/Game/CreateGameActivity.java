@@ -55,16 +55,15 @@ public class CreateGameActivity extends AppCompatActivity {
 
                         //String res = response.body();
                         Toast.makeText(getBaseContext()," Game has been created",Toast.LENGTH_SHORT).show();
-
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-                       // Toast.makeText(getBaseContext(),"No connection",Toast.LENGTH_SHORT).show();
-
+                       Toast.makeText(getBaseContext(),"No connection",Toast.LENGTH_SHORT).show();
                     }
                 });
                 startActivity(new Intent(CreateGameActivity.this,GameActivity.class));
+                finish();
             }
             else
                 Toast.makeText(getBaseContext(),"Please enter game description",Toast.LENGTH_SHORT).show();

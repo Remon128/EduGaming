@@ -32,7 +32,11 @@ public class Comment {
 
 	@ManyToOne
 	@JoinColumn
-	private Users user;
+	private Teacher teacher;
+	
+	@ManyToOne
+	@JoinColumn
+	private Student student;
 	
 	
 	
@@ -50,23 +54,34 @@ public class Comment {
 		this.comment = comment;
 	}
 
-	public Comment(String comment, Users user, Game game) {
+	public Comment(String comment, Game game) {
 		super();
 		this.comment = comment;
-		this.user = user;
 		this.game = game;
 	}
 
 
 
-	public Users getUser() {
-		return user;
+	public Teacher getTeacher() {
+		return teacher;
 	}
 
 
 
-	public void setUser(Users user) {
-		this.user = user;
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+
+
+	public Student getStudent() {
+		return student;
+	}
+
+
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 

@@ -17,8 +17,7 @@ public abstract class Users {
 	private String name;
 	private String password;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<Comment> comments;
+	
 	
 	public String getMail() {
 		return mail;

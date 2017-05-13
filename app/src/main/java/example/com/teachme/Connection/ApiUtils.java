@@ -1,5 +1,7 @@
 package example.com.teachme.Connection;
 
+import example.com.teachme.Comment.Comment;
+import example.com.teachme.api.CommentAPIInterface;
 import example.com.teachme.api.CourseAPIInterface;
 import example.com.teachme.api.GameAPIInterface;
 import example.com.teachme.api.QuestionAPIInterface;
@@ -28,5 +30,8 @@ public class ApiUtils {
 
     public static QuestionAPIInterface getAPIQuestion() {
         return RetrofitClient.getClient(BASE_URL).create(QuestionAPIInterface.class);
+    }
+    public static CommentAPIInterface getAPIComment(){
+        return RetrofitClient.getClient(BASE_URL).create(CommentAPIInterface.class);
     }
 }

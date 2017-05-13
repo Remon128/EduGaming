@@ -19,10 +19,10 @@ import java.util.List;
  */
 public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Comment> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public CommentRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public CommentRecyclerViewAdapter(List<Comment> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
 
@@ -40,7 +40,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mContentView.setText(mValues.get(position).getComment());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +63,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Comment mItem;
 
         public ViewHolder(View view) {
             super(view);

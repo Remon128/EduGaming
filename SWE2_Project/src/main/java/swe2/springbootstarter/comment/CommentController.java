@@ -1,4 +1,4 @@
-package swe.springbootstarter.comment;
+package swe2.springbootstarter.comment;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import swe2.springbootstarter.entities.Comment;
 
 @RestController
@@ -23,19 +24,18 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
-	@RequestMapping(value = "/comment/getByGameId/{gameId}", method = RequestMethod.GET)
-    public ResponseEntity<List<Comment>> getCoursesByTeacherMail(@PathVariable ("gameId") Integer gameId) {
+	@RequestMapping(value = "/comments/getByGameId/{gameId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getComments(@PathVariable ("gameId") Integer gameId) {
         List<Comment> comments = commentService.getComments(gameId);
         if (comments.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-           
             
         }
         return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
     }
 	///////////////////////////////////////////////
-	 @RequestMapping(value = "/comment/addComment", method = RequestMethod.POST)
-	    public ResponseEntity<?> createCourse(@RequestBody Comment comment) {
+	 @RequestMapping(value = "/comments/addComment", method = RequestMethod.POST)
+	    public ResponseEntity<?> createComment(@RequestBody Comment comment) {
 	        logger.info("Creating Comment: {}", comment);
 	    
 	        commentService.addComment(comment);

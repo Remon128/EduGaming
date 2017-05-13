@@ -11,11 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import example.com.teachme.Connection.ApiUtils;
+import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.R;
 import example.com.teachme.Comment.dummy.DummyContent;
 import example.com.teachme.Comment.dummy.DummyContent.DummyItem;
+import example.com.teachme.api.CommentAPIInterface;
+import example.com.teachme.model.Course;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * A fragment representing a list of Items.
@@ -24,22 +33,28 @@ import java.util.List;
  * interface.
  */
 public class CommentFragment extends Fragment {
+    CommentRecyclerViewAdapter commentRecyclerViewAdapter = null ;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-
+    Call<List<Comment>> connection = null;
+    List<Comment> commentList = null;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public CommentFragment() {
+
+        CommentAPIInterface commentAPIInterface = ApiUtils.getAPIComment();
+         connection = commentAPIInterface.getComments(Integer.parseInt(DbUtils.gameId));
+        commentList = new ArrayList<>();
     }
 
+
     // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static CommentFragment newInstance(int columnCount) {
         CommentFragment fragment = new CommentFragment();
         Bundle args = new Bundle();
@@ -63,6 +78,7 @@ public class CommentFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_comment_list, container, false);
 
         DummyItem dummyItem = new DummyItem("Islam","hello comment","u will fail Xd");
+
         DummyContent.ITEMS.add(dummyItem);
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -73,42 +89,37 @@ public class CommentFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new CommentRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            commentRecyclerViewAdapter = new CommentRecyclerViewAdapter(commentList , mListener);
+            recyclerView.setAdapter(commentRecyclerViewAdapter);
         }
+
+        connection.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+
+                commentList = response.body();
+//                Toast.makeText(getContext(),response.body().size(),Toast.LENGTH_SHORT).show();
+
+                commentRecyclerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+
+            }
+        });
+
+
         return view;
+
+
+
     }
 
 
-    /*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-*/
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Comment item);
     }
+
 }

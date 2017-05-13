@@ -1,4 +1,4 @@
-package swe.springbootstarter.comment;
+package swe2.springbootstarter.comment;
 
 import java.util.List;
 

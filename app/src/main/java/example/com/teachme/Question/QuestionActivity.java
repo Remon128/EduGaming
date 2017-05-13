@@ -25,13 +25,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class QuestionActivity extends AppCompatActivity implements CreateQuestionFragment.OnFragmentInteractionListener ,QuestionRecyclerViewAdapter.OnRVInteractionListener, TextToSpeech.OnInitListener {
+public class QuestionActivity extends AppCompatActivity implements CreateQuestionFragment.OnFragmentInteractionListener, QuestionRecyclerViewAdapter.OnRVInteractionListener, TextToSpeech.OnInitListener {
     String gameId = null;
     Button addbtn;
     Button showbtn;
     Button okbtn;
     boolean state = false;
-    String check = null ;
+    String check = null;
     private static final String TAG = "MagicWord";
 
     private TextView result;
@@ -89,21 +89,19 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
             int[] answers = QuestionRecyclerViewAdapter.getUserAnswers();
             List<MCQ> mcqs = QuestionRecyclerViewAdapter.getQuestions();
 
-            if ((answers.length - 1) == mcqs.size())
-                for (int i = 1; i < answers.length; i++) {
-                    if (answers[i] == mcqs.get(i-1).getAnswer()) {
-                        score += 10;
-                    }
+            for (int i = 0; i < answers.length; i++) {
+                if (answers[i] == mcqs.get(i).getAnswer()) {
+                    score += 10;
                 }
+            }
 
 
-            String scoreMsg = "Your Score is " + score ;
+            String scoreMsg = "Your Score is " + score;
             Intent i = new Intent(QuestionActivity.this, ScoreActivity.class);
-            i.putExtra("score",scoreMsg);
+            i.putExtra("score", scoreMsg);
             startActivity(i);
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             //
         }
     }
@@ -160,7 +158,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say "+check);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say " + check);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 100);
 
         startActivityForResult(intent, SPEECH_REQUEST_CODE);
@@ -177,7 +175,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
                     tts.speak("Heard nothing", TextToSpeech.QUEUE_FLUSH, null);
                 } else {
                     String matched = matches.get(0);
-                    String magicWord = check.toLowerCase() ;
+                    String magicWord = check.toLowerCase();
                     if (matched.equals(magicWord)) {
                         state = true;
                         tts.speak("Excellent you said the word right!", TextToSpeech.QUEUE_FLUSH, null);
@@ -185,8 +183,8 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
                         tts.speak("try again", TextToSpeech.QUEUE_FLUSH, null);
                     }
                 }
-                Toast.makeText(getBaseContext(),matches.get(0),Toast.LENGTH_SHORT).show();
-               // result.setText("heard: " + matches);
+                Toast.makeText(getBaseContext(), matches.get(0), Toast.LENGTH_SHORT).show();
+                // result.setText("heard: " + matches);
             } else {
                 Log.d(TAG, "result NOT ok");
             }
@@ -205,7 +203,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
     @Override
     public boolean onClickInteraction(String word) {
-        check = word ;
+        check = word;
         sendRecognizeIntent();
 
 

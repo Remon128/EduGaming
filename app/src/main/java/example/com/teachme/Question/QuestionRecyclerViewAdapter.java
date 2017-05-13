@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.IdRes;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,12 +33,13 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
     private Context context = null;
     static private int[] userAnswers;
     private int cnt = 0;
-    OnRVInteractionListener rlistener ;
+    OnRVInteractionListener rlistener;
+
     public QuestionRecyclerViewAdapter(List<MCQ> items, Context context) {
         questions = items;
         this.context = context;
         userAnswers = new int[questions.size() + 1];
-        Activity activity = (Activity)context;
+        Activity activity = (Activity) context;
         rlistener = (OnRVInteractionListener) activity;
     }
 
@@ -55,8 +57,8 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_question, parent, false);
 
-        if (userAnswers.length != questions.size() + 1)
-            userAnswers = new int[questions.size() + 1];
+        if (userAnswers.length != questions.size())
+            userAnswers = new int[questions.size()];
 
         //Toast.makeText(context.getApplicationContext(), userAnswers.length + "", Toast.LENGTH_SHORT).show();
 
@@ -65,17 +67,18 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+
         holder.mItem = questions.get(position);
         holder.mQuestion.setText(questions.get(position).getDescription());
         String[] chs = holder.mItem.getChoices();
+        holder.cardView.setTag(position);
 
-        if(chs.length==1)
-        {
+
+        if (chs.length == 1) {
             holder.r1.setVisibility(View.VISIBLE);
-            holder.r1.setText(String.format("%s",chs[0]));
+            holder.r1.setText(String.format("%s", chs[0]));
             holder.speechBtn.setVisibility(View.VISIBLE);
-        }
-        else if (chs.length >= 2) {
+        } else if (chs.length >= 2) {
             holder.r1.setVisibility(View.VISIBLE);
             holder.r2.setVisibility(View.VISIBLE);
 
@@ -108,7 +111,8 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
 
                 String pos = holder.mItem.getId();
 
-                int newPosition = Integer.parseInt(pos);
+                int newPosition = Integer.parseInt(holder.cardView.getTag().toString());
+
 
                 Toast.makeText(context, newPosition + "", Toast.LENGTH_SHORT).show();
 
@@ -126,7 +130,6 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
                         userAnswers[newPosition] = 4;
                         break;
                 }
-                Toast.makeText(context.getApplicationContext(), newPosition + "", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -144,16 +147,17 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public View mView;
         public TextView mQuestion;
         public RadioGroup group;
         public MCQ mItem;
+        public CardView cardView;
         public RadioButton r1;
         public RadioButton r2;
         public RadioButton r3;
         public RadioButton r4;
-        public Button speechBtn ;
+        public Button speechBtn;
 
         public ViewHolder(View view) {
             super(view);
@@ -164,21 +168,14 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
             r2 = (RadioButton) view.findViewById(R.id.radio2);
             r3 = (RadioButton) view.findViewById(R.id.radio3);
             r4 = (RadioButton) view.findViewById(R.id.radio4);
-            speechBtn = (Button)view.findViewById(R.id.speechbtn);
+            cardView = (CardView) view.findViewById(R.id.card_view);
+            speechBtn = (Button) view.findViewById(R.id.speechbtn);
         }
 
-
-        @Override
-        public void onClick(View v) {
-            int position = getAdapterPosition();
-
-        }
     }
-
 
     public interface OnRVInteractionListener {
         // TODO: Update argument type and name
         boolean onClickInteraction(String word);
     }
-
 }
