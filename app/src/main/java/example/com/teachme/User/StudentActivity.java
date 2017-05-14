@@ -142,6 +142,8 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
         editor.putBoolean("connected", false);
         editor.apply();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
+
     }
 
 

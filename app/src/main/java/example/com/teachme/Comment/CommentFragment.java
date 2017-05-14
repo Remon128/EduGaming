@@ -9,18 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.R;
-import example.com.teachme.Comment.dummy.DummyContent;
-import example.com.teachme.Comment.dummy.DummyContent.DummyItem;
 import example.com.teachme.api.CommentAPIInterface;
 import example.com.teachme.model.Course;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Path;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,43 +33,28 @@ import java.util.Observable;
  * interface.
  */
 public class CommentFragment extends Fragment {
-    CommentRecyclerViewAdapter commentRecyclerViewAdapter = null ;
-
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+    CommentRecyclerViewAdapter adapter ;
     private OnListFragmentInteractionListener mListener;
-    Call<List<Comment>> connection = null;
+    Call<List<Comment>> connection;
     List<Comment> commentList = null;
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public CommentFragment() {
+    Context context;
 
+    public CommentFragment(Context context) {
+
+        this.context = context;
         CommentAPIInterface commentAPIInterface = ApiUtils.getAPIComment();
-         connection = commentAPIInterface.getComments(Integer.parseInt(DbUtils.gameId));
-        commentList = new ArrayList<>();
-    }
 
+        connection = commentAPIInterface.getComments(DbUtils.gameId);
 
-    // TODO: Customize parameter initialization
-    public static CommentFragment newInstance(int columnCount) {
-        CommentFragment fragment = new CommentFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
+        commentList = new ArrayList<Comment>();
+
+        mListener = (OnListFragmentInteractionListener) getActivity();
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -77,43 +62,37 @@ public class CommentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_comment_list, container, false);
 
-        DummyItem dummyItem = new DummyItem("Islam","hello comment","u will fail Xd");
+        final Context context = view.getContext();
 
-        DummyContent.ITEMS.add(dummyItem);
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            commentRecyclerViewAdapter = new CommentRecyclerViewAdapter(commentList , mListener);
-            recyclerView.setAdapter(commentRecyclerViewAdapter);
-        }
+        RecyclerView recyclerView = (RecyclerView) view;
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+        adapter = new CommentRecyclerViewAdapter(commentList,mListener);
+
+        recyclerView.setAdapter(adapter);
+
+
 
         connection.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
 
-                commentList = response.body();
-//                Toast.makeText(getContext(),response.body().size(),Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    commentList.addAll(response.body());
 
-                commentRecyclerViewAdapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
+
+                }
             }
 
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
-
+                Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
             }
         });
 
-
         return view;
-
-
-
     }
 
 

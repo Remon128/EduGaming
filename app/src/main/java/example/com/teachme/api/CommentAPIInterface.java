@@ -10,18 +10,16 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
 
-/**
- * Created by MrHacker on 5/13/2017.
- */
 
 public interface CommentAPIInterface {
 
+    @Streaming
+    @GET("/api/comments/getByGameId/{gameId}")
+    Call<List<Comment>> getComments(@Path("gameId") String id);
 
-    @GET("/api/comment/getByGameId/{gameId}")
-    Call<List<Comment>> getComments(@Path("gameId") Integer id);
-
-    @POST("/api/comment/addComment")
+    @POST("/api/comments/addComment")
     Call<Comment> createComment(@Body Comment comment);
 
 }

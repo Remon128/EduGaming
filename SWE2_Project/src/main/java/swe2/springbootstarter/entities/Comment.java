@@ -73,7 +73,6 @@ public class Comment {
 	}
 
 
-
 	public Student getStudent() {
 		return student;
 	}

@@ -80,7 +80,13 @@
             android:layout_margin="@dimen/activity_vertical_margin"
             android:background="#FA8072"
             android:onClick="createGame"
+            android:bottomRightRadius="10dp"
+            android:bottomLeftRadius="10dp"
+            android:topLeftRadius="10dp"
+            android:topRightRadius="10dp"
+            android:shadowRadius="10"
             android:text="CREATE GAME" />
+
     </LinearLayout>
 
 

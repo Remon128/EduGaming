@@ -58,6 +58,7 @@ public class TeacherActivity extends AppCompatActivity {
     public void logout(View view) {
         DbUtils.delete();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
     }
 
 }

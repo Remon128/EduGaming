@@ -171,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         } else {
                             Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
-
                         }
                     } catch (Exception e) {
 
@@ -179,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }
-
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     Toast.makeText(getBaseContext(), "No Internet conncection", Toast.LENGTH_SHORT).show();

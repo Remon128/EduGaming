@@ -33,6 +33,7 @@
             android:layout_weight="0.1"
             android:layout_height="match_parent"
             android:layout_gravity="right"
+            android:id="@+id/addComment"
             android:text="Comment"
             android:background="@color/colorText"
             android:src="@drawable/ic_menu_send" />

@@ -84,6 +84,7 @@ public class CourseFragment extends Fragment {
         adapter = new CourseRecyclerViewAdapter(courses, fcourses, courseType , mail , getContext());
         recyclerView.setAdapter(adapter);
 
+
         connection.enqueue(new Callback<List<Course>>() {
             @Override
             public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {

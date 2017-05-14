@@ -10,7 +10,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
         android:background="@color/colorBackground"
         android:orientation="horizontal">
 
@@ -58,6 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Comments"
+                android:src="dd"
+                android:background="#FA8072"
                 android:textColor="@color/black_overlay" />
 
         </LinearLayout>

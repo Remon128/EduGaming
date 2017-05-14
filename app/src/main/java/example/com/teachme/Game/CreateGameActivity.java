@@ -52,14 +52,13 @@ public class CreateGameActivity extends AppCompatActivity {
                 conn.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-
-                        //String res = response.body();
+                        String res = response.body();
                         Toast.makeText(getBaseContext()," Game has been created",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-                       Toast.makeText(getBaseContext(),"No connection",Toast.LENGTH_SHORT).show();
+//                       Toast.makeText(getBaseContext(),"No connection",Toast.LENGTH_SHORT).show();
                     }
                 });
                 startActivity(new Intent(CreateGameActivity.this,GameActivity.class));

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,8 +59,10 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
         holder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                context.startActivity(new Intent(context, CommentActivity.class));
-                Toast.makeText(context, ""+holder.card.getTag(), Toast.LENGTH_SHORT).show();
+
+                DbUtils.gameId = holder.mItem.getId();
+                Intent i = new Intent(context, CommentActivity.class) ;
+                context.startActivity(i);
             }
         });
     }

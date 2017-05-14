@@ -2,37 +2,39 @@ package example.com.teachme.Comment;
 
 import example.com.teachme.model.Game;
 
+import example.com.teachme.model.Student;
+import example.com.teachme.model.Teacher;
 import example.com.teachme.model.User;
 
 
-/**
- * Created by MrHacker on 5/13/2017.
- */
+
 
 public class Comment {
 
-    Integer id ;
+    private Integer id;
 
     private String comment;
 
     private Game game;
+
+    private Teacher teacher;
+
+    private Student student;
+
 
     public Game getGame() {
         return game;
     }
 
 
-
     public void setGame(Game game) {
         this.game = game;
     }
 
-    private User user;
 
     public Comment() {
 
     }
-
 
 
     public String getComment() {
@@ -43,25 +45,30 @@ public class Comment {
         this.comment = comment;
     }
 
-    public Comment(String comment, User user, Game game) {
+    public Comment(String comment, Game game) {
         super();
         this.comment = comment;
-        this.user = user;
         this.game = game;
     }
 
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
 
-    public User getUser() {
-        return user;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
 
-
-    public void setUser(User user) {
-        this.user = user;
+    public Student getStudent() {
+        return student;
     }
 
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 
     public Integer getId() {
         return id;
@@ -70,4 +77,5 @@ public class Comment {
     public void setId(Integer id) {
         this.id = id;
     }
+
 }
