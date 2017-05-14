@@ -20,9 +20,9 @@ public class Comment {
 	@JoinColumn
 	private Game game;
 	
-	public Game getGame() {
-		return game;
-	}
+//	public Game getGame() {
+//		return game;
+//	}
 
 
 
@@ -62,9 +62,9 @@ public class Comment {
 
 
 
-	public Teacher getTeacher() {
-		return teacher;
-	}
+//	public Teacher getTeacher() {
+//		return teacher;
+//	}
 
 
 
@@ -73,9 +73,16 @@ public class Comment {
 	}
 
 
+<<<<<<< HEAD
 	public Student getStudent() {
 		return student;
 	}
+=======
+
+//	public Student getStudent() {
+//		return student;
+//	}
+>>>>>>> c7c323a70e05f3393cd80813b5acea9c9a41907f
 
 
 
