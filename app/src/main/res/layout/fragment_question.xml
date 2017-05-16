@@ -72,7 +72,7 @@
             android:layout_gravity="right"
             android:background="@drawable/mybutton"
             android:text="Talk"
-            android:textColor="@color/colorText"
+            android:textColor="@drawable/colortext"
             android:visibility="gone" />
 
     </LinearLayout>

@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import example.com.teachme.Game.GameActivity;
 import example.com.teachme.R;
 
 /**
@@ -22,6 +24,7 @@ public class ScoreActivity extends AppCompatActivity {
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
     private static final boolean AUTO_HIDE = true;
+    Button next;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -36,6 +39,7 @@ public class ScoreActivity extends AppCompatActivity {
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private TextView mContentView;
+
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -95,12 +99,19 @@ public class ScoreActivity extends AppCompatActivity {
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = (TextView)findViewById(R.id.fullscreen_content);
+        mContentView = (TextView) findViewById(R.id.fullscreen_content);
+        next = (Button) findViewById(R.id.next);
 
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScoreActivity.this, GameActivity.class));
+            }
+        });
         Intent i = getIntent();
 
         mContentView.setText(i.getStringExtra("score"));
-
 
 
         // Set up the user interaction to manually show or hide the system UI.

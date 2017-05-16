@@ -23,9 +23,10 @@
                 android:id="@+id/addbtn"
                 android:visibility="invisible"
                 android:layout_width="0dp"
-                android:background="#FA8072"
+                android:background="@drawable/mybutton"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:textColor="@drawable/colortext"
                 android:onClick="addQuestion"
                 android:text="Add Question" />
 
@@ -33,9 +34,10 @@
                 android:id="@+id/showbtn"
                 android:layout_width="0dp"
                 android:visibility="invisible"
-                android:background="#FA8072"
+                android:background="@drawable/mybutton"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:textColor="@drawable/colortext"
                 android:onClick="showQuestion"
                 android:text="Show Questions" />
         </LinearLayout>
@@ -51,7 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible"
-            android:background="#FA8072"
+            android:background="@drawable/mybutton"
+            android:textColor="@drawable/colortext"
             android:onClick="submit"
             android:text="SUBMIT" />
 

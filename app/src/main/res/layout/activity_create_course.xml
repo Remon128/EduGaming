@@ -72,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/mybutton"
+            android:textColor="@drawable/colortext"
             android:onClick="createCourse"
             android:text="CREATE COURSE" />
     </LinearLayout>

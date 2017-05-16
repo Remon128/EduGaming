@@ -29,8 +29,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
                 android:text="Game Name"
-                android:textColor="@color/blackText"
                 android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/blackText"
                 android:textSize="30dp" />
 
             <TextView
@@ -39,8 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
                 android:text="Game Description"
-                android:textColor="@color/blackText"
                 android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/blackText"
                 android:textSize="20dp" />
         </LinearLayout>
 
@@ -64,8 +64,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/mybutton"
                 android:text="Comments"
-                android:textColor="@color/blackText"
-                />
+                android:textColor="@drawable/colortext" />
 
         </LinearLayout>
     </LinearLayout>

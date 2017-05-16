@@ -32,7 +32,7 @@
             android:background="@drawable/mybutton"
             android:onClick="Enroll"
             android:text="Enrolled"
-            android:textColor="@android:color/white"
+            android:textColor="@drawable/colortext"
             app:srcCompat="@drawable/logout" />
 
         <Button
@@ -42,7 +42,7 @@
             android:background="@drawable/mybutton"
             android:onClick="listCourses"
             android:text="All Courses"
-            android:textColor="@android:color/white"
+            android:textColor="@drawable/colortext"
             app:srcCompat="@drawable/logout" />
 
         <Button
@@ -52,7 +52,7 @@
             android:background="@drawable/mybutton"
             android:onClick="logout"
             android:text="Logout"
-            android:textColor="@android:color/white"
+            android:textColor="@drawable/colortext"
             app:srcCompat="@drawable/logout" />
 
     </LinearLayout>

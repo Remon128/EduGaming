@@ -11,11 +11,11 @@
     <!-- TODO: Update blank fragment layout -->
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:id="@+id/circleImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:src="@drawable/logo"
         app:civ_border_color="#FA8072"
         app:civ_border_width="2dp" />
@@ -103,7 +103,7 @@
             android:background="@drawable/cbutton"
             android:onClick="signup"
             android:text="Sign Up"
-            android:textColor="@android:color/white" />
+            android:textColor="@drawable/colortext" />
 
         <Button
             android:id="@+id/login"
@@ -112,6 +112,6 @@
             android:background="@drawable/cbutton"
             android:onClick="signin"
             android:text="Already user"
-            android:textColor="@android:color/white" />
+            android:textColor="@drawable/colortext" />
     </LinearLayout>
 </LinearLayout>

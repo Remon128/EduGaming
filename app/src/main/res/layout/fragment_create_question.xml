@@ -80,7 +80,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:background="@drawable/mybutton"
                 android:text="Create Question"
-                android:textColor="@android:color/white" />
+                android:textColor="@drawable/colortext" />
 
         </LinearLayout>
 
@@ -227,7 +227,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/mybutton"
                 android:text="Create Question"
-                android:textColor="@android:color/white" />
+                android:textColor="@drawable/colortext" />
 
         </LinearLayout>
     </LinearLayout>
@@ -289,7 +289,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:background="@drawable/mybutton"
                 android:text="Create Question"
-                android:textColor="@android:color/white" />
+                android:textColor="@drawable/colortext" />
         </LinearLayout>
 
     </LinearLayout>

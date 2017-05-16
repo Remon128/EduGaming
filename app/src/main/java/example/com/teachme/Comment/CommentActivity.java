@@ -83,7 +83,7 @@ public class CommentActivity extends AppCompatActivity {
 
     public void refreashList()
     {
-        CommentFragment commentFragment = new CommentFragment(getBaseContext());
+        CommentFragment commentFragment = new CommentFragment();
 
         getSupportFragmentManager().
                 beginTransaction().

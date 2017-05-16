@@ -39,9 +39,14 @@ public class CommentFragment extends Fragment {
     List<Comment> commentList = null;
     Context context;
 
-    public CommentFragment(Context context) {
 
-        this.context = context;
+    @Override
+    public void setArguments(Bundle args) {
+        super.setArguments(args);
+    }
+
+    public CommentFragment() {
+
         CommentAPIInterface commentAPIInterface = ApiUtils.getAPIComment();
 
         connection = commentAPIInterface.getComments(DbUtils.gameId);
@@ -62,7 +67,7 @@ public class CommentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_comment_list, container, false);
 
-        Context context = view.getContext();
+        context = view.getContext();
 
         RecyclerView recyclerView = (RecyclerView) view;
 
