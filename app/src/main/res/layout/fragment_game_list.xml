@@ -9,6 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    android:background="@color/colorAccent"
     tools:context="example.com.teachme.Game.GameFragment"
     tools:listitem="@layout/fragment_game" />

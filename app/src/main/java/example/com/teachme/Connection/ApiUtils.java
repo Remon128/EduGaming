@@ -11,10 +11,12 @@ public class ApiUtils {
 
     private ApiUtils() {}
 
-   public static final String BASE_URL = "http://192.168.1.2:8080";
-   // private static final String BASE_URL = "http://192.168.1.3:8080";
+  // public static final String BASE_URL = "http://192.168.1.2:8080";
+   //private static final String BASE_URL = "http://192.168.1.3:8080";
 
-    //public static final String BASE_URL = "http://10.1.9.234:8080";
+   // public static final String BASE_URL = "http://10.0.2.2:8080";
+    public static final String BASE_URL = "https://cryptic-mountain-28310.herokuapp.com";
+
 
     public static CourseAPIInterface getAPICourse() {
         return RetrofitClient.getClient(BASE_URL).create(CourseAPIInterface.class);

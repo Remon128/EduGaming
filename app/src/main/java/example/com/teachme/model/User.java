@@ -27,9 +27,6 @@ public class User implements Serializable {
     @Expose
     private String password;
 
-    @SerializedName("")
-    @Expose
-    private List<Course> courses = null;
 
     public User() {
         super();
@@ -65,14 +62,6 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
     }
 
     @Override

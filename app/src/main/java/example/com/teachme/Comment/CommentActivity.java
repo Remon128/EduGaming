@@ -73,22 +73,17 @@ public class CommentActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
             }
         });
 
-
-        CommentFragment commentFragment = new CommentFragment(this);
-
-        refreashList();
+//        refreashList();
 
 
     }
 
     public void refreashList()
     {
-        CommentFragment commentFragment = new CommentFragment(getApplication());
+        CommentFragment commentFragment = new CommentFragment(getBaseContext());
 
         getSupportFragmentManager().
                 beginTransaction().
@@ -96,4 +91,5 @@ public class CommentActivity extends AppCompatActivity {
                 commit();
 
     }
+
 }

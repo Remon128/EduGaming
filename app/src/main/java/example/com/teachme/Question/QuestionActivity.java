@@ -122,8 +122,6 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
     @Override
     public void onFragmentInteraction(MCQ question) {
 
-        Toast.makeText(getBaseContext(), question.getDescription(), Toast.LENGTH_SHORT).show();
-
         QuestionAPIInterface questionAPIInterface = ApiUtils.getAPIQuestion();
         Call<MCQ> conn = questionAPIInterface.createQuestion(gameId, question);
 
@@ -131,7 +129,6 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         conn.enqueue(new Callback<MCQ>() {
             @Override
             public void onResponse(Call<MCQ> call, Response<MCQ> response) {
-//                Toast.makeText(getBaseContext(),response.body().getDescription(),Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -184,7 +181,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
                     }
                 }
                 Toast.makeText(getBaseContext(), matches.get(0), Toast.LENGTH_SHORT).show();
-                // result.setText("heard: " + matches);
+
             } else {
                 Log.d(TAG, "result NOT ok");
             }

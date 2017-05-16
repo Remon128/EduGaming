@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_vertical_margin"
-            android:background="#FA8072"
+            android:background="@drawable/mybutton"
             android:onClick="createGame"
             android:bottomRightRadius="10dp"
             android:bottomLeftRadius="10dp"

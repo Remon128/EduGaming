@@ -108,7 +108,7 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
                     public void onResponse(Call<Course> call, Response<Course> response) {
                         if (response.isSuccessful()) {
                             Course course = response.body();
-                            Toast.makeText(context, course.getName(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, course.getName(), Toast.LENGTH_SHORT).show();
                         }
                     }
 

@@ -15,7 +15,6 @@ import retrofit2.http.Streaming;
 
 public interface CommentAPIInterface {
 
-    @Streaming
     @GET("/api/comments/getByGameId/{gameId}")
     Call<List<Comment>> getComments(@Path("gameId") String id);
 

@@ -15,7 +15,7 @@
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:onClick="createGamebtn"
         android:textColor="@android:color/white"
-        android:background="#FA8072"
+        android:background="@drawable/mybutton"
         android:visibility="gone"
         android:text="CREATE GAME" />
 

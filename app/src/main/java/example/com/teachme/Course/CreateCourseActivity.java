@@ -36,7 +36,6 @@ public class CreateCourseActivity extends AppCompatActivity {
         //this.btn = (Button)findViewById()
         courseName = (EditText) findViewById(R.id.courseName);
         courseDesc = (EditText) findViewById(R.id.courseDesc);
-        Toast.makeText(getBaseContext(), DbUtils.mail, Toast.LENGTH_SHORT).show();
         teacher = new Teacher();
         teacher.setMail(DbUtils.mail);
     }

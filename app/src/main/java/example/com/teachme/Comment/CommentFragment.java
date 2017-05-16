@@ -33,8 +33,8 @@ import java.util.Observable;
  * interface.
  */
 public class CommentFragment extends Fragment {
-    CommentRecyclerViewAdapter adapter ;
-    private OnListFragmentInteractionListener mListener;
+    CommentRecyclerViewAdapter adapter;
+    private OnListFragmentInteractionListener mListener = null;
     Call<List<Comment>> connection;
     List<Comment> commentList = null;
     Context context;
@@ -46,9 +46,9 @@ public class CommentFragment extends Fragment {
 
         connection = commentAPIInterface.getComments(DbUtils.gameId);
 
-        commentList = new ArrayList<Comment>();
+        commentList = new ArrayList<>();
 
-        mListener = (OnListFragmentInteractionListener) getActivity();
+        mListener = (OnListFragmentInteractionListener)context;
 
     }
 
@@ -62,16 +62,15 @@ public class CommentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_comment_list, container, false);
 
-        final Context context = view.getContext();
+        Context context = view.getContext();
 
         RecyclerView recyclerView = (RecyclerView) view;
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        adapter = new CommentRecyclerViewAdapter(commentList, context);
 
-        adapter = new CommentRecyclerViewAdapter(commentList,mListener);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.context));
 
         recyclerView.setAdapter(adapter);
-
 
 
         connection.enqueue(new Callback<List<Comment>>() {
@@ -79,10 +78,12 @@ public class CommentFragment extends Fragment {
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
 
                 if (response.isSuccessful()) {
-                    commentList.addAll(response.body());
+                    //if (response.body() != null)
+                      //  commentList.addAll(response.body());
+
+                    Toast.makeText(getContext(), "" + commentList.size(), Toast.LENGTH_SHORT).show();
 
                     adapter.notifyDataSetChanged();
-
                 }
             }
 

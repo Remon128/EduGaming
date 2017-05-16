@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/mybutton"
                 android:text="Create Question"
                 android:textColor="@android:color/white" />
 
@@ -223,9 +223,9 @@
 
             <Button
                 android:id="@+id/createmcq"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/mybutton"
                 android:text="Create Question"
                 android:textColor="@android:color/white" />
 
@@ -287,7 +287,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:background="#FA8072"
+                android:background="@drawable/mybutton"
                 android:text="Create Question"
                 android:textColor="@android:color/white" />
         </LinearLayout>

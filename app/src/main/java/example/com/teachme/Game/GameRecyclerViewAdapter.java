@@ -59,7 +59,6 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
         holder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DbUtils.gameId = holder.mItem.getId();
                 Intent i = new Intent(context, CommentActivity.class) ;
                 context.startActivity(i);

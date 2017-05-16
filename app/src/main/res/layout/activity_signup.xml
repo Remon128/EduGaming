@@ -21,9 +21,9 @@
         app:civ_border_width="2dp" />
 
     <LinearLayout
-        android:layout_margin="@dimen/activity_vertical_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
         <TextView
@@ -36,10 +36,10 @@
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorText"
-            android:hint="Username"
             android:ems="10"
-            android:inputType="textEmailAddress" />
+            android:hint="Username"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorText" />
 
         <TextView
             android:layout_width="match_parent"
@@ -51,11 +51,11 @@
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
-            android:textColor="@color/colorText"
             android:layout_height="wrap_content"
-            android:hint="Email"
             android:ems="10"
-            android:inputType="textEmailAddress" />
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorText" />
 
 
         <TextView
@@ -67,12 +67,12 @@
 
         <EditText
             android:id="@+id/password"
-            android:textColor="@color/colorText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:ems="10"
-            android:inputType="textPassword" />
+
+            android:inputType="textPassword"
+            android:textColor="@color/colorText" />
 
 
         <RadioGroup
@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:background="#FA8072"
+            android:background="@drawable/cbutton"
             android:onClick="signup"
             android:text="Sign Up"
             android:textColor="@android:color/white" />
@@ -109,7 +109,7 @@
             android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FA8072"
+            android:background="@drawable/cbutton"
             android:onClick="signin"
             android:text="Already user"
             android:textColor="@android:color/white" />

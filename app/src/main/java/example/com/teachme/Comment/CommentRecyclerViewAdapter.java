@@ -18,9 +18,9 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     private List<Comment> mValues;
     private OnListFragmentInteractionListener mListener;
 
-    public CommentRecyclerViewAdapter(List<Comment> items, OnListFragmentInteractionListener listener) {
+    public CommentRecyclerViewAdapter(List<Comment> items, Context listener) {
         mValues = items;
-        mListener = listener;
+        mListener = (OnListFragmentInteractionListener)listener;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.cardView.setTag(position);
         holder.mItem = mValues.get(position);
-        String name ;
+        String name = "";
         if(holder.mItem.getStudent()==null)
         {
             name = holder.mItem.getTeacher().getName();
@@ -44,7 +44,6 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
         }
         holder.username.setText(name);
         holder.comment.setText(mValues.get(position).getComment());
-
     }
 
     @Override
@@ -54,8 +53,8 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView username;
-        public CardView cardView;
         public TextView comment;
+        public CardView cardView;
         public Comment mItem;
 
         public ViewHolder(View view) {

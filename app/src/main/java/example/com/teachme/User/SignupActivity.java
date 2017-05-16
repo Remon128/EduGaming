@@ -12,9 +12,12 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.model.Course;
 import example.com.teachme.R;
 import example.com.teachme.api.UserAPIInterface;
+import example.com.teachme.model.Student;
+import example.com.teachme.model.Teacher;
 import example.com.teachme.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,12 +53,12 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void signin(View view) {
-        startActivity(new Intent(getApplication(),MainActivity.class));
+        startActivity(new Intent(getApplication(), MainActivity.class));
         finish();
     }
 
 
-        public void signup(View view) {
+    public void signup(View view) {
 
         email_str = email.getText().toString();
         password_str = password.getText().toString();
@@ -87,30 +90,22 @@ public class SignupActivity extends AppCompatActivity {
 
     void validateData(String email, String password) {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        UserAPIInterface userAPIInterface = ApiUtils.getAPIUser();
 
-
-        UserAPIInterface userAPIInterface = retrofit.create(UserAPIInterface.class);
-
-
-        List<Course> courses = null;
         Call<User> connection = null;
 
-        User user = new User();
+        User user;
 
 
         if (student.isChecked()) {
+            user = new Student();
             user.setMail(email_str);
-            user.setCourses(courses);
             user.setName(user_str);
             user.setPassword(password_str);
             connection = userAPIInterface.createStudent(user);
         } else if (teacher.isChecked()) {
+            user = new Teacher();
             user.setMail(email_str);
-            user.setCourses(courses);
             user.setName(user_str);
             user.setPassword(password_str);
             connection = userAPIInterface.createTeacher(user);
@@ -122,7 +117,6 @@ public class SignupActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()) {
-                        User user1 = response.body();
                         i = new Intent(SignupActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();

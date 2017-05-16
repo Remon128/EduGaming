@@ -7,17 +7,6 @@ import example.com.teachme.model.Game;
 import example.com.teachme.model.User;
 
 public class Student extends User {
-    Set<Course> courses;
-
-
-    public Set<Course> getCourse() {
-        return courses;
-    }
-
-    public void setCourse(Set<Course> course)
-    {
-        this.courses = course;
-    }
 
     public Student() {
         super();

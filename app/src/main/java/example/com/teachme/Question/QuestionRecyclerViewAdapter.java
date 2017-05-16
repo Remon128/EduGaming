@@ -60,7 +60,6 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
         if (userAnswers.length != questions.size())
             userAnswers = new int[questions.size()];
 
-        //Toast.makeText(context.getApplicationContext(), userAnswers.length + "", Toast.LENGTH_SHORT).show();
 
         return new ViewHolder(view);
     }
@@ -113,8 +112,6 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
 
                 int newPosition = Integer.parseInt(holder.cardView.getTag().toString());
 
-
-                Toast.makeText(context, newPosition + "", Toast.LENGTH_SHORT).show();
 
                 switch (checkedId) {
                     case R.id.radio1:
