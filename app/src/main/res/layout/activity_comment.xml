@@ -8,6 +8,13 @@
     android:orientation="vertical"
     tools:context="example.com.teachme.Comment.CommentActivity">
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/mybutton"
+        android:textColor="@drawable/colortext"
+        android:onClick="refresh"
+        android:text="Refresh" />
 
     <LinearLayout
         android:layout_width="match_parent"

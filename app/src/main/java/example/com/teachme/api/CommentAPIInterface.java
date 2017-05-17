@@ -11,14 +11,15 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
+import rx.Observable;
 
 
 public interface CommentAPIInterface {
-
     @GET("/api/comments/getByGameId/{gameId}")
-    Call<List<Comment>> getComments(@Path("gameId") String id);
+    Observable<List<Comment>> getComments(@Path("gameId") String id);
 
     @POST("/api/comments/addComment")
-    Call<Comment> createComment(@Body Comment comment);
+    Observable<Comment> createComment(@Body Comment comment);
+
 
 }

@@ -107,6 +107,7 @@ public class ScoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ScoreActivity.this, GameActivity.class));
+                finish();
             }
         });
         Intent i = getIntent();

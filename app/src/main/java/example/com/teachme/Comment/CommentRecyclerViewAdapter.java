@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import example.com.teachme.Comment.CommentFragment.OnListFragmentInteractionListener;
+import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.R;
 
 import java.util.List;
@@ -16,11 +17,11 @@ import java.util.List;
 public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecyclerViewAdapter.ViewHolder> {
 
     private List<Comment> mValues;
-    private OnListFragmentInteractionListener mListener;
+    private Context mListener = null;
 
     public CommentRecyclerViewAdapter(List<Comment> items, Context listener) {
         mValues = items;
-        mListener = (OnListFragmentInteractionListener)listener;
+        mListener = listener;
     }
 
     @Override
@@ -34,14 +35,8 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.cardView.setTag(position);
         holder.mItem = mValues.get(position);
-        String name = "";
-        if(holder.mItem.getStudent()==null)
-        {
-            name = holder.mItem.getTeacher().getName();
-        }else
-        {
-            name = holder.mItem.getStudent().getName();
-        }
+
+        String name = DbUtils.name ;
         holder.username.setText(name);
         holder.comment.setText(mValues.get(position).getComment());
     }

@@ -6,35 +6,27 @@ import example.com.teachme.model.Student;
 import example.com.teachme.model.Teacher;
 import example.com.teachme.model.User;
 
-
-
-
 public class Comment {
 
-    private Integer id;
+    Integer id ;
 
     private String comment;
+    private String mail;
 
     private Game game;
 
-    private Teacher teacher;
-
-    private Student student;
 
 
-    public Game getGame() {
-        return game;
+    public Comment() {
+
     }
+
 
 
     public void setGame(Game game) {
         this.game = game;
     }
 
-
-    public Comment() {
-
-    }
 
 
     public String getComment() {
@@ -45,34 +37,42 @@ public class Comment {
         this.comment = comment;
     }
 
-    public Comment(String comment, Game game) {
+    public Game getGame() {
+        return game;
+    }
+
+    public Comment(String comment, Game game, String mail) {
         super();
         this.comment = comment;
         this.game = game;
+        this.mail = mail;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", comment='" + comment + '\'' +
+                ", mail='" + mail + '\'' +
+                ", game=" + game +
+                '}';
+    }
+
+    public String getMail() {
+        return mail;
     }
 
 
-    public Teacher getTeacher() {
-        return teacher;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-
-    public Student getStudent() {
-        return student;
-    }
-
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
 
     public Integer getId() {
         return id;
     }
+
+
 
     public void setId(Integer id) {
         this.id = id;

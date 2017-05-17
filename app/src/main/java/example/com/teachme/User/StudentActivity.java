@@ -32,7 +32,6 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
     }
 
     TextView test;
-    SharedPreferences settings;
     TextToSpeech tts;
     Button logout;
     Button speak ;
@@ -55,10 +54,6 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
         email = DbUtils.mail;
 
         text = "Welcome "+DbUtils.name;
-/*
-        Toast.makeText(getApplicationContext(), text ,Toast.LENGTH_SHORT).show();
-
-*/
 
 
     }
@@ -116,6 +111,7 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
+        finish();
     }
 
     public void listCourses(View view) {
@@ -137,13 +133,8 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
 
 
     public void logout(View view) {
-        settings = getSharedPreferences("mySharedPref", 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("connected", false);
-        editor.apply();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
-
     }
 
 

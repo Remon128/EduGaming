@@ -3,6 +3,7 @@ package example.com.teachme.Question;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.IdRes;
@@ -76,6 +77,9 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
         if (chs.length == 1) {
             holder.r1.setVisibility(View.VISIBLE);
             holder.r1.setText(String.format("%s", chs[0]));
+            holder.r1.setTextColor(Color.RED);
+            holder.r1.setButtonDrawable(android.R.color.transparent);
+            holder.r1.setPadding(31, 0, 0, 0);
             holder.speechBtn.setVisibility(View.VISIBLE);
         } else if (chs.length >= 2) {
             holder.r1.setVisibility(View.VISIBLE);
@@ -100,7 +104,12 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
             @Override
             public void onClick(View v) {
                 String goal = holder.mItem.getChoices()[0];
-                rlistener.onClickInteraction(goal);
+                boolean state = rlistener.onClickInteraction(goal);
+                int pos = Integer.parseInt(holder.cardView.getTag().toString());
+                userAnswers[pos] = state ? 1 : 0;
+                if (state)
+                    holder.r1.setTextColor(Color.GREEN);
+                holder.r1.setChecked(state);
             }
         });
 
@@ -115,7 +124,8 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
 
                 switch (checkedId) {
                     case R.id.radio1:
-                        userAnswers[newPosition] = 1;
+                        if (holder.mItem.getChoices().length != 1)
+                            userAnswers[newPosition] = 1;
                         break;
                     case R.id.radio2:
                         userAnswers[newPosition] = 2;

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import example.com.teachme.Connection.ApiUtils;
+import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.R;
 import example.com.teachme.api.CourseAPIInterface;
 import example.com.teachme.model.Course;
@@ -53,7 +54,7 @@ public class CourseFragment extends Fragment {
 
         courseAPIInterface = ApiUtils.getAPICourse();
         user = new User();
-        user.setMail(email);
+        user.setMail(DbUtils.mail);
         Teacher teacher = new Teacher();
         teacher.setMail(email);
         mail = email;
@@ -128,25 +129,6 @@ public class CourseFragment extends Fragment {
         return view;
     }
 
-
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-  */
 
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name

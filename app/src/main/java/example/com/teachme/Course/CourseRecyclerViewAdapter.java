@@ -34,7 +34,7 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
     private List<Course> favoriteList = null;
     private Context context = null;
     boolean Isfavorite = false;
-    int userType;
+    int userType = 0;
     String email = null;
 
     public CourseRecyclerViewAdapter(List<Course> items, List<Course> favoriteList, int userType, String email, Context context) {
@@ -45,7 +45,7 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
         this.userType = userType;
     }
 
-    boolean isChecked(int courseId) {
+    public boolean isChecked(int courseId) {
 
         if (favoriteList != null) {
             for (Course c : favoriteList) {
@@ -95,8 +95,9 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
                 // student.setName(user.getName());
                 //student.setPassword(user.getPassword());
 
-                Course course = courses.get(position);
+                Course course = new Course();
 
+                course.setId(courses.get(position).getId());
                 course.putStudent(student);
 
                 Call<Course> conn = courseAPIInterface.enrollCourse(course);
@@ -108,7 +109,6 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
                     public void onResponse(Call<Course> call, Response<Course> response) {
                         if (response.isSuccessful()) {
                             Course course = response.body();
-                            //Toast.makeText(context, course.getName(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -126,6 +126,7 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
                 Intent i = new Intent(context, GameActivity.class);
                 DbUtils.courseId = courses.get(position).getId();
                 context.startActivity(i);
+
             }
         });
     }

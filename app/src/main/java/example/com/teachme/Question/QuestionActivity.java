@@ -53,9 +53,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         okbtn = (Button) findViewById(R.id.submit);
 
 
-        if (!DbUtils.isTeacher) {
-            okbtn.setVisibility(View.VISIBLE);
-        } else {
+        if (DbUtils.isTeacher) {
             addbtn.setVisibility(View.VISIBLE);
             showbtn.setVisibility(View.VISIBLE);
             okbtn.setVisibility(View.VISIBLE);
@@ -90,7 +88,12 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
             List<MCQ> mcqs = QuestionRecyclerViewAdapter.getQuestions();
 
             for (int i = 0; i < answers.length; i++) {
-                if (answers[i] == mcqs.get(i).getAnswer()) {
+                if(mcqs.get(i).getChoices().length==1)
+                {
+                    if(answers[i]==1)
+                        score += 10;
+                }
+                else if (answers[i] == mcqs.get(i).getAnswer()) {
                     score += 10;
                 }
             }
@@ -202,7 +205,6 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
     public boolean onClickInteraction(String word) {
         check = word;
         sendRecognizeIntent();
-
 
         return state;
 

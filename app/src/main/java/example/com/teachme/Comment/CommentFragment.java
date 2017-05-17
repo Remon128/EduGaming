@@ -6,36 +6,42 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import example.com.teachme.BuildConfig;
 import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.R;
 import example.com.teachme.api.CommentAPIInterface;
 import example.com.teachme.model.Course;
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Path;
+import rx.Observable;
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class CommentFragment extends Fragment {
     CommentRecyclerViewAdapter adapter;
     private OnListFragmentInteractionListener mListener = null;
-    Call<List<Comment>> connection;
+
+    Observable<List<Comment>> connection;
     List<Comment> commentList = null;
     Context context;
 
@@ -47,15 +53,16 @@ public class CommentFragment extends Fragment {
 
     public CommentFragment() {
 
-        CommentAPIInterface commentAPIInterface = ApiUtils.getAPIComment();
+        CommentAPIInterface commentAPIInterface = ApiUtils.getAPICommentObservable();
 
         connection = commentAPIInterface.getComments(DbUtils.gameId);
 
-        commentList = new ArrayList<>();
+        commentList = new ArrayList<Comment>();
 
-        mListener = (OnListFragmentInteractionListener)context;
+        mListener = (OnListFragmentInteractionListener) context;
 
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +74,9 @@ public class CommentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_comment_list, container, false);
 
+
         context = view.getContext();
+
 
         RecyclerView recyclerView = (RecyclerView) view;
 
@@ -78,29 +87,39 @@ public class CommentFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        connection.enqueue(new Callback<List<Comment>>() {
-            @Override
-            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+        connection.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Comment>>() {
+                    @Override
+                    public void onCompleted() {
 
-                if (response.isSuccessful()) {
-                    //if (response.body() != null)
-                      //  commentList.addAll(response.body());
+                    }
 
-                    Toast.makeText(getContext(), "" + commentList.size(), Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
+                    }
 
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Comment>> call, Throwable t) {
-                Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
-            }
-        });
+                    @Override
+                    public void onNext(List<Comment> comments) {
+                        commentList.addAll(comments);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
 
         return view;
     }
 
+
+    OkHttpClient okHttpClient() {
+        OkHttpClient client = new OkHttpClient();
+
+        List<Interceptor> interceptors = new ArrayList<>();
+
+        client.networkInterceptors().addAll(interceptors);
+
+        return client;
+    }
 
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name

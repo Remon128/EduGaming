@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.nio.channels.Channel;
+import java.util.List;
 
 import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.Connection.DbUtils;
@@ -20,6 +21,10 @@ import example.com.teachme.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class CommentActivity extends AppCompatActivity {
 
@@ -34,54 +39,52 @@ public class CommentActivity extends AppCompatActivity {
         postComment = (ImageButton) findViewById(R.id.addComment);
         inputComment = (EditText) findViewById(R.id.inputComment);
 
-        postComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                CommentAPIInterface commentAPIInterface = ApiUtils.getAPIComment();
-                Comment comment = new Comment();
-                comment.setComment(inputComment.getText().toString());
-                Game game = new Game();
-                game.setId(DbUtils.gameId);
-                comment.setGame(game);
-
-                User user = null;
-                if (DbUtils.isTeacher) {
-                    user = new Teacher();
-                } else {
-                    user = new Student();
-                }
-                user.setMail(DbUtils.mail);
-
-                if (DbUtils.isTeacher) {
-                    comment.setTeacher((Teacher) user);
-                } else {
-                    comment.setStudent((Student) user);
-                }
-
-                Call<Comment> con = commentAPIInterface.createComment(comment);
-
-                con.enqueue(new Callback<Comment>() {
+        postComment.setOnClickListener(
+                new View.OnClickListener() {
                     @Override
-                    public void onResponse(Call<Comment> call, Response<Comment> response) {
+                    public void onClick(View v) {
+
+
+                        CommentAPIInterface commentAPIInterface = ApiUtils.getAPICommentObservable();
+                        Comment comment = new Comment();
+                        comment.setComment(inputComment.getText().toString());
                         inputComment.setText("");
-                        refreashList();
-                    }
+                        Game game = new Game();
+                        game.setId(DbUtils.gameId);
 
-                    @Override
-                    public void onFailure(Call<Comment> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_SHORT).show();
+                        comment.setGame(game);
+
+                        comment.setMail(DbUtils.mail);
+
+
+                        Observable<Comment> con = commentAPIInterface.createComment(comment);
+
+                        con.subscribeOn(Schedulers.newThread())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Subscriber<Comment>() {
+                                    @Override
+                                    public void onCompleted() {
+                                        unsubscribe();
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        Toast.makeText(getBaseContext(), "No Connection", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onNext(Comment comments) {
+                                        refreashList();
+                                    }
+                                });
                     }
                 });
-            }
-        });
-
-//        refreashList();
-
+            refreashList();
 
     }
 
-    public void refreashList()
+    public void refresh(View view)
     {
         CommentFragment commentFragment = new CommentFragment();
 
@@ -91,5 +94,13 @@ public class CommentActivity extends AppCompatActivity {
                 commit();
 
     }
+    public void refreashList() {
+        CommentFragment commentFragment = new CommentFragment();
 
+        getSupportFragmentManager().
+                beginTransaction().
+                replace(R.id.cl, commentFragment, "").
+                commit();
+
+    }
 }
