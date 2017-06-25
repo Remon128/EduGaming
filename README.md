@@ -8,8 +8,8 @@ Is my app in software engineering course I implemented all things related to and
 Is an app based on android Platform that is connected to the internet through consume services through internet it’s idea is to allow for both teacher & student to communicate with each other, teacher can create quiz & courses and then students can join that course and get that quizzes and can comment on that quiz  & there is also several types of questions like mcq , true & false and also working with speech recognition to can help students to spell words right I worked as frontend that is responsible about all related to android and used new frameworks and I haven’t ever used before and participated also in backend with spring boot framework in java ,
 
 ### 1. Activities
-# MainActivity : is the only activity on the project that through it I can switch between the fragments with a different views
-# DetailsActivity : is the only activity on the project that display all ger data
+* MainActivity : is the only activity on the project that through it I can switch between the fragments with a different views
+* DetailsActivity : is the only activity on the project that display all ger data
 
 ### 2. Fragments
 This project consists of three fragments 
