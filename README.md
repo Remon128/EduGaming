@@ -18,7 +18,10 @@ Fragmment is a partical view that can appear on the activity and is partical of 
 * I used sqlite to user data  
 
 
-### 4. Models                                                                                                                           Those are models that represent json data to store data from parsing in it
+### 4. Models                                      
+
+
+Those are models that represent json data to store data from parsing in it
 
 * EssentialClass  : is class that have all essential variables to store data in it and main methods  in the app with functionalities                    
 
