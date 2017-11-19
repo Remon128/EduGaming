@@ -1,12 +1,13 @@
 package example.com.teachme.Question;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,8 +20,10 @@ import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.R;
 import example.com.teachme.Score.ScoreActivity;
+import example.com.teachme.User.MainActivity;
+import example.com.teachme.User.StudentActivity;
+import example.com.teachme.User.TeacherActivity;
 import example.com.teachme.api.QuestionAPIInterface;
-import example.com.teachme.model.Game;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +43,39 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
     private int SPEECH_REQUEST_CODE = 1234;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        try {
+            if(id == R.id.logout)
+            {
+                Toast.makeText(getBaseContext(),id,Toast.LENGTH_SHORT).show();
+                DbUtils.delete();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+                setResult(ApiUtils.logoutTag);
+            }else if(id == R.id.main)
+            {
+                if(DbUtils.isTeacher)
+                    startActivity(new Intent(getApplicationContext(), TeacherActivity.class));
+                else
+                    startActivity(new Intent(getApplicationContext(), StudentActivity.class));
+            }
+            return super.onOptionsItemSelected(item);
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+            return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
@@ -52,9 +88,9 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         showbtn = (Button) findViewById(R.id.showbtn);
         okbtn = (Button) findViewById(R.id.submit);
 
+        addbtn.setVisibility(View.VISIBLE);
 
         if (DbUtils.isTeacher) {
-            addbtn.setVisibility(View.VISIBLE);
             showbtn.setVisibility(View.VISIBLE);
             okbtn.setVisibility(View.VISIBLE);
         }
@@ -70,6 +106,8 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
     public void addQuestion(View view) {
 
+        startActivity(new Intent(this,CreateQuestionActivity.class));
+        /*
         okbtn.setVisibility(View.GONE);
         CreateQuestionFragment questionFragment = new CreateQuestionFragment(getBaseContext(), this);
 
@@ -77,8 +115,14 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
                 .beginTransaction()
                 .replace(R.id.flquestion, questionFragment, "")
                 .commit();
-
+*/
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 
     public void submit(View view) {
         Integer score = 0;
@@ -104,6 +148,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
             i.putExtra("score", scoreMsg);
             startActivity(i);
 
+            finish();
         } catch (Exception e) {
             //
         }
@@ -166,6 +211,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == SPEECH_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 ArrayList<String> matches = data
@@ -203,8 +249,12 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
     @Override
     public boolean onClickInteraction(String word) {
+
         check = word;
+
         sendRecognizeIntent();
+
+        Toast.makeText(getApplication(),state+" 2",Toast.LENGTH_SHORT).show();
 
         return state;
 

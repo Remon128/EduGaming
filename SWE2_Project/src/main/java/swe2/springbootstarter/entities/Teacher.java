@@ -19,8 +19,7 @@ public class Teacher extends Users
 	private Set<Game> games;
 	
 	
-	@OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
-	private Set<Comment> comment;
+	
 
 
 
@@ -36,9 +35,7 @@ public class Teacher extends Users
 //		return comment;
 //	}
 //
-	public void setComment(Set<Comment> comment) {
-		this.comment = comment;
-	}
+	
 
 //	public Set<Course> getCourses() {
 //		return courses;

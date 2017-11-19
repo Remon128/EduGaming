@@ -40,17 +40,13 @@ public class Game {
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<Comment> comments;
 	
-//	public Set<Comment> getComments() {
-//		return comments;
-//	}
+	
 
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
 	}
 
-//	public Set<Question> getQuestions() {
-//		return questions;
-//	}
+
 
 	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
@@ -71,15 +67,7 @@ public class Game {
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private Set<Question> questions;
 	
-/*	
-	public Set<Question> getQuestions() {
-		return questions;
-	}
 
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
-	}
-*/
 	public Game() {
 		
 	}
@@ -98,10 +86,6 @@ public class Game {
 		this.description = description;
 	}
 	
-//	@JsonIgnore
-//	public Course getCourse() {
-//		return course;
-//	}
 
 	public void setCourse(Course course) {
 		this.course = course;

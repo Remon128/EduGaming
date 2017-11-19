@@ -14,43 +14,43 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="UPDATE COURSE"/>
+        android:text="@string/update_course"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="COURSE NAME"/>
+        android:text="@string/course_name"/>
 
     <EditText
         android:id="@+id/courseName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="COURSE NAME"/>
+        android:text="@string/course_name"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="COURSE DESCRIPTION"/>
+        android:text="@string/course_description"/>
 
     <EditText
         android:id="@+id/courseDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="COURSE DESCRIPTION"/>
+        android:text="@string/course_description"/>
 
     <Button
         android:id="@+id/courseUpdBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/mybutton"
-        android:text="UPDATE COURSE"/>
+        android:text="@string/update_course"/>
 
     <Button
         android:id="@+id/courseDelBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/mybutton"
-        android:text="DELETE COURSE"/>
+        android:text="@string/delete_course"/>
 
 
 </LinearLayout>

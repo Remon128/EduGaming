@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
-                android:text="Game Name"
+                android:text="@string/game_name"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/blackText"
                 android:textSize="30dp" />
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
-                android:text="Game Description"
+                android:text="@string/game_description"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/blackText"
                 android:textSize="20dp" />
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/mybutton"
-                android:text="Comments"
+                android:text="@string/comments"
                 android:textColor="@drawable/colortext" />
 
         </LinearLayout>

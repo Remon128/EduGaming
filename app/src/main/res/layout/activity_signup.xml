@@ -20,6 +20,12 @@
         app:civ_border_color="#FA8072"
         app:civ_border_width="2dp" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +35,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Username"
+            android:text="@string/username"
             android:textSize="15sp" />
 
         <EditText
@@ -37,14 +43,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Username"
+            android:hint="@string/username"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorText" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:text="@string/email"
             android:textSize="15sp" />
 
 
@@ -53,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorText" />
 
@@ -61,8 +67,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:text="Password"
+            android:hint="@string/password"
+            android:text="@string/password"
             android:textSize="15sp" />
 
         <EditText
@@ -84,14 +90,14 @@
                 android:id="@+id/student"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Student"
+                android:text="@string/student"
                 android:textColor="@android:color/white" />
 
             <RadioButton
                 android:id="@+id/teacher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Teacher"
+                android:text="@string/teacher"
                 android:textColor="@android:color/white" />
         </RadioGroup>
 
@@ -102,7 +108,7 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@drawable/cbutton"
             android:onClick="signup"
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:textColor="@drawable/colortext" />
 
         <Button
@@ -111,7 +117,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/cbutton"
             android:onClick="signin"
-            android:text="Already user"
+            android:text="@string/already_user"
             android:textColor="@drawable/colortext" />
     </LinearLayout>
 </LinearLayout>

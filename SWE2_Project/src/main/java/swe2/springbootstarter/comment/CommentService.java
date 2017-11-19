@@ -1,5 +1,6 @@
 package swe2.springbootstarter.comment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +12,17 @@ import swe2.springbootstarter.entities.Comment;
 public class CommentService {
 	
 	@Autowired
-	private CommentRepository commentRepo;
+	private CommentRepository commentRepository;
 	
 	public void addComment(Comment comment){
-		commentRepo.save(comment);
+		
+		commentRepository.save(comment);
 	}
 	
 	public List<Comment> getComments(Integer id){
-		return commentRepo.findByGame_Id(id);
+		ArrayList<Comment> comments = new ArrayList<>();
+		commentRepository.findByGameId(id).forEach(comments::add);
+		return comments;
 	}
 	
 	

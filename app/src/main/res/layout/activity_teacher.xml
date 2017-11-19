@@ -23,7 +23,7 @@
             android:layout_weight="0.5"
             android:background="@drawable/mybutton"
             android:onClick="createCourse"
-            android:text="CREATE COURSE"
+            android:text="@string/create_course"
             android:textColor="@drawable/colortext"
             app:srcCompat="@drawable/logout" />
 
@@ -35,7 +35,7 @@
             android:onClick="logout"
             android:textColor="@drawable/colortext"
             android:background="@drawable/mybutton"
-            android:text="Logout"
+            android:text="@string/logout"
             app:srcCompat="@drawable/logout" />
 
     </LinearLayout>

@@ -38,32 +38,28 @@
                 android:id="@+id/radio1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBackground"
-                android:buttonTint="#e75748"
+                android:theme="@style/RadioButtonStyle"
                 android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/radio2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBackground"
-                android:buttonTint="#e75748"
+                android:theme="@style/RadioButtonStyle"
                 android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/radio3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBackground"
-                android:buttonTint="#e75748"
+                android:theme="@style/RadioButtonStyle"
                 android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/radio4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBackground"
-                android:buttonTint="#e75748"
+                android:theme="@style/RadioButtonStyle"
                 android:visibility="gone" />
 
         </RadioGroup>
@@ -74,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@drawable/mybutton"
-            android:text="Talk"
+            android:text="@string/talk"
             android:textColor="@drawable/colortext"
             android:visibility="gone" />
 

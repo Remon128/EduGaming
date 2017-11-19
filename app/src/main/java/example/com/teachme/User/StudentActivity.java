@@ -1,34 +1,68 @@
 package example.com.teachme.User;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.Connection.DbUtils;
-import example.com.teachme.model.Course;
 import example.com.teachme.Course.CourseFragment;
 import example.com.teachme.R;
-import example.com.teachme.model.User;
+import example.com.teachme.model.Course;
 
 public class StudentActivity extends AppCompatActivity implements CourseFragment.OnListFragmentInteractionListener , TextToSpeech.OnInitListener {
     @Override
     public void onListFragmentInteraction(Course item) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        try {
+            if(id == R.id.logout)
+            {
+                DbUtils.delete();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+                setResult(ApiUtils.logoutTag);
+            }else if(id == R.id.main)
+            {
+                if(DbUtils.isTeacher)
+                    startActivity(new Intent(getApplicationContext(), TeacherActivity.class));
+                else
+                    startActivity(new Intent(getApplicationContext(), StudentActivity.class));
+            }
+            return super.onOptionsItemSelected(item);
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     TextView test;
@@ -105,7 +139,7 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
 
 
 
-
+/*
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -113,8 +147,10 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
         startActivity(intent);
         finish();
     }
+*/
 
     public void listCourses(View view) {
+
         CourseFragment courseFragment = new CourseFragment(email, 3);
         getSupportFragmentManager()
                 .beginTransaction()

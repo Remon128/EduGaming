@@ -9,5 +9,5 @@ import swe2.springbootstarter.entities.Comment;
 
 public interface CommentRepository extends CrudRepository<Comment, Integer> {
 	
-	public List<Comment> findByGame_Id(Integer id);
+	public List<Comment> findByGameId(Integer id);
 }

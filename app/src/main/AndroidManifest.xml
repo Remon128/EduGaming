@@ -3,7 +3,6 @@
     package="example.com.teachme">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -53,7 +52,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_score"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".Comment.CommentActivity"></activity>
+        <activity android:name=".Comment.CommentActivity" />
+        <activity android:name=".Question.CreateQuestionActivity"></activity>
     </application>
 
 </manifest>

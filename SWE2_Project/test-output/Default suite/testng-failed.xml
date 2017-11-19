@@ -3,11 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="swe2.springbootstarter.course.CourseServiceTest">
+      <class name="swe2.springbootstarter.course.GameServiceTest">
         <methods>
-          <include name="getCourseByTeacherMail"/>
+          <include name="getAllGames"/>
+          <include name="isGameExist"/>
+          <include name="getGame"/>
         </methods>
-      </class> <!-- swe2.springbootstarter.course.CourseServiceTest -->
+      </class> <!-- swe2.springbootstarter.course.GameServiceTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

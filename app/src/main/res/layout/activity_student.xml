@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/mybutton"
             android:onClick="Enroll"
-            android:text="Enrolled"
+            android:text="@string/enrolled"
             android:textColor="@drawable/colortext"
             app:srcCompat="@drawable/logout" />
 
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/mybutton"
             android:onClick="listCourses"
-            android:text="All Courses"
+            android:text="@string/all_courses"
             android:textColor="@drawable/colortext"
             app:srcCompat="@drawable/logout" />
 
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/mybutton"
             android:onClick="logout"
-            android:text="Logout"
+            android:text="@string/logout"
             android:textColor="@drawable/colortext"
             app:srcCompat="@drawable/logout" />
 

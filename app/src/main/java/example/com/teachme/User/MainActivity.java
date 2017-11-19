@@ -1,7 +1,6 @@
 package example.com.teachme.User;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,24 +10,14 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import java.io.Serializable;
-import java.util.List;
-
 import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.Connection.DbUtils;
-import example.com.teachme.DBHandler;
-import example.com.teachme.HomeActivity;
 import example.com.teachme.R;
-import example.com.teachme.UserDBTable;
 import example.com.teachme.api.UserAPIInterface;
 import example.com.teachme.model.User;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Path;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,27 +30,23 @@ public class MainActivity extends AppCompatActivity {
     EditText email, password;
     RadioButton student, teacher;
     String isChecked = "student";
-    SharedPreferences settings;
+    //SharedPreferences settings;
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) {
+            case ApiUtils.logoutTag:
+                setResult(ApiUtils.logoutTag);
+                finish();            // to close this activity
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*
-        settings = getSharedPreferences("mySharedPref", 0);
-
-        if (settings.getBoolean("connected", false)) {
-        // The user has already login, so start the dashboard
-            if (settings.getBoolean("isTeacher", true)) {
-               Intent intent = new Intent(MainActivity.this, TeacherActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(MainActivity.this, StudentActivity.class);
-                startActivity(intent);
-            }
-        }
-*/
 
         try {
 
@@ -98,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void login(View view) {
 
+        setProgressBarVisible();
+
         email_str = email.getText().toString();
         password_str = password.getText().toString();
 
@@ -113,14 +100,16 @@ public class MainActivity extends AppCompatActivity {
                 if (password_str.length() >= 4) {
                     this.validateData(email_str, password_str);
                 } else {
-                    Toast.makeText(getBaseContext(), "Password at least 4 chars", Toast.LENGTH_SHORT).show();
+                    setProgressBarGone();
+                    Toast.makeText(getBaseContext(), getString(R.string.Password_at_least_4_chars), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(getBaseContext(), "Please enter a valid email", Toast.LENGTH_SHORT).show();
+                setProgressBarGone();
+                Toast.makeText(getBaseContext(), getString(R.string.Please_enter_a_valid_email), Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(getBaseContext(), "Please select user type", Toast.LENGTH_SHORT).show();
-
+            setProgressBarGone();
+            Toast.makeText(getBaseContext(), getString(R.string.Please_select_user_type), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -155,33 +144,45 @@ public class MainActivity extends AppCompatActivity {
                                 if (user.getPassword().equals(password_str)) {
                                     flag = true;
                                 } else {
-                                    Toast.makeText(getBaseContext(), "Please enter right password", Toast.LENGTH_SHORT).show();
+                                    setProgressBarGone();
+                                    Toast.makeText(getBaseContext(), getString(R.string.Please_enter_right_password), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(getBaseContext(), "Please enter right email", Toast.LENGTH_SHORT).show();
+                                setProgressBarGone();
+                                Toast.makeText(getBaseContext(), getString(R.string.Please_enter_right_email), Toast.LENGTH_SHORT).show();
                             }
                             if (flag) {
+                                setProgressBarGone();
                                 DbUtils.createDBUtils(getBaseContext());
                                 DbUtils.addUser(user.getMail(), user.getPassword(), user.getName());
                                 DbUtils.name = user.getName();
                                 startActivity(i);
                                 finish();
                             } else {
-                                Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), getString(R.string.enter_valid_data), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getBaseContext(), "Please enter a valid data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), getString(R.string.enter_valid_data), Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
 
                     } finally {
-
+                        setProgressBarGone();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    Toast.makeText(getBaseContext(), "No Internet conncection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                 }
             });
+    }
+
+    void setProgressBarGone() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    void setProgressBarVisible() {
+        progressBar.setVisibility(View.VISIBLE);
     }
 }

@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:textSize="40sp"
         android:gravity="center"
-        android:text="Create Course" />
+        android:text="@string/create_course" />
 
     <ImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="COURSE NAME" />
+            android:text="@string/course_name" />
 
         <EditText
             android:id="@+id/courseName"
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="COURSE DESCRIPTION" />
+            android:text="@string/course_description" />
 
         <EditText
             android:id="@+id/courseDesc"
@@ -74,7 +74,7 @@
             android:background="@drawable/mybutton"
             android:textColor="@drawable/colortext"
             android:onClick="createCourse"
-            android:text="CREATE COURSE" />
+            android:text="@string/create_course" />
     </LinearLayout>
 
 

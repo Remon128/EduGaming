@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:text="Select Answer"
+        android:text="@string/select_answer"
         android:textColor="@android:color/white"
         android:textSize="25dp" />
 
@@ -79,7 +79,7 @@
                 android:layout_gravity="end"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:background="@drawable/mybutton"
-                android:text="Create Question"
+                android:text="@string/create_question"
                 android:textColor="@drawable/colortext" />
 
         </LinearLayout>
@@ -129,9 +129,9 @@
 
                 <EditText
                     android:id="@+id/answer1"
+                    android:textColor="@android:color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/background_dark">
+                    android:layout_height="wrap_content">
 
                 </EditText>
             </LinearLayout>
@@ -226,7 +226,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/mybutton"
-                android:text="Create Question"
+                android:text="@string/create_question"
                 android:textColor="@drawable/colortext" />
 
         </LinearLayout>
@@ -247,7 +247,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:text=""
-            android:hint="Enter question here"
+            android:hint="@string/enter_question_here"
             android:inputType="text"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/colorText"
@@ -270,7 +270,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:textColor="@color/colorText"
-                android:hint="Enter word here">
+                android:hint="@string/enter_word_here">
 
             </EditText>
         </LinearLayout>
@@ -288,7 +288,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:background="@drawable/mybutton"
-                android:text="Create Question"
+                android:text="@string/create_question"
                 android:textColor="@drawable/colortext" />
         </LinearLayout>
 

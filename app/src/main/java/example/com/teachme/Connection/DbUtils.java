@@ -3,9 +3,9 @@ package example.com.teachme.Connection;
 import android.content.Context;
 
 import example.com.teachme.DBHandler;
+import example.com.teachme.User.UserFactory;
 import example.com.teachme.UserDBTable;
 import example.com.teachme.model.User;
-import retrofit2.http.Path;
 
 /**
  * Created by MrHacker on 4/25/2017.
@@ -47,7 +47,20 @@ public class DbUtils {
 
     public static User getUser()
     {
-        User user = new User();
+
+        User user ;
+        UserFactory userFactory;
+        if(isTeacher)
+        {
+            userFactory = UserFactory.getFactory("Teacher");
+        }
+        else
+        {
+            userFactory = UserFactory.getFactory("Student");
+
+        }
+        user = userFactory.createUser();
+
         UserDBTable u = dbHandler.selectUser(mail);
         user.setMail(u.getId());
         user.setPassword(u.getPassword());

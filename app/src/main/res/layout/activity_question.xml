@@ -28,7 +28,7 @@
                 android:layout_weight="0.5"
                 android:textColor="@drawable/colortext"
                 android:onClick="addQuestion"
-                android:text="Add Question" />
+                android:text="@string/add_question" />
 
             <Button
                 android:id="@+id/showbtn"
@@ -39,7 +39,7 @@
                 android:layout_weight="0.5"
                 android:textColor="@drawable/colortext"
                 android:onClick="showQuestion"
-                android:text="Show Questions" />
+                android:text="@string/show_questions" />
         </LinearLayout>
 
         <LinearLayout
@@ -56,7 +56,7 @@
             android:background="@drawable/mybutton"
             android:textColor="@drawable/colortext"
             android:onClick="submit"
-            android:text="SUBMIT" />
+            android:text="@string/submit" />
 
     </LinearLayout>
 

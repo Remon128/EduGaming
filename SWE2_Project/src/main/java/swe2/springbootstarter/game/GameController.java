@@ -104,7 +104,6 @@ public class GameController {
 		 gameService.uncancelGame(game);
 		 return new ResponseEntity<Game>(game, HttpStatus.OK);
 	 }
-	 
 	 @RequestMapping(value = "/game/addCollaborator", method = RequestMethod.PUT)
 	 public ResponseEntity<?> addGameCollaborator(@RequestBody Game game) {
 

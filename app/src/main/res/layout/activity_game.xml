@@ -17,7 +17,7 @@
         android:textColor="@drawable/colortext"
         android:background="@drawable/mybutton"
         android:visibility="gone"
-        android:text="CREATE GAME" />
+        android:text="@string/create_game" />
 
     <FrameLayout
         android:id="@+id/gamelist"

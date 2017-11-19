@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import swe2.springbootstarter.entities.Comment;
+import swe2.springbootstarter.user.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -23,9 +24,10 @@ public class CommentController {
 	
 	@Autowired
 	private CommentService commentService;
-	
+	@Autowired
+	private UserService userService;
 	@RequestMapping(value = "/comments/getByGameId/{gameId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getComments(@PathVariable ("gameId") Integer gameId) {
+    public ResponseEntity<?> getComments(@PathVariable Integer gameId) {
         List<Comment> comments = commentService.getComments(gameId);
         if (comments.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -37,7 +39,10 @@ public class CommentController {
 	 @RequestMapping(value = "/comments/addComment", method = RequestMethod.POST)
 	    public ResponseEntity<?> createComment(@RequestBody Comment comment) {
 	        logger.info("Creating Comment: {}", comment);
-	    
+	        if(!userService.isUserExist(comment.getMail())){
+	        	return new ResponseEntity<String>("sorry", HttpStatus.CONFLICT);
+	        }
+	        
 	        commentService.addComment(comment);
 	 
 	        

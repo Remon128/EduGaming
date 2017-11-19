@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="refresh">Refresh</string>
+    <string name="comment">Comment</string>
+    <string name="create_course">Create Course</string>
+    <string name="course_name">COURSE NAME</string>
+    <string name="course_description">COURSE DESCRIPTION</string>
+    <string name="create_game">Create Game</string>
+    <string name="game_name">GAME NAME</string>
+    <string name="game_description">GAME DESCRIPTION</string>
+    <string name="setting">SETTING</string>
+    <string name="username">USERNAME</string>
+    <string name="confirm_password">CONFIRM PASSWORD</string>
+    <string name="update">Update</string>
+    <string name="show_questions">Show Questions</string>
+    <string name="add_question">Add Question</string>
+    <string name="submit">SUBMIT</string>
+    <string name="score_value">Heloo</string>
+    <string name="next">Next</string>
+    <string name="already_user">Already user</string>
+    <string name="enrolled">Enrolled</string>
+    <string name="all_courses">All Courses</string>
+    <string name="logout">Logout</string>
+    <string name="update_course">UPDATE COURSE</string>
+    <string name="delete_course">DELETE COURSE</string>
+    <string name="enter_word_here">Enter word here</string>
+    <string name="select_answer">Select Answer</string>
+    <string name="create_question">Create Question</string>
+    <string name="enter_question_here">Enter question here</string>
+    <string name="comments">Comments</string>
+    <string name="talk">Talk</string>
+    <string name="Password_at_least_4_chars">Password at least 4 chars</string>
+    <string name="Please_enter_a_valid_email">Please enter a valid email</string>
+    <string name="Please_select_user_type">Please select user type</string>
+    <string name="Please_enter_right_password">Please enter right password</string>
+    <string name="Please_enter_right_email">Please enter right email</string>
+    <string name="Course_has_been_created">Course has been created</string>
+    <string name="no_internet">no internet connection</string>
+    <string name="Please_enter_course_info">Please enter course info</string>
+    <string name="enter_a_valid_email">Please enter a valid email</string>
+    <string name="Please_enter_username">Please enter username</string>
+</resources>

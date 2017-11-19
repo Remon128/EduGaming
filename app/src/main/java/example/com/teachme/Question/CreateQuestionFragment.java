@@ -2,7 +2,6 @@ package example.com.teachme.Question;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -61,6 +60,8 @@ public class CreateQuestionFragment extends Fragment {
         this.context = context;
         this.mListener = newListener;
     }
+
+
 
 
     @Override
@@ -215,8 +216,8 @@ public class CreateQuestionFragment extends Fragment {
 
                         mListener.onFragmentInteraction(tf);
 
-
                         startActivity(new Intent(context, QuestionActivity.class));
+
 
                     } else
                         Toast.makeText(context, "Please check an answer", Toast.LENGTH_SHORT).show();

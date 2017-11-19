@@ -1,8 +1,5 @@
 package example.com.teachme.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +12,7 @@ public class Course {
     private Teacher teacher;
 
     private Set<Student> students;
+
 
     public Set<Student> getStudents() {
         return students;

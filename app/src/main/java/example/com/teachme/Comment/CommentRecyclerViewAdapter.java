@@ -36,7 +36,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
         holder.cardView.setTag(position);
         holder.mItem = mValues.get(position);
 
-        String name = DbUtils.name ;
+        String name = mValues.get(position).getMail();
         holder.username.setText(name);
         holder.comment.setText(mValues.get(position).getComment());
     }

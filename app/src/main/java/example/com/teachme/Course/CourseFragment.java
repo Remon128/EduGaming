@@ -9,19 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.Connection.DbUtils;
 import example.com.teachme.R;
+import example.com.teachme.User.UserFactory;
 import example.com.teachme.api.CourseAPIInterface;
 import example.com.teachme.model.Course;
-import example.com.teachme.model.Teacher;
+import example.com.teachme.model.Student;
 import example.com.teachme.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -34,7 +35,7 @@ public class CourseFragment extends Fragment {
     private String mail;
     private List<Course> courses = null;
     private List<Course> fcourses = null;
-
+    UserFactory userFactory = null ;
     int courseType;
 
     Call<List<Course>> connection = null;
@@ -53,23 +54,28 @@ public class CourseFragment extends Fragment {
     public CourseFragment(String email, int courseType) {
 
         courseAPIInterface = ApiUtils.getAPICourse();
-        user = new User();
-        user.setMail(DbUtils.mail);
-        Teacher teacher = new Teacher();
-        teacher.setMail(email);
-        mail = email;
+//        Teacher teacher = new Teacher();
+ //       teacher.setMail(email);
         courses = new ArrayList<>();
         fcourses = new ArrayList<>();
         this.courseType = courseType;
 
-        if (courseType == 1)
-            connection = courseAPIInterface.getCourses(teacher);
-        else if (courseType == 2)
-            connection = courseAPIInterface.getCoursesStudent(user);
-        else if (courseType == 3)
-            connection = courseAPIInterface.getAllCourses();
-    }
+        if (courseType == 1) {
 
+            userFactory = UserFactory.getFactory("Teacher");
+            user = userFactory.createUser();
+            user.setMail(DbUtils.mail);
+            connection = courseAPIInterface.getCourses(user);
+        } else if (courseType == 2) {
+            userFactory = UserFactory.getFactory("Student");
+            user = userFactory.createUser();
+            user.setMail(DbUtils.mail);
+            connection = courseAPIInterface.getCoursesStudent(user);
+        } else if (courseType == 3) {
+            connection = courseAPIInterface.getAllCourses();
+
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -107,7 +113,7 @@ public class CourseFragment extends Fragment {
 
         if (courseType != 1) {
 
-            connection = courseAPIInterface.getCoursesStudent(user);
+            connection = courseAPIInterface.getCoursesStudent((Student)user);
 
             connection.enqueue(new Callback<List<Course>>() {
                 @Override

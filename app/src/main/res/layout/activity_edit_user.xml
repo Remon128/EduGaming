@@ -15,45 +15,45 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="SETTING"/>
+        android:text="@string/setting"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="USERNAME"/>
+        android:text="@string/username"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="USERNAME"/>
+        android:text="@string/username"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PASSWORD"/>
+        android:text="@string/password"/>
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PASSWORD"/>
+        android:text="@string/password"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CONFIRM PASSWORD"/>
+        android:text="@string/confirm_password"/>
 
     <EditText
         android:id="@+id/confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CONFIRM PASSWORD"/>
+        android:text="@string/confirm_password"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/mybutton"
-        android:text="Update"/>
+        android:text="@string/update"/>
 
 
 

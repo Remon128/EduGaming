@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,60 +7,73 @@
     android:orientation="vertical"
     tools:context="example.com.teachme.User.MainActivity">
 
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:src="@drawable/logo"
-        app:civ_border_color="#FA8072"
-        app:civ_border_width="2dp" />
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/activity_horizontal_margin">
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:orientation="vertical">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView2"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:src="@drawable/logo"
+            app:civ_border_color="#FA8072"
+            app:civ_border_width="2dp" />
+
 
         <TextView
+            android:id="@+id/nameTextView"
+            style="@style/marginABit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="EMAIL"
+            android:layout_below="@+id/circleImageView2"
+            android:text="@string/email"
             android:textColor="@android:color/white"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/email1"
+            style="@style/marginBoth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/nameTextView"
             android:ems="10"
-            android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
             android:textColor="@android:color/white" />
 
 
         <TextView
+            android:id="@+id/passwordTextView"
+            style="@style/marginABit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PASSWORD"
+            android:layout_below="@+id/email1"
+            android:text="@string/password"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
 
         <EditText
             android:id="@+id/password1"
+            style="@style/marginBoth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/passwordTextView"
             android:ems="10"
-            android:hint="@string/hint_password"
             android:inputType="textPassword"
             android:textColor="@android:color/white" />
 
 
         <RadioGroup
+            android:id="@+id/radio_group"
+            style="@style/marginABit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/password1"
             android:orientation="horizontal"
             android:textColor="@android:color/white">
 
@@ -68,21 +81,33 @@
                 android:id="@+id/student"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:text="Student" />
+                android:text="@string/student"
+                android:textColor="@android:color/white" />
 
             <RadioButton
                 android:id="@+id/teacher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:text="Teacher" />
+                android:text="@string/teacher"
+                android:textColor="@android:color/white" />
         </RadioGroup>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="@android:style/Widget.ProgressBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/signin1"
             android:layout_width="match_parent"
             android:layout_height="50sp"
+            android:layout_below="@+id/radio_group"
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:background="@drawable/mybutton"
             android:onClick="login"
@@ -92,6 +117,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/signin1"
             android:orientation="horizontal">
 
             <Button
@@ -101,7 +127,7 @@
                 android:layout_marginRight="@dimen/activity_vertical_margin"
                 android:layout_weight="0.5"
                 android:background="@drawable/mybutton"
-                android:text="Sign Up"
+                android:text="@string/sign_up"
                 android:textColor="@drawable/colortext" />
 
             <Button
@@ -111,20 +137,10 @@
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_weight="0.5"
                 android:background="@drawable/mybutton"
-                android:text="Forget"
+                android:text="@string/forget"
                 android:textColor="@drawable/colortext" />
         </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/progressbar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="test"
-            android:visibility="invisible" />
+    </RelativeLayout>
 
-    </LinearLayout>
-</LinearLayout>
+</ScrollView>

@@ -13,7 +13,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import example.com.teachme.Connection.ApiUtils;
-import example.com.teachme.model.Course;
 import example.com.teachme.R;
 import example.com.teachme.api.UserAPIInterface;
 import example.com.teachme.model.Student;
@@ -22,8 +21,6 @@ import example.com.teachme.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -38,6 +35,12 @@ public class SignupActivity extends AppCompatActivity {
     RadioButton student, teacher;
     Button login;
 
+    /*
+        @Override
+        public void onBackPressed() {
+            finish();
+        }
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,16 +78,16 @@ public class SignupActivity extends AppCompatActivity {
                     if (password_str.length() >= 4) {
                         this.validateData(email_str, password_str);
                     } else {
-                        Toast.makeText(getBaseContext(), "Password at least 4 chars", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), getString(R.string.Password_at_least_4_chars), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getBaseContext(), "Please enter a valid email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), getString(R.string.enter_a_valid_email), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(getBaseContext(), "Please enter username", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), getString(R.string.Please_enter_username), Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(getBaseContext(), "Please select user type", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.Please_select_user_type), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -125,7 +128,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    Toast.makeText(getBaseContext(), "No Internet conncection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                 }
             });
     }

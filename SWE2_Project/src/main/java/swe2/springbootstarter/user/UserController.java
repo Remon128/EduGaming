@@ -13,7 +13,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import swe2.springbootstarter.entities.Student;
 import swe2.springbootstarter.entities.Teacher;
-import swe2.springbootstarter.entities.Users;
 import swe2.util.CustomErrorType;
 
 
@@ -45,8 +44,8 @@ public class UserController {
 		///////////////////////////////////////////////////////////////
 		@RequestMapping (method=RequestMethod.POST,value="/get/teacher")
 		public ResponseEntity<?> getTeacher(@RequestBody Teacher teacher ){
-			Users user= new Teacher(); 
-			user = userService.getUser(teacher.getMail());
+			
+			teacher =  (Teacher) userService.getUser(teacher.getMail());
 			logger.info("Getting Teacher : {}", teacher);
 			if(!userService.isUserExist(teacher.getMail())){
 				logger.error("Teacher Does not exist : {}" , teacher.getName());
@@ -54,7 +53,7 @@ public class UserController {
 			            	teacher.getName() + " already exist."), HttpStatus.NO_CONTENT);
 			}
 			
-			return new ResponseEntity<Users>(user, HttpStatus.OK);
+			return new ResponseEntity<Teacher>( teacher, HttpStatus.OK);
 		}
 
 		
@@ -75,15 +74,15 @@ public class UserController {
 		///////////////////////////////////////////////////////////
 		@RequestMapping (method=RequestMethod.POST,value="/get/student")
 		public ResponseEntity<?> getStudent(@RequestBody Student student ){
-			Users user = new Student();
-			user = userService.getUser(student.getMail());
+			student = (Student) userService.getUser(student.getMail());
 			logger.info("Getting Student : {}", student);
 			if(!userService.isUserExist(student.getMail())){
 				logger.error("Teacher Does not exist : {}" , student.getName());
 				 return new ResponseEntity<>(new CustomErrorType("Student does not exist  " + 
 						 student.getName() + " already exist."), HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<Users>(user, HttpStatus.OK);
+			
+			return new ResponseEntity<Student>((Student) student, HttpStatus.OK);
 		}
 		///////////////////////////////////////////////////////////
 //		@RequestMapping (method=RequestMethod.DELETE,value="/delete/student")

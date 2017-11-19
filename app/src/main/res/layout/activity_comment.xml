@@ -14,7 +14,7 @@
         android:background="@drawable/mybutton"
         android:textColor="@drawable/colortext"
         android:onClick="refresh"
-        android:text="Refresh" />
+        android:text="@string/refresh" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:id="@+id/addComment"
-            android:text="Comment"
+            android:text="@string/comment"
             android:background="@color/colorText"
             android:src="@drawable/ic_menu_send" />
 

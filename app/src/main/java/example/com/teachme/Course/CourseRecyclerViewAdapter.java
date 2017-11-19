@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.List;
 
 import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.Connection.DbUtils;
@@ -18,14 +19,9 @@ import example.com.teachme.R;
 import example.com.teachme.api.CourseAPIInterface;
 import example.com.teachme.model.Course;
 import example.com.teachme.model.Student;
-import example.com.teachme.model.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
 
 
 public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecyclerViewAdapter.ViewHolder> {
@@ -92,6 +88,7 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
                 Student student = new Student();
 
                 student.setMail(email);
+                student.setName(DbUtils.name);
                 // student.setName(user.getName());
                 //student.setPassword(user.getPassword());
 

@@ -15,14 +15,17 @@ public class Comment {
 	Integer id ;
 	
 	private String comment;
+	private String mail;
 	
 	@ManyToOne
 	@JoinColumn
 	private Game game;
 	
-//	public Game getGame() {
-//		return game;
-//	}
+		
+	
+	public Comment() {
+		
+	}
 
 
 
@@ -30,21 +33,7 @@ public class Comment {
 		this.game = game;
 	}
 
-	@ManyToOne
-	@JoinColumn
-	private Teacher teacher;
-	
-	@ManyToOne
-	@JoinColumn
-	private Student student;
-	
-	
-	
-	public Comment() {
-		
-	}
 
-	
 
 	public String getComment() {
 		return comment;
@@ -54,43 +43,32 @@ public class Comment {
 		this.comment = comment;
 	}
 
-	public Comment(String comment, Game game) {
+
+
+	public Comment(String comment, Game game, String mail) {
 		super();
 		this.comment = comment;
 		this.game = game;
+		this.mail = mail;
 	}
 
 
 
-//	public Teacher getTeacher() {
-//		return teacher;
-//	}
-
-
-
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
+	public String getMail() {
+		return mail;
 	}
 
-	public Student getStudent() {
-		return student;
+
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
-
-//	public Student getStudent() {
-//		return student;
-//	}
-
-
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-
 
 
 	public Integer getId() {
 		return id;
 	}
+
+
 
 	public void setId(Integer id) {
 		this.id = id;

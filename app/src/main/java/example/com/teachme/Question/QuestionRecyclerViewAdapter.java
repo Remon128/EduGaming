@@ -2,14 +2,10 @@ package example.com.teachme.Question;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.speech.RecognizerIntent;
-import android.speech.tts.TextToSpeech;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +15,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import example.com.teachme.R;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import static example.com.teachme.R.id.tts;
+import example.com.teachme.R;
 
 
 public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRecyclerViewAdapter.ViewHolder> {
@@ -106,9 +99,12 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<QuestionRe
                 String goal = holder.mItem.getChoices()[0];
                 boolean state = rlistener.onClickInteraction(goal);
                 int pos = Integer.parseInt(holder.cardView.getTag().toString());
+                Toast.makeText(context,state+"",Toast.LENGTH_SHORT).show();
                 userAnswers[pos] = state ? 1 : 0;
                 if (state)
                     holder.r1.setTextColor(Color.GREEN);
+
+
                 holder.r1.setChecked(state);
             }
         });

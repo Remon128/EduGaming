@@ -15,7 +15,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class User implements Serializable {
+public class  User implements Serializable {
 
     @SerializedName("mail")
     @Expose
