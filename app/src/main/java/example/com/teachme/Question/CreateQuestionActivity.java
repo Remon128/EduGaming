@@ -45,7 +45,7 @@ public class CreateQuestionActivity extends AppCompatActivity implements CreateQ
 
             @Override
             public void onFailure(Call<MCQ> call, Throwable t) {
-                Toast.makeText(getBaseContext(), "No connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             }
         });
 

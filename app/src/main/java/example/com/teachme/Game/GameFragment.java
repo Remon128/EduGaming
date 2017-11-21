@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.R;
 import example.com.teachme.api.GameAPIInterface;
@@ -18,20 +21,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class GameFragment extends Fragment {
 
     private List<Game> gameList = null;
     private OnListFragmentInteractionListener mListener;
     Call<List<Game>> connection;
-    Context context ;
+    Context context;
 
 
-
-    public GameFragment(int courseId,Context context) {
+    public GameFragment(int courseId, Context context) {
         gameList = new ArrayList<>();
         this.context = context;
         GameAPIInterface gameAPIInterface = ApiUtils.getAPIGame();
@@ -61,7 +60,7 @@ public class GameFragment extends Fragment {
             public void onResponse(Call<List<Game>> call, Response<List<Game>> response) {
                 if (response.isSuccessful()) {
                     if (response.body() == null) {
-                        Toast.makeText(getContext(), "No Available games", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.no_quizes_availables), Toast.LENGTH_SHORT).show();
                     } else
                         gameList.addAll(response.body());
                 }
@@ -70,11 +69,11 @@ public class GameFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Game>> call, Throwable t) {
-                Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             }
         });
         return view;
-}
+    }
 
 /*
     @Override
@@ -106,8 +105,8 @@ public class GameFragment extends Fragment {
      */
 
 
-public interface OnListFragmentInteractionListener {
-    // TODO: Update argument type and name
-    void onListFragmentInteraction(Game item);
-}
+    public interface OnListFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onListFragmentInteraction(Game item);
+    }
 }

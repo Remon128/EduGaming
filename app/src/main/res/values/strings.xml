@@ -77,5 +77,21 @@
     <string name="enter_valid_data">Please enter a valid data</string>
     <string name="enter_a_valid_email">Please enter a valid email</string>
     <string name="Please_enter_username">Please enter username</string>
+    <string name="no_question_type_selected">No Question Type Selected</string>
+    <string name="mcq">MCQ</string>
+    <string name="ture_false"><![CDATA[True & False]]></string>
+    <string name="speech_word">Speech Word</string>
+    <string name="Please_check_an_answer">Please check an answer</string>
+    <string name="dont_leave_any_question_empty">Please don\'t leave any question empty</string>
+    <string name="True">True</string>
+    <string name="False">False</string>
+    <string name="dont_leave_ques_desc_empty">Please don\'t leave question description empty</string>
+    <string name="please_select_answer">Please select answer</string>
+    <string name="exc_you_said_word_right">Excellent you said the word right!</string>
+    <string name="try_again">try again</string>
+    <string name="heard_nothing">Heard nothing</string>
+    <string name="say">Say</string>
+    <string name="your_score_is">Your Score is</string>
+    <string name="no_quizes_availables">No Available games</string>
 
 </resources>

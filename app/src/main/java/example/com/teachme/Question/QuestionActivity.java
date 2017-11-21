@@ -107,10 +107,10 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
     public void addQuestion(View view) {
 
         startActivity(new Intent(this,CreateQuestionActivity.class));
+
         /*
         okbtn.setVisibility(View.GONE);
         CreateQuestionFragment questionFragment = new CreateQuestionFragment(getBaseContext(), this);
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.flquestion, questionFragment, "")
@@ -143,11 +143,10 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
             }
 
 
-            String scoreMsg = "Your Score is " + score;
+            String scoreMsg = getString(R.string.your_score_is) + score;
             Intent i = new Intent(QuestionActivity.this, ScoreActivity.class);
             i.putExtra("score", scoreMsg);
             startActivity(i);
-
             finish();
         } catch (Exception e) {
             //
@@ -181,7 +180,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
             @Override
             public void onFailure(Call<MCQ> call, Throwable t) {
-                Toast.makeText(getBaseContext(), "No connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -203,7 +202,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say " + check);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.say) + check);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 100);
 
         startActivityForResult(intent, SPEECH_REQUEST_CODE);
@@ -218,15 +217,15 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
                         .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                 if (matches.size() == 0) {
-                    tts.speak("Heard nothing", TextToSpeech.QUEUE_FLUSH, null);
+                    tts.speak(getString(R.string.heard_nothing), TextToSpeech.QUEUE_FLUSH, null);
                 } else {
                     String matched = matches.get(0);
                     String magicWord = check.toLowerCase();
                     if (matched.equals(magicWord)) {
                         state = true;
-                        tts.speak("Excellent you said the word right!", TextToSpeech.QUEUE_FLUSH, null);
+                        tts.speak(getString(R.string.exc_you_said_word_right), TextToSpeech.QUEUE_FLUSH, null);
                     } else {
-                        tts.speak("try again", TextToSpeech.QUEUE_FLUSH, null);
+                        tts.speak(getString(R.string.try_again), TextToSpeech.QUEUE_FLUSH, null);
                     }
                 }
                 Toast.makeText(getBaseContext(), matches.get(0), Toast.LENGTH_SHORT).show();

@@ -2,10 +2,10 @@ package example.com.teachme.Score;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -47,16 +47,14 @@ public class ScoreActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         try {
-            if(id == R.id.logout)
-            {
-                Toast.makeText(getBaseContext(),id,Toast.LENGTH_SHORT).show();
+            if (id == R.id.logout) {
+                Toast.makeText(getBaseContext(), id, Toast.LENGTH_SHORT).show();
                 DbUtils.delete();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 setResult(ApiUtils.logoutTag);
-            }else if(id == R.id.main)
-            {
-                if(DbUtils.isTeacher)
+            } else if (id == R.id.main) {
+                if (DbUtils.isTeacher)
                     startActivity(new Intent(getApplicationContext(), TeacherActivity.class));
                 else
                     startActivity(new Intent(getApplicationContext(), StudentActivity.class));
@@ -67,6 +65,7 @@ public class ScoreActivity extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
@@ -144,6 +143,10 @@ public class ScoreActivity extends AppCompatActivity {
         next = (Button) findViewById(R.id.next);
 
 
+        Intent i = getIntent();
+
+        mContentView.setText(i.getStringExtra("score"));
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,9 +154,6 @@ public class ScoreActivity extends AppCompatActivity {
                 finish();
             }
         });
-        Intent i = getIntent();
-
-        mContentView.setText(i.getStringExtra("score"));
 
 
         // Set up the user interaction to manually show or hide the system UI.

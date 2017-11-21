@@ -77,5 +77,21 @@
     <string name="Please_enter_course_info">من فضلك ادخل بيانات الكورس</string>
     <string name="enter_a_valid_email">من فضلك ادخل بريد صحيح</string>
     <string name="Please_enter_username">من فضلك ادخل اسم المستخدم</string>
+    <string name="no_question_type_selected">من فضلك اختار نوع السوال</string>
+    <string name="mcq">اختيارات متعددة</string>
+    <string name="ture_false"><![CDATA[صح وخطا]]></string>
+    <string name="speech_word">تحدث الكلمة</string>
+    <string name="Please_check_an_answer">من فضلك اختار الاجابة</string>
+    <string name="dont_leave_any_question_empty">من فضلك لا تترك اي سوال فارغ</string>
+    <string name="True">صح</string>
+    <string name="False">خطا</string>
+    <string name="dont_leave_ques_desc_empty">من فضلك لا تترك وصف السوال فارغ</string>
+    <string name="please_select_answer">من فضلك اختار الاجابة</string>
+    <string name="exc_you_said_word_right">ممتاز لقد نطقت الكلمة بطريقة صحيحة</string>
+    <string name="try_again">حاول مرة اخري</string>
+    <string name="heard_nothing"> تحدث لا اسمع شي</string>
+    <string name="say">انطق</string>
+    <string name="your_score_is">درجتك تكون</string>
+    <string name="no_quizes_availables">No Available games</string>
 
 </resources>

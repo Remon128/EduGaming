@@ -78,10 +78,10 @@ public class CreateQuestionFragment extends Fragment {
         spinner = (Spinner) view.findViewById(R.id.spinner);
 
         List<String> list = new ArrayList<>();
-        list.add("No Question Type Selected");
-        list.add("MCQ");
-        list.add("True & False");
-        list.add("Speech Word");
+        list.add(getString(R.string.no_question_type_selected));
+        list.add(getString(R.string.mcq));
+        list.add(getString(R.string.ture_false));
+        list.add(getString(R.string.speech_word));
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -99,18 +99,18 @@ public class CreateQuestionFragment extends Fragment {
 
                 Toast.makeText(context, item, Toast.LENGTH_SHORT).show();
 
-                if (item.equals("MCQ")) {
+                if (item.equals(getString(R.string.mcq))) {
                     questionType = 1;
                     linearLayoutmcq.setVisibility(View.VISIBLE);
                     linearLayouttf.setVisibility(View.GONE);
                     linearLayouttts.setVisibility(View.GONE);
 
-                } else if (item.equals("True & False")) {
+                } else if (item.equals(getString(R.string.ture_false))) {
                     questionType = 2;
                     linearLayouttf.setVisibility(View.VISIBLE);
                     linearLayoutmcq.setVisibility(View.GONE);
                     linearLayouttts.setVisibility(View.GONE);
-                } else if (item.equals("Speech Word")) {
+                } else if (item.equals(getString(R.string.speech_word))) {
                     questionType = 3;
                     linearLayouttts.setVisibility(View.VISIBLE);
                     linearLayouttf.setVisibility(View.GONE);
@@ -220,12 +220,12 @@ public class CreateQuestionFragment extends Fragment {
 
 
                     } else
-                        Toast.makeText(context, "Please check an answer", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, getString(R.string.Please_check_an_answer), Toast.LENGTH_SHORT).show();
                 } else
-                    Toast.makeText(context, "Please don't leave any question empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.dont_leave_any_question_empty), Toast.LENGTH_SHORT).show();
 
             } else
-                Toast.makeText(context, "Please don't leave question description empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, getString(R.string.dont_leave_ques_desc_empty), Toast.LENGTH_SHORT).show();
 
         } else if (questionType == 2) {
             if (desc2.getText().length() > 0) {
@@ -235,8 +235,8 @@ public class CreateQuestionFragment extends Fragment {
                     tf.setDescription(desc2.getText().toString());
                     List<String> list = new ArrayList<>();
 
-                    list.add("True");
-                    list.add("False");
+                    list.add(getString(R.string.True));
+                    list.add(getString(R.string.False));
                     tf.setChoices(list.toArray(new String[0]));
 
                     if (t.isChecked())
@@ -251,10 +251,10 @@ public class CreateQuestionFragment extends Fragment {
                 }
                 else
                 {
-                    Toast.makeText(context, "Please select answer", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.please_select_answer), Toast.LENGTH_SHORT).show();
                 }
             } else
-                Toast.makeText(context, "Please don't leave any question empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,getString(R.string.dont_leave_any_question_empty), Toast.LENGTH_SHORT).show();
 
         } else if (questionType == 3) {
 
@@ -275,7 +275,7 @@ public class CreateQuestionFragment extends Fragment {
                     startActivity(new Intent(context, QuestionActivity.class));
                 }
             } else
-                Toast.makeText(context, "Please don't leave any question empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, getString(R.string.dont_leave_any_question_empty), Toast.LENGTH_SHORT).show();
         }
 
     }

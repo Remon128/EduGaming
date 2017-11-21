@@ -52,7 +52,7 @@
                 android:id="@+id/flag1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="True"
+                android:text="@string/True"
                 android:textColor="@android:color/white" />
 
 
@@ -60,7 +60,7 @@
                 android:id="@+id/flag2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="False"
+                android:text="@string/False"
                 android:textColor="@android:color/white" />
 
         </RadioGroup>

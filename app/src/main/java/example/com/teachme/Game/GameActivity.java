@@ -18,8 +18,8 @@ import example.com.teachme.User.TeacherActivity;
 
 public class GameActivity extends AppCompatActivity {
 
-    int courseId ;
-    Button courseBtn ;
+    int courseId;
+    Button courseBtn;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -27,46 +27,49 @@ public class GameActivity extends AppCompatActivity {
 
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
         try {
-            if(id == R.id.logout)
-            {
-                Toast.makeText(getBaseContext(),id,Toast.LENGTH_SHORT).show();
+            if (id == R.id.logout) {
+                Toast.makeText(getBaseContext(), id, Toast.LENGTH_SHORT).show();
                 DbUtils.delete();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 setResult(ApiUtils.logoutTag);
-            }else if(id == R.id.main)
-            {
-                if(DbUtils.isTeacher)
+            } else if (id == R.id.main) {
+                if (DbUtils.isTeacher) {
                     startActivity(new Intent(getApplicationContext(), TeacherActivity.class));
-                else
+                    finish();
+                } else {
                     startActivity(new Intent(getApplicationContext(), StudentActivity.class));
+                    finish();
+                }
             }
             return super.onOptionsItemSelected(item);
         } catch (Exception e) {
-            Toast.makeText(getBaseContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        courseBtn = (Button)findViewById(R.id.createCourse);
-        GameFragment gameFragment = new GameFragment(DbUtils.courseId,getBaseContext());
+        courseBtn = (Button) findViewById(R.id.createCourse);
+        GameFragment gameFragment = new GameFragment(DbUtils.courseId, getBaseContext());
 
-        if(DbUtils.isTeacher)
+        if (DbUtils.isTeacher)
             courseBtn.setVisibility(View.VISIBLE);
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.gamelist,gameFragment,"")
+                .replace(R.id.gamelist, gameFragment, "")
                 .commit();
     }
 
@@ -75,9 +78,9 @@ public class GameActivity extends AppCompatActivity {
         finish();
     }
 
-    public void createGamebtn(View view)
-    {
-        startActivity(new Intent(GameActivity.this,CreateGameActivity.class));
+    public void createGamebtn(View view) {
+        startActivity(new Intent(GameActivity.this, CreateGameActivity.class));
+        finish();
     }
     /*
     public void showQuestion(View view)

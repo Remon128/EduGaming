@@ -15,15 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import example.com.teachme.Connection.ApiUtils;
 import example.com.teachme.R;
 import example.com.teachme.api.QuestionAPIInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -114,14 +114,14 @@ public class QuestionFragment extends Fragment implements TextToSpeech.OnInitLis
                         .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                 if (matches.size() == 0) {
-                    tts.speak("Heard nothing", TextToSpeech.QUEUE_FLUSH, null);
+                    tts.speak(getString(R.string.heard_nothing), TextToSpeech.QUEUE_FLUSH, null);
                 } else {
                     String mostLikelyThingHeard = matches.get(0);
                     String magicWord = this.getResources().getString(R.string.magicword);
                     if (mostLikelyThingHeard.equals(magicWord)) {
                         tts.speak("You said the magic word!", TextToSpeech.QUEUE_FLUSH, null);
                     } else {
-                        tts.speak("The magic word is not " + mostLikelyThingHeard + " try again", TextToSpeech.QUEUE_FLUSH, null);
+                        tts.speak("The magic word is not " + mostLikelyThingHeard +getString(R.string.try_again), TextToSpeech.QUEUE_FLUSH, null);
                     }
                 }
                 result.setText("heard: " + matches);
