@@ -45,8 +45,8 @@ public class CreateQuestionFragment extends Fragment {
     RadioButton f;
 
     EditText desc3;
-    RadioButton speeched ;
-    EditText ttsAnswer ;
+    RadioButton speeched;
+    EditText ttsAnswer;
 
     TextView t1;
     TextView t2;
@@ -56,13 +56,19 @@ public class CreateQuestionFragment extends Fragment {
     Context context;
     LinearLayout linearLayoutmcq = null, linearLayouttf, linearLayouttts;
 
-    public CreateQuestionFragment(Context context, OnFragmentInteractionListener newListener) {
-        this.context = context;
+    // TODO: Customize parameter initialization
+    @SuppressWarnings("unused")
+    public static CreateQuestionFragment newInstance() {
+        CreateQuestionFragment fragment = new CreateQuestionFragment();
+        return fragment;
+    }
+
+    public CreateQuestionFragment(OnFragmentInteractionListener newListener) {
         this.mListener = newListener;
     }
 
-
-
+    public CreateQuestionFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +89,7 @@ public class CreateQuestionFragment extends Fragment {
         list.add(getString(R.string.ture_false));
         list.add(getString(R.string.speech_word));
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(dataAdapter);
@@ -97,7 +103,7 @@ public class CreateQuestionFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String item = spinner.getSelectedItem().toString();
 
-                Toast.makeText(context, item, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), item, Toast.LENGTH_SHORT).show();
 
                 if (item.equals(getString(R.string.mcq))) {
                     questionType = 1;
@@ -153,13 +159,13 @@ public class CreateQuestionFragment extends Fragment {
         f = (RadioButton) view.findViewById(R.id.flag2);
 
 
-        desc3 = (EditText)view.findViewById(R.id.ttsQuestion);
-        speeched = (RadioButton)view.findViewById(R.id.radiotts);
-        ttsAnswer = (EditText)view.findViewById(R.id.ttsAnswer);
+        desc3 = (EditText) view.findViewById(R.id.ttsQuestion);
+        speeched = (RadioButton) view.findViewById(R.id.radiotts);
+        ttsAnswer = (EditText) view.findViewById(R.id.ttsAnswer);
 
         Button createmcq = (Button) view.findViewById(R.id.createmcq);
         Button createtf = (Button) view.findViewById(R.id.createtf);
-        Button createtts = (Button)view.findViewById(R.id.createtts);
+        Button createtts = (Button) view.findViewById(R.id.createtts);
 
         createmcq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,16 +222,16 @@ public class CreateQuestionFragment extends Fragment {
 
                         mListener.onFragmentInteraction(tf);
 
-                        startActivity(new Intent(context, QuestionActivity.class));
+                        startActivity(new Intent(getActivity(), QuestionActivity.class));
 
 
                     } else
-                        Toast.makeText(context, getString(R.string.Please_check_an_answer), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.Please_check_an_answer), Toast.LENGTH_SHORT).show();
                 } else
-                    Toast.makeText(context, getString(R.string.dont_leave_any_question_empty), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.dont_leave_any_question_empty), Toast.LENGTH_SHORT).show();
 
             } else
-                Toast.makeText(context, getString(R.string.dont_leave_ques_desc_empty), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.dont_leave_ques_desc_empty), Toast.LENGTH_SHORT).show();
 
         } else if (questionType == 2) {
             if (desc2.getText().length() > 0) {
@@ -246,15 +252,13 @@ public class CreateQuestionFragment extends Fragment {
 
                     mListener.onFragmentInteraction(tf);
 
-                    startActivity(new Intent(context, QuestionActivity.class));
+                    startActivity(new Intent(getContext(), QuestionActivity.class));
 
-                }
-                else
-                {
-                    Toast.makeText(context, getString(R.string.please_select_answer), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.please_select_answer), Toast.LENGTH_SHORT).show();
                 }
             } else
-                Toast.makeText(context,getString(R.string.dont_leave_any_question_empty), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.dont_leave_any_question_empty), Toast.LENGTH_SHORT).show();
 
         } else if (questionType == 3) {
 
@@ -272,45 +276,46 @@ public class CreateQuestionFragment extends Fragment {
 
                     mListener.onFragmentInteraction(tf);
 
-                    startActivity(new Intent(context, QuestionActivity.class));
+                    startActivity(new Intent(getContext(), QuestionActivity.class));
                 }
             } else
-                Toast.makeText(context, getString(R.string.dont_leave_any_question_empty), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.dont_leave_any_question_empty), Toast.LENGTH_SHORT).show();
         }
 
     }
-/*
-    public void showQuestion() {
 
-        if (questionType) {
+    /*
+        public void showQuestion() {
 
-            if (desc1.getText().length() > 0) {
-                if (q1.getText().length() > 0 && q2.getText().length() > 0 && q3.getText().length() > 0 && q4.getText().length() > 0) {
-                    t1.setText(q1.getText());
-                    t2.setText(q2.getText());
-                    t3.setText(q3.getText());
-                    t4.setText(q4.getText());
+            if (questionType) {
 
-                    q1.setVisibility(View.GONE);
-                    q2.setVisibility(View.GONE);
-                    q3.setVisibility(View.GONE);
-                    q4.setVisibility(View.GONE);
+                if (desc1.getText().length() > 0) {
+                    if (q1.getText().length() > 0 && q2.getText().length() > 0 && q3.getText().length() > 0 && q4.getText().length() > 0) {
+                        t1.setText(q1.getText());
+                        t2.setText(q2.getText());
+                        t3.setText(q3.getText());
+                        t4.setText(q4.getText());
+
+                        q1.setVisibility(View.GONE);
+                        q2.setVisibility(View.GONE);
+                        q3.setVisibility(View.GONE);
+                        q4.setVisibility(View.GONE);
+                    } else
+                        Toast.makeText(context, "Please don't leave any question empty", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                if (desc2.getText().length() > 0) {
+                    if (t.isChecked() || f.isChecked()) {
+                        //
+                    }
+
                 } else
                     Toast.makeText(context, "Please don't leave any question empty", Toast.LENGTH_SHORT).show();
+
             }
-        } else {
-            if (desc2.getText().length() > 0) {
-                if (t.isChecked() || f.isChecked()) {
-                    //
-                }
-
-            } else
-                Toast.makeText(context, "Please don't leave any question empty", Toast.LENGTH_SHORT).show();
-
         }
-    }
 
-*/
+    */
             /*
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -320,15 +325,12 @@ public class CreateQuestionFragment extends Fragment {
         }
     }
 
-
+*/
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -337,8 +339,6 @@ public class CreateQuestionFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-*/
 
 
     public interface OnFragmentInteractionListener {

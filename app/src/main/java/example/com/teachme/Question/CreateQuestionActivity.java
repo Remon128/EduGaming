@@ -13,7 +13,7 @@ import retrofit2.Response;
 
 import static example.com.teachme.Connection.DbUtils.gameId;
 
-public class CreateQuestionActivity extends AppCompatActivity implements CreateQuestionFragment.OnFragmentInteractionListener{
+public class CreateQuestionActivity extends AppCompatActivity implements CreateQuestionFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +22,10 @@ public class CreateQuestionActivity extends AppCompatActivity implements CreateQ
 
         addQuestion();
     }
+
     public void addQuestion() {
 
-        CreateQuestionFragment questionFragment = new CreateQuestionFragment(getBaseContext(), this);
+        CreateQuestionFragment questionFragment =  CreateQuestionFragment.newInstance();
 
         getSupportFragmentManager()
                 .beginTransaction()

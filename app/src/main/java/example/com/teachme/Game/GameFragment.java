@@ -26,21 +26,44 @@ public class GameFragment extends Fragment {
 
     private List<Game> gameList = null;
     private OnListFragmentInteractionListener mListener;
-    Call<List<Game>> connection;
-    Context context;
+    private Call<List<Game>> connection;
+    private Context context;
+    private int courseId;
+    GameAPIInterface gameAPIInterface = ApiUtils.getAPIGame();
 
 
-    public GameFragment(int courseId, Context context) {
-        gameList = new ArrayList<>();
-        this.context = context;
-        GameAPIInterface gameAPIInterface = ApiUtils.getAPIGame();
-        connection = gameAPIInterface.getGames(courseId);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("courseId", courseId);
+    }
+
+    @SuppressWarnings("unused")
+    public static GameFragment newInstance(int courseId) {
+        GameFragment fragment = new GameFragment();
+
+        Bundle args = new Bundle();
+        args.putInt("courseId", courseId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+    public GameFragment() {
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null)
+            courseId = getArguments().getInt("courseId");
+
+        connection = gameAPIInterface.getGames(courseId);
+        gameList = new ArrayList<>();
+
+
     }
 
     @Override
@@ -75,15 +98,11 @@ public class GameFragment extends Fragment {
         return view;
     }
 
-/*
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
         }
     }
 
@@ -92,17 +111,6 @@ public class GameFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
 
 
     public interface OnListFragmentInteractionListener {

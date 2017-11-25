@@ -22,7 +22,7 @@ import example.com.teachme.Course.CourseFragment;
 import example.com.teachme.R;
 import example.com.teachme.model.Course;
 
-public class StudentActivity extends AppCompatActivity implements CourseFragment.OnListFragmentInteractionListener , TextToSpeech.OnInitListener {
+public class StudentActivity extends AppCompatActivity implements CourseFragment.OnListFragmentInteractionListener, TextToSpeech.OnInitListener {
     @Override
     public void onListFragmentInteraction(Course item) {
 
@@ -34,28 +34,27 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
 
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
         try {
-            if(id == R.id.logout)
-            {
+            if (id == R.id.logout) {
                 DbUtils.delete();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 setResult(ApiUtils.logoutTag);
-            }else if(id == R.id.main)
-            {
-                if(DbUtils.isTeacher)
+            } else if (id == R.id.main) {
+                if (DbUtils.isTeacher)
                     startActivity(new Intent(getApplicationContext(), TeacherActivity.class));
                 else
                     startActivity(new Intent(getApplicationContext(), StudentActivity.class));
             }
             return super.onOptionsItemSelected(item);
         } catch (Exception e) {
-            Toast.makeText(getBaseContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             return super.onOptionsItemSelected(item);
         }
     }
@@ -68,9 +67,9 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
     TextView test;
     TextToSpeech tts;
     Button logout;
-    Button speak ;
+    Button speak;
     String email;
-    String text ;
+    String text;
 //    private static final int SPEECH_REQUEST_CODE = 0;
 
     private static final String TAG = "MagicWord";
@@ -83,11 +82,11 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
-        speak = (Button)findViewById(R.id.sound);
+        speak = (Button) findViewById(R.id.sound);
 
         email = DbUtils.mail;
 
-        text = "Welcome "+DbUtils.name;
+        text = "Welcome " + DbUtils.name;
 
 
     }
@@ -110,7 +109,7 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
-            Toast.makeText(getBaseContext(),spokenText,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), spokenText, Toast.LENGTH_SHORT).show();
             // Do something with spokenText
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -126,7 +125,7 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
                 if (status != TextToSpeech.ERROR) {
                     tts.setLanguage(Locale.UK);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        tts.speak(text,TextToSpeech.QUEUE_FLUSH,null,null);
+                        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
                     } else {
                         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
                     }
@@ -151,7 +150,7 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
 
     public void listCourses(View view) {
 
-        CourseFragment courseFragment = new CourseFragment(email, 3);
+        CourseFragment courseFragment = CourseFragment.newInstance(email, 3);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.flcourse, courseFragment, "")
@@ -160,7 +159,7 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
     }
 
     public void Enroll(View view) {
-        CourseFragment courseFragment = new CourseFragment(email, 2);
+        CourseFragment courseFragment = CourseFragment.newInstance(email, 2);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.flcourse, courseFragment, "")
@@ -181,15 +180,11 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
      */
     @Override
     public void onInit(int status) {
-        if (status == TextToSpeech.SUCCESS)
-        {
+        if (status == TextToSpeech.SUCCESS) {
             speak.setEnabled(true);
-        }
-        else
-        {
+        } else {
             //failed to init
             finish();
         }
-
     }
 }

@@ -27,10 +27,7 @@ import example.com.teachme.User.TeacherActivity;
  * status bar and navigation/system bar) with user interaction.
  */
 public class ScoreActivity extends AppCompatActivity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
+
     private static final boolean AUTO_HIDE = true;
     Button next;
 
@@ -61,7 +58,7 @@ public class ScoreActivity extends AppCompatActivity {
             }
             return super.onOptionsItemSelected(item);
         } catch (Exception e) {
-            Toast.makeText(getBaseContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             return super.onOptionsItemSelected(item);
         }
     }

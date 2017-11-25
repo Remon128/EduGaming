@@ -62,7 +62,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         courseBtn = (Button) findViewById(R.id.createCourse);
-        GameFragment gameFragment = new GameFragment(DbUtils.courseId, getBaseContext());
+        GameFragment gameFragment = GameFragment.newInstance(DbUtils.courseId);
 
         if (DbUtils.isTeacher)
             courseBtn.setVisibility(View.VISIBLE);

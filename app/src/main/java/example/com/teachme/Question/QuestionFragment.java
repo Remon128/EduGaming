@@ -33,25 +33,48 @@ import static android.app.Activity.RESULT_OK;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class QuestionFragment extends Fragment implements TextToSpeech.OnInitListener{
+public class QuestionFragment extends Fragment implements TextToSpeech.OnInitListener {
 
 
     private OnListFragmentInteractionListener mListener;
     QuestionRecyclerViewAdapter adapter;
     List<MCQ> mcqList = null;
     Call<List<MCQ>> connection;
+    String gameId;
 
-    public QuestionFragment(String gameId) {
-        mcqList = new ArrayList<>();
-        QuestionAPIInterface questionAPIInterface = ApiUtils.getAPIQuestion();
-        connection = questionAPIInterface.getQuestions(gameId);
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (outState == null)
+            outState.putString("gameId", gameId);
     }
 
+    // TODO: Customize parameter initialization
+    @SuppressWarnings("unused")
+    public static QuestionFragment newInstance(String gameId) {
+        QuestionFragment fragment = new QuestionFragment();
+        Bundle args = new Bundle();
+        args.putString("gameId", gameId);
+
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    public QuestionFragment() {
+    }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null)
+            gameId = getArguments().getString("gameId");
+        mcqList = new ArrayList<>();
+        QuestionAPIInterface questionAPIInterface = ApiUtils.getAPIQuestion();
+        connection = questionAPIInterface.getQuestions(gameId);
     }
 
     @Override
@@ -121,7 +144,7 @@ public class QuestionFragment extends Fragment implements TextToSpeech.OnInitLis
                     if (mostLikelyThingHeard.equals(magicWord)) {
                         tts.speak("You said the magic word!", TextToSpeech.QUEUE_FLUSH, null);
                     } else {
-                        tts.speak("The magic word is not " + mostLikelyThingHeard +getString(R.string.try_again), TextToSpeech.QUEUE_FLUSH, null);
+                        tts.speak("The magic word is not " + mostLikelyThingHeard + getString(R.string.try_again), TextToSpeech.QUEUE_FLUSH, null);
                     }
                 }
                 result.setText("heard: " + matches);

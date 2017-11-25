@@ -33,22 +33,20 @@ public class TeacherActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         try {
-            if(id == R.id.logout)
-            {
+            if (id == R.id.logout) {
                 DbUtils.delete();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 setResult(ApiUtils.logoutTag);
-            }else if(id == R.id.main)
-            {
-                if(DbUtils.isTeacher)
+            } else if (id == R.id.main) {
+                if (DbUtils.isTeacher)
                     startActivity(new Intent(getApplicationContext(), TeacherActivity.class));
                 else
                     startActivity(new Intent(getApplicationContext(), StudentActivity.class));
             }
             return super.onOptionsItemSelected(item);
         } catch (Exception e) {
-            Toast.makeText(getBaseContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             return super.onOptionsItemSelected(item);
         }
     }
@@ -72,11 +70,11 @@ public class TeacherActivity extends AppCompatActivity {
 
         createCourse = (Button) findViewById(R.id.createCourse);
 
-        CourseFragment courseFragment = new CourseFragment(email, 1);
+        CourseFragment courseFragment = CourseFragment.newInstance(email, 1);
 
         getSupportFragmentManager().
                 beginTransaction().
-                replace(R.id.flcourse , courseFragment, "").
+                replace(R.id.flcourse, courseFragment, "").
                 commit();
     }
 

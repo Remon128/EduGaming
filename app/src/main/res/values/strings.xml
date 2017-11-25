@@ -52,7 +52,7 @@
     <string name="show_questions">Show Questions</string>
     <string name="add_question">Add Question</string>
     <string name="submit">SUBMIT</string>
-    <string name="score_value">Heloo</string>
+    <string name="score_value">Your Score is </string>
     <string name="next">Next</string>
     <string name="already_user">Already user</string>
     <string name="enrolled">Enrolled</string>
@@ -91,7 +91,7 @@
     <string name="try_again">try again</string>
     <string name="heard_nothing">Heard nothing</string>
     <string name="say">Say</string>
-    <string name="your_score_is">Your Score is</string>
+    <string name="your_score_is">Your Score is \n</string>
     <string name="no_quizes_availables">No Available games</string>
 
 </resources>

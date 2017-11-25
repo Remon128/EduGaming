@@ -1,6 +1,7 @@
 package example.com.teachme.Course;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,33 +36,66 @@ public class CourseFragment extends Fragment {
     private String mail;
     private List<Course> courses = null;
     private List<Course> fcourses = null;
-    UserFactory userFactory = null ;
-    int courseType;
+    UserFactory userFactory = null;
+    private int courseType;
 
     Call<List<Course>> connection = null;
     CourseAPIInterface courseAPIInterface = null;
     User user;
     CourseRecyclerViewAdapter adapter;
 
-    public CourseFragment() {
-        courseAPIInterface = ApiUtils.getAPICourse();
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (courseType != 0)
+            outState.putInt("courseType", courseType);
     }
 
     //courseType = 1 for teacher
     //courseType = 2 for STUDENT
     //courseType = 3 for All
 
-    public CourseFragment(String email, int courseType) {
+
+    // TODO: Customize parameter initialization
+    @SuppressWarnings("unused")
+    public static CourseFragment newInstance(String email, int courseType) {
+        CourseFragment fragment = new CourseFragment();
+
+        Bundle args = new Bundle();
+        args.putString("email", email);
+        args.putInt("courseType", courseType);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+    public CourseFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
 
         courseAPIInterface = ApiUtils.getAPICourse();
-//        Teacher teacher = new Teacher();
- //       teacher.setMail(email);
         courses = new ArrayList<>();
         fcourses = new ArrayList<>();
-        this.courseType = courseType;
+
+
+        if (getArguments() != null) {
+
+            Bundle bundle = getArguments();
+            this.courseType = bundle.getInt("courseType", courseType);
+
+        }
+
+
+        if (savedInstanceState != null)
+            this.courseType = savedInstanceState.getInt("courseType");
+
 
         if (courseType == 1) {
-
             userFactory = UserFactory.getFactory("Teacher");
             user = userFactory.createUser();
             user.setMail(DbUtils.mail);
@@ -75,6 +109,7 @@ public class CourseFragment extends Fragment {
             connection = courseAPIInterface.getAllCourses();
 
         }
+
     }
 
     @Override
@@ -88,7 +123,7 @@ public class CourseFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter = new CourseRecyclerViewAdapter(courses, fcourses, courseType , mail , getContext());
+        adapter = new CourseRecyclerViewAdapter(courses, fcourses, courseType, mail, getContext());
         recyclerView.setAdapter(adapter);
 
 
@@ -105,7 +140,7 @@ public class CourseFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Course>> call, Throwable t) {
-                Toast.makeText(getContext(), "no connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -113,7 +148,7 @@ public class CourseFragment extends Fragment {
 
         if (courseType != 1) {
 
-            connection = courseAPIInterface.getCoursesStudent((Student)user);
+            connection = courseAPIInterface.getCoursesStudent((Student) user);
 
             connection.enqueue(new Callback<List<Course>>() {
                 @Override
@@ -127,7 +162,7 @@ public class CourseFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<Course>> call, Throwable t) {
-                    Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
                 }
             });
         }

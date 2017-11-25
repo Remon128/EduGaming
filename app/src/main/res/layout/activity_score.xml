@@ -28,9 +28,8 @@
             tools:ignore="UselessParent">
 
         </LinearLayout>
-
-
     </FrameLayout>
+
     <TextView
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
@@ -42,12 +41,13 @@
         android:textColor="@drawable/colortext"
         android:textSize="50sp"
         android:textStyle="bold" />
+
     <Button
+        android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/next"
-        android:text="@string/next"
         android:layout_gravity="center"
-        android:background="@drawable/mybutton"/>
+        android:background="@drawable/mybutton"
+        android:text="@string/next" />
 
 </LinearLayout>

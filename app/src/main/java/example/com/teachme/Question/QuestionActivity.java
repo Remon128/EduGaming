@@ -55,16 +55,14 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         int id = item.getItemId();
 
         try {
-            if(id == R.id.logout)
-            {
-                Toast.makeText(getBaseContext(),id,Toast.LENGTH_SHORT).show();
+            if (id == R.id.logout) {
+                Toast.makeText(getBaseContext(), id, Toast.LENGTH_SHORT).show();
                 DbUtils.delete();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 setResult(ApiUtils.logoutTag);
-            }else if(id == R.id.main)
-            {
-                if(DbUtils.isTeacher)
+            } else if (id == R.id.main) {
+                if (DbUtils.isTeacher)
                     startActivity(new Intent(getApplicationContext(), TeacherActivity.class));
                 else
                     startActivity(new Intent(getApplicationContext(), StudentActivity.class));
@@ -75,6 +73,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
             return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +95,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         }
 
 
-        QuestionFragment questionFragment = new QuestionFragment(gameId);
+        QuestionFragment questionFragment = QuestionFragment.newInstance(gameId);
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -106,7 +105,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
     public void addQuestion(View view) {
 
-        startActivity(new Intent(this,CreateQuestionActivity.class));
+        startActivity(new Intent(this, CreateQuestionActivity.class));
 
         /*
         okbtn.setVisibility(View.GONE);
@@ -132,18 +131,16 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
             List<MCQ> mcqs = QuestionRecyclerViewAdapter.getQuestions();
 
             for (int i = 0; i < answers.length; i++) {
-                if(mcqs.get(i).getChoices().length==1)
-                {
-                    if(answers[i]==1)
+                if (mcqs.get(i).getChoices().length == 1) {
+                    if (answers[i] == 1)
                         score += 10;
-                }
-                else if (answers[i] == mcqs.get(i).getAnswer()) {
+                } else if (answers[i] == mcqs.get(i).getAnswer()) {
                     score += 10;
                 }
             }
 
 
-            String scoreMsg = getString(R.string.your_score_is) + score;
+            String scoreMsg = getString(R.string.your_score_is) + "\n" + score;
             Intent i = new Intent(QuestionActivity.this, ScoreActivity.class);
             i.putExtra("score", scoreMsg);
             startActivity(i);
@@ -157,7 +154,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
         okbtn.setVisibility(View.VISIBLE);
 
-        QuestionFragment questionFragment = new QuestionFragment(gameId);
+        QuestionFragment questionFragment = QuestionFragment.newInstance(gameId);
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -253,7 +250,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
 
         sendRecognizeIntent();
 
-        Toast.makeText(getApplication(),state+" 2",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplication(), state + " 2", Toast.LENGTH_SHORT).show();
 
         return state;
 

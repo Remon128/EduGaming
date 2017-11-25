@@ -36,11 +36,11 @@
     <string name="password">كلمة المرور</string>
     <string name="student">الطالب</string>
     <string name="teacher">الاستاذ</string>
-    <string name="sign_up">تسجيل الدخول</string>
+    <string name="sign_up">تسجيل جديد</string>
     <string name="forget">نسيت</string>
     <string name="refresh">تحديث</string>
     <string name="comment">تعليق</string>
-    <string name="create_course">انشاء الكورس</string>
+    <string name="create_course">انشاء كورس</string>
     <string name="course_name">اسم الكورس</string>
     <string name="course_description">تفاصيل الكورس</string>
     <string name="create_game">انشاء امتحان</string>
@@ -91,7 +91,8 @@
     <string name="try_again">حاول مرة اخري</string>
     <string name="heard_nothing"> تحدث لا اسمع شي</string>
     <string name="say">انطق</string>
-    <string name="your_score_is">درجتك تكون</string>
-    <string name="no_quizes_availables">No Available games</string>
+    <string name="your_score_is"> \n درجتك تكون</string>
+    <string name="no_quizes_availables">لا يوجد امتحانات متاحة</string>
+    <string name="enter_valid_data">من فضلك ادخل بيانات صحيحة</string>
 
 </resources>
