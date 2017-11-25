@@ -159,6 +159,7 @@ public class StudentActivity extends AppCompatActivity implements CourseFragment
     }
 
     public void Enroll(View view) {
+
         CourseFragment courseFragment = CourseFragment.newInstance(email, 2);
         getSupportFragmentManager()
                 .beginTransaction()

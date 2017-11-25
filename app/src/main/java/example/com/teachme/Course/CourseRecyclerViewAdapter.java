@@ -89,6 +89,7 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
 
                 student.setMail(email);
                 student.setName(DbUtils.name);
+
                 // student.setName(user.getName());
                 //student.setPassword(user.getPassword());
 
@@ -106,6 +107,7 @@ public class CourseRecyclerViewAdapter extends RecyclerView.Adapter<CourseRecycl
                     public void onResponse(Call<Course> call, Response<Course> response) {
                         if (response.isSuccessful()) {
                             Course course = response.body();
+
                         }
                     }
 

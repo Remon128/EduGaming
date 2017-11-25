@@ -21,8 +21,8 @@
             android:background="@drawable/mybutton"
             android:onClick="sound"
             android:text="Sound"
-            android:visibility="gone"
             android:textColor="@android:color/white"
+            android:visibility="gone"
             app:srcCompat="@drawable/logout" />
 
         <Button

@@ -8,28 +8,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.List;
 
 import example.com.teachme.Comment.CommentActivity;
 import example.com.teachme.Connection.DbUtils;
-import example.com.teachme.Game.GameFragment.OnListFragmentInteractionListener;
 import example.com.teachme.Question.QuestionActivity;
 import example.com.teachme.R;
 import example.com.teachme.model.Game;
 
-import java.util.List;
-
 public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerViewAdapter.ViewHolder> {
 
     private List<Game> mValues;
-    private Context context ;
+    private Context context;
+    private GameFragment.OnListFragmentInteractionListener mListener;
 
-    public GameRecyclerViewAdapter(List<Game> items, Context context) {
+    public GameRecyclerViewAdapter(List<Game> items, Context context, GameFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         this.context = context;
+        mListener = listener;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,9 +50,10 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, QuestionActivity.class);
-                i.putExtra("gameId",holder.mItem.getId());
+                i.putExtra("gameId", holder.mItem.getId());
                 DbUtils.gameId = holder.mItem.getId();
-                context.startActivity(i);
+
+                mListener.onGameSelectionInteraction(i);
             }
         });
 
@@ -60,8 +61,8 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
             @Override
             public void onClick(View v) {
                 DbUtils.gameId = holder.mItem.getId();
-                Intent i = new Intent(context, CommentActivity.class) ;
-                context.startActivity(i);
+                Intent i = new Intent(context, CommentActivity.class);
+                mListener.onCommentSelectionInteraction(i);
             }
         });
     }
@@ -75,17 +76,17 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public CardView card ;
+        public CardView card;
         public Game mItem;
-        public Button comment ;
+        public Button comment;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
-            comment = (Button)view.findViewById(R.id.comments);
-            card = (CardView)view.findViewById(R.id.card_view);
+            comment = (Button) view.findViewById(R.id.comments);
+            card = (CardView) view.findViewById(R.id.card_view);
         }
 
         @Override

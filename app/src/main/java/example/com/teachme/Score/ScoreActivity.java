@@ -48,7 +48,6 @@ public class ScoreActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), id, Toast.LENGTH_SHORT).show();
                 DbUtils.delete();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
                 setResult(ApiUtils.logoutTag);
             } else if (id == R.id.main) {
                 if (DbUtils.isTeacher)
@@ -56,6 +55,9 @@ public class ScoreActivity extends AppCompatActivity {
                 else
                     startActivity(new Intent(getApplicationContext(), StudentActivity.class));
             }
+
+            finish();
+
             return super.onOptionsItemSelected(item);
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">امتحانات</string>
+    <string name="app_name">Quizy</string>
     <string name="magicword">tree</string>
     <string name="title_activity_student">نشاط الطالب</string>
     <string name="navigation_drawer_open">فتح القائمة الجانبية</string>
@@ -94,5 +94,8 @@
     <string name="your_score_is"> \n درجتك تكون</string>
     <string name="no_quizes_availables">لا يوجد امتحانات متاحة</string>
     <string name="enter_valid_data">من فضلك ادخل بيانات صحيحة</string>
+    <string name="enter_game_desc">Please enter game description</string>
+    <string name="enter_game_name">Please enter game name</string>
+    <string name="game_has_created">Game has been created</string>
 
 </resources>

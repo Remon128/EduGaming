@@ -69,7 +69,7 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
             }
             return super.onOptionsItemSelected(item);
         } catch (Exception e) {
-            Toast.makeText(getBaseContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             return super.onOptionsItemSelected(item);
         }
     }
@@ -86,12 +86,10 @@ public class QuestionActivity extends AppCompatActivity implements CreateQuestio
         addbtn = (Button) findViewById(R.id.addbtn);
         showbtn = (Button) findViewById(R.id.showbtn);
         okbtn = (Button) findViewById(R.id.submit);
-
-        addbtn.setVisibility(View.VISIBLE);
-
+        
         if (DbUtils.isTeacher) {
             showbtn.setVisibility(View.VISIBLE);
-            okbtn.setVisibility(View.VISIBLE);
+            addbtn.setVisibility(View.VISIBLE);
         }
 
 

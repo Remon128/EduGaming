@@ -1,6 +1,7 @@
 package example.com.teachme.Game;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,12 +31,17 @@ public class GameFragment extends Fragment {
     private Context context;
     private int courseId;
     GameAPIInterface gameAPIInterface = ApiUtils.getAPIGame();
-
+    private GameFragment.OnListFragmentInteractionListener listener;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("courseId", courseId);
+    }
+
+
+    public void setmListener(OnListFragmentInteractionListener mListener) {
+        this.mListener = mListener;
     }
 
     @SuppressWarnings("unused")
@@ -66,6 +72,8 @@ public class GameFragment extends Fragment {
 
     }
 
+    GameRecyclerViewAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,7 +83,7 @@ public class GameFragment extends Fragment {
         Context context = view.getContext();
         RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        final GameRecyclerViewAdapter adapter = new GameRecyclerViewAdapter(gameList, context);
+        adapter = new GameRecyclerViewAdapter(gameList, context, mListener);
         recyclerView.setAdapter(adapter);
 
         connection.enqueue(new Callback<List<Game>>() {
@@ -116,5 +124,12 @@ public class GameFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Game item);
+
+        void onGameSelectionInteraction(Intent intent);
+
+        void onCommentSelectionInteraction(Intent intent);
+
+
     }
+
 }

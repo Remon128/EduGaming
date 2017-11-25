@@ -39,4 +39,6 @@
     <string name="Please_enter_course_info">Please enter course info</string>
     <string name="enter_a_valid_email">Please enter a valid email</string>
     <string name="Please_enter_username">Please enter username</string>
+    <string name="enter_game_desc">Please enter game description</string>
+    <string name="game_has_created">Game has been created</string>
 </resources>

@@ -15,10 +15,10 @@ import example.com.teachme.R;
 import example.com.teachme.User.MainActivity;
 import example.com.teachme.User.StudentActivity;
 import example.com.teachme.User.TeacherActivity;
+import example.com.teachme.model.Game;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements GameFragment.OnListFragmentInteractionListener {
 
-    int courseId;
     Button courseBtn;
 
     @Override
@@ -62,15 +62,26 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         courseBtn = (Button) findViewById(R.id.createCourse);
-        GameFragment gameFragment = GameFragment.newInstance(DbUtils.courseId);
+
+        goToGameFragment();
+
 
         if (DbUtils.isTeacher)
             courseBtn.setVisibility(View.VISIBLE);
+
+    }
+
+
+    private void goToGameFragment() {
+        GameFragment gameFragment = GameFragment.newInstance(DbUtils.courseId);
+
+        gameFragment.setmListener(this);
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.gamelist, gameFragment, "")
                 .commit();
+
     }
 
     @Override
@@ -80,6 +91,23 @@ public class GameActivity extends AppCompatActivity {
 
     public void createGamebtn(View view) {
         startActivity(new Intent(GameActivity.this, CreateGameActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onListFragmentInteraction(Game item) {
+
+    }
+
+    @Override
+    public void onGameSelectionInteraction(Intent intent) {
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onCommentSelectionInteraction(Intent intent) {
+        startActivity(intent);
         finish();
     }
     /*

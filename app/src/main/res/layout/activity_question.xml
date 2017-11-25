@@ -52,7 +52,6 @@
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             android:background="@drawable/mybutton"
             android:textColor="@drawable/colortext"
             android:onClick="submit"

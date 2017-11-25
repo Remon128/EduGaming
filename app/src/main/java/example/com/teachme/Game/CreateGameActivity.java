@@ -22,10 +22,10 @@ import retrofit2.Response;
 
 public class CreateGameActivity extends AppCompatActivity {
 
-    EditText gName ;
-    EditText gDesc ;
-    Call<String> conn ;
-    GameAPIInterface gameAPIInterface ;
+    EditText gName;
+    EditText gDesc;
+    Call<String> conn;
+    GameAPIInterface gameAPIInterface;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -33,23 +33,21 @@ public class CreateGameActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         try {
-            if(id == R.id.logout)
-            {
-                Toast.makeText(getBaseContext(),id,Toast.LENGTH_SHORT).show();
+            if (id == R.id.logout) {
+                Toast.makeText(getBaseContext(), id, Toast.LENGTH_SHORT).show();
                 DbUtils.delete();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 setResult(ApiUtils.logoutTag);
-            }else if(id == R.id.main)
-            {
-                if(DbUtils.isTeacher)
+            } else if (id == R.id.main) {
+                if (DbUtils.isTeacher)
                     startActivity(new Intent(getApplicationContext(), TeacherActivity.class));
                 else
                     startActivity(new Intent(getApplicationContext(), StudentActivity.class));
             }
             return super.onOptionsItemSelected(item);
         } catch (Exception e) {
-            Toast.makeText(getBaseContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.no_internet), Toast.LENGTH_SHORT).show();
             return super.onOptionsItemSelected(item);
         }
     }
@@ -59,21 +57,18 @@ public class CreateGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
 
-        gName = (EditText)findViewById(R.id.gameName);
-        gDesc = (EditText)findViewById(R.id.gameDesc);
+        gName = (EditText) findViewById(R.id.gameName);
+        gDesc = (EditText) findViewById(R.id.gameDesc);
 
         gameAPIInterface = ApiUtils.getAPIGame();
 
     }
 
-    public void createGame(View view)
-    {
+    public void createGame(View view) {
         String name = gName.getText().toString();
         String desc = gDesc.getText().toString();
-        if(name.length()>0)
-        {
-            if(desc.length()>0)
-            {
+        if (name.length() > 0) {
+            if (desc.length() > 0) {
                 Game game = new Game();
                 game.setName(name);
                 game.setDescription(desc);
@@ -82,7 +77,7 @@ public class CreateGameActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         String res = response.body();
-                        Toast.makeText(getBaseContext()," Game has been created",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), getString(R.string.game_has_created), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -90,13 +85,11 @@ public class CreateGameActivity extends AppCompatActivity {
 //                       Toast.makeText(getBaseContext(),"No connection",Toast.LENGTH_SHORT).show();
                     }
                 });
-                startActivity(new Intent(CreateGameActivity.this,GameActivity.class));
+                startActivity(new Intent(CreateGameActivity.this, GameActivity.class));
                 finish();
-            }
-            else
-                Toast.makeText(getBaseContext(),"Please enter game description",Toast.LENGTH_SHORT).show();
-        }
-        else
-            Toast.makeText(getBaseContext(),"Please enter game name",Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(getBaseContext(), getString(R.string.enter_game_desc), Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(getBaseContext(), getString(R.string.enter_game_name), Toast.LENGTH_SHORT).show();
     }
 }
